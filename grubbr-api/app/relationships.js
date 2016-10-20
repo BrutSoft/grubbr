@@ -21,4 +21,6 @@ const MenuType = Nodal.require('app/models/menu_type.js');
 const Rating = Nodal.require('app/models/rating.js');
 const User = Nodal.require('app/models/user.js');
 
+Rating.joinsTo(Adjective, {multiple: true});
+
 module.exports = {}; // Don't need to export anything
