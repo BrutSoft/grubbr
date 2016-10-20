@@ -3,6 +3,8 @@
 const Nodal = require('nodal');
 const router = new Nodal.Router();
 
+const relationships = Nodal.require('app/relationships.js')
+
 /* Middleware */
 /* executed *before* Controller-specific middleware */
 
