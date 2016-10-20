@@ -1,5 +1,108 @@
 {
 
-  "migration_id": null
+  "migration_id": 2016102000393870,
+
+  "models": {
+
+    "Adjective": {
+
+      "table": "adjectives",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "memo", "type": "string", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    },
+
+    "Dish": {
+
+      "table": "dishes",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "restaurant_id", "type": "int", "properties": {}},
+        {"name": "name", "type": "string", "properties": {}},
+        {"name": "menu_type_id", "type": "int", "properties": {}},
+        {"name": "dish_type_id", "type": "int", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    },
+
+    "DishType": {
+
+      "table": "dish_types",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "memo", "type": "string", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    },
+
+    "Favorite": {
+
+      "table": "favorites",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "user_id", "type": "int", "properties": {}},
+        {"name": "dish_id", "type": "int", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    },
+
+    "MenuType": {
+
+      "table": "menu_types",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "memo", "type": "string", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    },
+
+    "Rating": {
+
+      "table": "ratings",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "dish_id", "type": "int", "properties": {}},
+        {"name": "user_id", "type": "int", "properties": {}},
+        {"name": "image", "type": "string", "properties": {}},
+        {"name": "rating", "type": "int", "properties": {}},
+        {"name": "review", "type": "string", "properties": {}},
+        {"name": "adjective_id", "type": "int", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    },
+
+    "User": {
+
+      "table": "users",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    }
+
+  }
 
 }
