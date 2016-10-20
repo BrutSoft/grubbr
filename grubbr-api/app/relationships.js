@@ -13,4 +13,12 @@ const Nodal = require('nodal');
 
 */
 
+const Adjective =  Nodal.require('app/models/adjective.js');
+const Dish = Nodal.require('app/models/dish.js');
+const DishType = Nodal.require('app/models/dish_type.js');
+const Favorite = Nodal.require('app/models/favorite.js');
+const MenuType = Nodal.require('app/models/menu_type.js');
+const Rating = Nodal.require('app/models/rating.js');
+const User = Nodal.require('app/models/user.js');
+
 module.exports = {}; // Don't need to export anything
