@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Container, Content, DeckSwiper, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text } from 'native-base';
+import { Container, Content, DeckSwiper, List, ListItem, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text } from 'native-base';
 
-const cards = [
+const dishes = [
   {
     name: 'Dish One',
     restaurant: "Antoine's",
+    menu_type: 'Appetizers',
     image: require('./img/food_one.png'),
     hearts: '12',
     upvotes: '43',
@@ -14,6 +15,7 @@ const cards = [
   {
     name: 'Dish Two',
     restaurant: 'Lelio',
+    menu_type: 'Soups & Salads',
     image: require('./img/food_two.png'),
     hearts: '45',
     upvotes: '23',
@@ -22,9 +24,19 @@ const cards = [
   {
     name: 'Dish Three',
     restaurant: 'Bistro',
+    menu_type: 'Entrees',
     image: require('./img/food_three.png'),
     hearts: '32',
     upvotes: '100',
+    downvotes: '67',
+  },
+  {
+    name: 'Dish Four',
+    restaurant: 'Bistro',
+    menu_type: 'Entrees',
+    image: require('./img/food_three.png'),
+    hearts: '32',
+    upvotes: '104',
     downvotes: '67',
   }
 ];
@@ -34,30 +46,26 @@ function RatedMenu(props) {
     <Container>
     <Content>
       <Title>Rated Menu</Title>
-      </Content>
-      <Content>
         <InputGroup borderType='rounded' >
           <Icon name="ios-search" />
           <Input placeholder="Search" />
         </InputGroup>
-      </Content>
-      <View>
-      <Card
-        dataArray={cards}
-        renderRow={(item) =>
-          <CardItem>
-            <Thumbnail size={80} source={item.image} />
-            <Text>{item.name}</Text>
-            <Icon name="ios-heart" style={{ color: '#ED4A6A' }} />
-            <Text>{item.hearts}</Text>
-            <Icon name="ios-thumbs-up" />
-            <Text>{item.upvotes}</Text>
-            <Icon name="ios-thumbs-down" />
-            <Text>{item.downvotes}</Text>
-          </CardItem>
-        }>
-      </Card>
-      </View>
+        <List
+          dataArray={dishes}
+          renderRow={(dish) =>
+            <Card>
+            <ListItem itemDivider rounded>
+              <Text>{dish.menu_type}</Text>
+            </ListItem>
+            <ListItem>
+              <Text>{dish.name}</Text>
+              <Icon name="ios-thumbs-up" />
+              <Text>{dish.upvotes - dish.downvotes}</Text>
+            </ListItem>
+            </Card>
+          }>
+        </List>
+        </Content>
     </Container>
   )
 }

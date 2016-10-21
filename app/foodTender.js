@@ -36,7 +36,7 @@ function FoodTender(props) {
         <Title>Food Tender</Title>
         <DeckSwiper
           dataSource={cards}
-          renderItem={item =>
+          renderItem={(item) =>
             <Card>
               <CardItem>
                 <Thumbnail source={item.image} />
