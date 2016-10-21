@@ -24,8 +24,6 @@ import { setIndex } from './actions/list';
 //   )
 // }
 
-// export default Main;
-
 class Main extends Component {
 
   static propTypes = {
@@ -98,4 +96,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, bindAction)(Main);
+export default connect(null, bindAction)(Main);
