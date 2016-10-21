@@ -7,16 +7,16 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-//import AppMain from './app/reducers';
+//import Reducers from './app/reducers';
 import App from './app/app';
 import { AppRegistry } from 'react-native';
 
-//const store = createStore(AppMain);
+//const store = createStore(Reducers);
 
 export default class grubbr extends Component {
   render() {
     return (
-      <Provider >
+      <Provider>
         <App />
       </Provider>
     );
