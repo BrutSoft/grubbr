@@ -5,25 +5,6 @@ import { openDrawer, closeDrawer } from './actions/drawer';
 import { replaceRoute, replaceOrPushRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
-// function Main(props) {
-//   return (
-//       <Content>
-//         <Button block rounded
-//           onPress={() => {
-//             props.dispatch({ id: 'findGrub'});
-//           }}>
-//           Find Grub
-//         </Button>
-//         <Button block rounded
-//           onPress={() => {
-//             props.dispatch({ id: 'writeGrub' });
-//           }}>
-//           Write Grub
-//         </Button>
-//       </Content>
-//   )
-// }
-
 class Main extends Component {
 
   static propTypes = {
