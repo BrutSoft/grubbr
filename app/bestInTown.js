@@ -35,13 +35,10 @@ function BestInTown(props) {
     <Container>
     <Content>
       <Title>Best In Town</Title>
-      </Content>
-      <Content>
-        <InputGroup borderType='rounded' >
-          <Icon name="ios-search" />
-          <Input placeholder="Search" />
-        </InputGroup>
-      </Content>
+      <InputGroup borderType='rounded' >
+        <Icon name="ios-search" />
+        <Input placeholder="Search" />
+      </InputGroup>
       <View>
       <Card
         dataArray={cards}
@@ -59,6 +56,7 @@ function BestInTown(props) {
         }>
       </Card>
       </View>
+    </Content>
     </Container>
   )
 }

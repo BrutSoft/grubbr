@@ -14,14 +14,15 @@ const dishes = [
   }
 ];
 
-function FoodProfile(props) {
-  return (
-    <Container>
-      <Content>
-        <Title>Grub Profile</Title>
-      </Content>
-    </Container>
-  )
+class FoodProfile extends React.Component {
+  render () {
+    return {
+      <Container>
+        <Content>
+        </Content>
+      </Container>
+    }
+  }
 }
 
 export default FoodProfile;
