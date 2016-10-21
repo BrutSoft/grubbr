@@ -1,5 +1,8 @@
-import React from 'react';
-import { Container, Content, Header, Title } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import { Container, Content, Header, Title, Text, View } from 'native-base';
+import AppNavigator from './AppNavigator';
+import theme from './themes/base-theme';
 import { Grid } from 'react-native-easy-grid';
 import Main from './main';
 //import Choices from './chooseFood';
