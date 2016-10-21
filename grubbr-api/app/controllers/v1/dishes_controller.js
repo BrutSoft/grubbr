@@ -6,8 +6,6 @@ const Dish = Nodal.require('app/models/dish.js');
 var defaultResponse = ['id', 'restaurant_id', 'name', {menuType: ['memo']},
                         {dishType: ['memo']}, 'created_at']
 
-const MenuType = Nodal.require('app/models/menu_type.js');
-
 class V1DishesController extends Nodal.Controller {
 
   index() {

@@ -2,7 +2,6 @@
 
 const Nodal = require('nodal');
 const Rating = Nodal.require('app/models/rating.js');
-const Adjective = Nodal.require('app/models/adjective.js');
 
 const defaultResponse = [{adjective: ['memo']}, 'dish_id', 'id',
                           'user_id', 'image', 'rating', 'review', 'created_at']
