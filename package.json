@@ -16,7 +16,10 @@
     "redux": "^3.6.0"
   },
   "jest": {
-    "preset": "jest-react-native"
+    "preset": "jest-react-native",
+    "preprocessorIgnorePatterns": [
+      "node_modules/(?!react-native|native-base|react-clone-referenced-element)"
+    ]
   },
   "devDependencies": {
     "babel-jest": "16.0.0",

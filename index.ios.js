@@ -13,7 +13,7 @@ import { AppRegistry } from 'react-native';
 
 //const store = createStore(Reducers);
 
-export default class grubbr extends Component {
+export default class Grubbr extends Component {
   render() {
     return (
       <Provider>
