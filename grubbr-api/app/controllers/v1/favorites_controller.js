@@ -9,11 +9,17 @@ class V1FavoritesController extends Nodal.Controller {
 
     Favorite.query()
       .join('user')
-      .join('dish')
+      .join('dish__menuType')
+      .join('dish__dishType')
       .where(this.params.query)
       .end((err, models) => {
 
-        this.respond(err || models, ['user', 'dish']);
+        models[0].joined('dish');
+        models[0].joined('dish').joined('menuTypes');
+        models[0].joined('dish').joined('dishTypes');
+
+        this.respond(err || models, [{dish: ['name', 'restaurant_id', {menuType: ['memo']}, {dishType: ['memo']} ] },
+                                        {user: ['id']}]);
 
       });
 
