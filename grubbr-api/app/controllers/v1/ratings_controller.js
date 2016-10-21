@@ -3,8 +3,9 @@
 const Nodal = require('nodal');
 const Rating = Nodal.require('app/models/rating.js');
 
-const defaultResponse = [{adjective: ['memo']}, 'dish_id', 'id',
-                          'user_id', 'image', 'rating', 'review', 'created_at']
+const defaultResponse = [{adjective: ['memo']},
+                          'dish', 'id',
+                          'user', 'image', 'rating', 'review', 'created_at']
 
 class V1RatingsController extends Nodal.Controller {
 
@@ -12,6 +13,8 @@ class V1RatingsController extends Nodal.Controller {
 
     Rating.query()
       .join('adjective')
+      .join('dish')
+      .join('user')
       .where(this.params.query)
       .end((err, models) => {
 
