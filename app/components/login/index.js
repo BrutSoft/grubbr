@@ -38,7 +38,6 @@ class Login extends Component {
       <Container>
         <View style={styles.container}>
           <Content>
-            // <Image source={background} style={styles.shadow}>
               <View style={styles.bg}>
                 <InputGroup style={styles.input}>
                   <Icon name="ios-person" />
@@ -55,7 +54,6 @@ class Login extends Component {
                   Login
                 </Button>
               </View>
-            // </Image>
           </Content>
         </View>
       </Container>

@@ -7,8 +7,8 @@ import { Drawer } from 'native-base';
 import { closeDrawer } from './actions/drawer';
 import { popRoute } from './actions/route';
 
-import Login from './components/login/';
-import Home from './components/home/';
+import Login from './login';
+import Main from './main';
 import BlankPage from './components/blankPage';
 import SplashPage from './components/splashscreen/';
 import SideBar from './components/sideBar';
@@ -93,8 +93,8 @@ class AppNavigator extends Component {
         return <SplashPage navigator={navigator} />;
       case 'login':
         return <Login navigator={navigator} />;
-      case 'home':
-        return <Home navigator={navigator} />;
+      case 'main':
+        return <Main navigator={navigator} />;
       case 'blankPage':
         return <BlankPage navigator={navigator} />;
       default :

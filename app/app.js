@@ -10,14 +10,7 @@ import Main from './main';
 import FoodTender from './foodTender';
 
 const App = () => (
-  <Container>
-    <Header>
-      <Title>Grubbr</Title>
-    </Header>
-    <Content>
-      <FoodTender />
-    </Content>
-  </Container>
+  <AppNavigator />
 );
 
 export default App;
