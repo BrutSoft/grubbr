@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default class grubbr extends Component {
+export default class Grubbr extends Component {
   render() {
     return (
       <View style={styles.container}>
