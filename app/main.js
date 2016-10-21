@@ -74,12 +74,6 @@ class Main extends Component {
             }}>
             Write Grub
           </Button>
-          <Button block rounded
-            onPress={() => {
-              this.pushNewRoute('tender')
-            }}>
-            Tender
-          </Button>
         </Content>
       </Container>
     );
