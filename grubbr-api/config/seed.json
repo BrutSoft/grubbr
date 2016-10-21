@@ -1,6 +1,16 @@
 {
 
-  "development": {},
+  "development": {
+    "Adjective": [
+      { "memo" : "Spicy" },
+      { "memo" : "Sweet" },
+      { "memo" : "Savory" },
+      { "memo" : "Earthy" },
+      { "memo" : "Fruity" },
+      { "memo" : "Full Bodied" },
+      { "memo" : "Test" }
+      ]
+  },
 
   "test": {},
 
