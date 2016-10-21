@@ -8,10 +8,12 @@ class V1FavoritesController extends Nodal.Controller {
   index() {
 
     Favorite.query()
+      .join('user')
+      .join('dish')
       .where(this.params.query)
       .end((err, models) => {
 
-        this.respond(err || models);
+        this.respond(err || models, ['user', 'dish']);
 
       });
 
