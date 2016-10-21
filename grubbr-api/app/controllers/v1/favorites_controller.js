@@ -14,10 +14,6 @@ class V1FavoritesController extends Nodal.Controller {
       .where(this.params.query)
       .end((err, models) => {
 
-        models[0].joined('dish');
-        models[0].joined('dish').joined('menuTypes');
-        models[0].joined('dish').joined('dishTypes');
-
         this.respond(err || models, [{dish: ['name', 'restaurant_id', {menuType: ['memo']}, {dishType: ['memo']} ] },
                                         {user: ['id']}]);
 
