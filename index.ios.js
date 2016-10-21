@@ -7,20 +7,8 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-//import Reducers from './app/reducers';
-import App from './app/app';
+import AppNavigator from './app/AppNavigator';
 import { AppRegistry } from 'react-native';
+import setup from './app/setup';
 
-//const store = createStore(Reducers);
-
-export default class Grubbr extends Component {
-  render() {
-    return (
-      <Provider>
-        <App />
-      </Provider>
-    );
-  }
-}
-
-AppRegistry.registerComponent('grubbr', () => grubbr);
+AppRegistry.registerComponent('grubbr', setup);

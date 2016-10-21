@@ -1,10 +1,14 @@
+
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, InputGroup, Input, Button, Icon, View } from 'native-base';
 
-import { replaceRoute } from './actions/route';
-import { setUser } from './actions/user';
+import { replaceRoute } from '../../actions/route';
+import { setUser } from '../../actions/user';
+import styles from './styles';
+
+// const background = require('../../../images/shadow.png');
 
 class Login extends Component {
 
@@ -32,21 +36,21 @@ class Login extends Component {
   render() {
     return (
       <Container>
-        <View>
+        <View style={styles.container}>
           <Content>
-              <View>
-                <InputGroup>
+              <View style={styles.bg}>
+                <InputGroup style={styles.input}>
                   <Icon name="ios-person" />
                   <Input placeholder="EMAIL" onChangeText={name => this.setState({ name })} />
                 </InputGroup>
-                <InputGroup>
+                <InputGroup style={styles.input}>
                   <Icon name="ios-unlock-outline" />
                   <Input
                     placeholder="PASSWORD"
                     secureTextEntry
                   />
                 </InputGroup>
-                <Button onPress={() => this.replaceRoute('main')}>
+                <Button style={styles.btn} onPress={() => this.replaceRoute('home')}>
                   Login
                 </Button>
               </View>

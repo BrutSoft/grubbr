@@ -1,5 +1,8 @@
-import React from 'react';
-import { Container, Content, Header, Title } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import { Container, Content, Header, Title, Text, View } from 'native-base';
+import AppNavigator from './AppNavigator';
+import theme from './themes/base-theme';
 import { Grid } from 'react-native-easy-grid';
 import Main from './main';
 //import Choices from './chooseFood';
@@ -9,14 +12,7 @@ import Main from './main';
 import FoodProfile from './foodProfile';
 
 const App = () => (
-  <Container>
-    <Header>
-      <Title>Grubbr</Title>
-    </Header>
-    <Content>
-      <FoodProfile />
-    </Content>
-  </Container>
+  <AppNavigator />
 );
 
 export default App;

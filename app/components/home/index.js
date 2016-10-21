@@ -1,30 +1,17 @@
+
 import React, { Component } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Header, Title, Content, Text, Button, Icon } from 'native-base';
-import { openDrawer, closeDrawer } from './actions/drawer';
-import { replaceRoute, replaceOrPushRoute, pushNewRoute } from './actions/route';
-import { setIndex } from './actions/list';
+import { Grid, Row } from 'react-native-easy-grid';
 
-// function Main(props) {
-//   return (
-//       <Content>
-//         <Button block rounded
-//           onPress={() => {
-//             props.dispatch({ id: 'findGrub'});
-//           }}>
-//           Find Grub
-//         </Button>
-//         <Button block rounded
-//           onPress={() => {
-//             props.dispatch({ id: 'writeGrub' });
-//           }}>
-//           Write Grub
-//         </Button>
-//       </Content>
-//   )
-// }
+import { openDrawer, closeDrawer } from '../../actions/drawer';
+import { replaceRoute, replaceOrPushRoute, pushNewRoute } from '../../actions/route';
+import { setIndex } from '../../actions/list';
+import myTheme from '../../themes/base-theme';
+import styles from './styles';
 
-class Main extends Component {
+class Home extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
@@ -48,13 +35,13 @@ class Main extends Component {
 
   render() {
     return (
-      <Container>
+      <Container theme={myTheme} style={styles.container}>
         <Header>
           <Button transparent onPress={() => this.replaceRoute('login')}>
             <Icon name="ios-power" />
           </Button>
 
-          <Title>Grubbr</Title>
+          <Title>{(this.props.name) ? this.props.name : 'Home'}</Title>
 
           <Button transparent onPress={this.props.openDrawer}>
             <Icon name="ios-menu" />
@@ -62,24 +49,18 @@ class Main extends Component {
         </Header>
 
         <Content>
-          <Button block rounded
-            onPress={() => {
-              this.pushNewRoute('findGrub')
-            }}>
-            Find Grub
-          </Button>
-          <Button block rounded
-            onPress={() => {
-              this.pushNewRoute('writeGrub')
-            }}>
-            Write Grub
-          </Button>
-          <Button block rounded
-            onPress={() => {
-              this.pushNewRoute('tender')
-            }}>
-            Tender
-          </Button>
+          <Grid style={styles.mt}>
+            {this.props.list.map((item, i) =>
+              <Row key={i}>
+                <TouchableOpacity
+                  style={styles.row}
+                  onPress={() => this.pushNewRoute('blankPage', i)}
+                >
+                  <Text style={styles.text}>{item}</Text>
+                </TouchableOpacity>
+              </Row>
+            )}
+          </Grid>
         </Content>
       </Container>
     );
@@ -102,4 +83,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(null, bindAction)(Main);
+export default connect(mapStateToProps, bindAction)(Home);
