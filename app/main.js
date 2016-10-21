@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
-import { Container, Content, Button } from 'native-base';
+import { Container, Content, Button, Card } from 'native-base';
 
 function Main(props) {
   return (
-    <Container>
       <Content>
-        <Button>
+        <Button block rounded
+          onPress={() => {
+            props.dispatch({ id: 'findGrub'});
+          }}>
           Find Grub
         </Button>
-        <Button>
+        <Button block rounded
+          onPress={() => {
+            props.dispatch({ id: 'writeGrub' });
+          }}>
           Write Grub
         </Button>
       </Content>
-    </Container>
   )
 }
 
-module.exports = Main;
+export default Main;
