@@ -22,5 +22,13 @@ const Rating = Nodal.require('app/models/rating.js');
 const User = Nodal.require('app/models/user.js');
 
 Rating.joinsTo(Adjective, {multiple: true});
+Rating.joinsTo(Dish, {multiple: true});
+Rating.joinsTo(User, {multiple: true});
+// Dish.joinsTo(Restaurant, {multiple: true}); Activate this when Restaraunt table implemented
+Dish.joinsTo(MenuType, {multiple: true});
+Dish.joinsTo(DishType, {multiple: true});
+Favorite.joinsTo(User, {multiple: true});
+Favorite.joinsTo(Dish, {multiple: true});
+
 
 module.exports = {}; // Don't need to export anything
