@@ -3,7 +3,7 @@
 const Nodal = require('nodal');
 const Dish = Nodal.require('app/models/dish.js');
 
-var defaultResponse = ['id', 'restaurant_id', 'name', {menuType: ['memo']},
+var defaultResponse = ['id', {restaurant: ['name', 'id']}, 'name', {menuType: ['memo']},
                         {dishType: ['memo']}, 'created_at']
 
 class V1DishesController extends Nodal.Controller {
@@ -13,6 +13,7 @@ class V1DishesController extends Nodal.Controller {
     Dish.query()
       .join('menuType')
       .join('dishType')
+      .join('restaurant')
       .where(this.params.query)
       .end((err, models) => {
 
