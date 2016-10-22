@@ -36,7 +36,7 @@ class Choices extends Component {
     return (
       <Container>
         <Header>
-          <Button transparent onPress={() => this.popRoute()}>
+          <Button transparent onPress={() => this.replaceRoute('login')}>
             <Icon name="ios-arrow-back" />
           </Button>
 
@@ -58,11 +58,11 @@ class Choices extends Component {
             onPress={() => {
               this.pushNewRoute('ratedMenu');
             }}>
-            I know WHERE I go
+            I know WHERE I wanna go
           </Button>
           <Button block rounded
             onPress={() => {
-              this.pushNewRoute('');
+              this.pushNewRoute('tender');
             }}>
             I ain't got a clue
           </Button>
