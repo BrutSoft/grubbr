@@ -51,7 +51,6 @@ class Main extends Component {
         <Content>
           <Button block rounded
             onPress={() => {
-              console.log(this);
               this.pushNewRoute('chooseFood')
             }}>
             Find Grub

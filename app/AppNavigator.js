@@ -89,7 +89,6 @@ class AppNavigator extends Component {
   }
 
   renderScene(route, navigator) { // eslint-disable-line class-methods-use-this
-    console.log(navigator)
     switch (route.id) {
       case 'splashscreen':
         return <SplashPage navigator={navigator} />;
@@ -105,7 +104,6 @@ class AppNavigator extends Component {
   }
 
   render() {
-    console.log(this);
     return (
       <Drawer
         ref={(ref) => { this._drawer = ref; }}
