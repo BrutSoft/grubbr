@@ -37,7 +37,7 @@ class Main extends Component {
     return (
       <Container>
         <Header>
-          <Button transparent onPress={() => this.replaceRoute('login')}>
+          <Button transparent onPress={() => this.popRoute()}>
             <Icon name="ios-arrow-back" />
           </Button>
 
@@ -53,13 +53,13 @@ class Main extends Component {
             onPress={() => {
               this.pushNewRoute('choices')
             }}>
-            Find Grub
+            I want grub
           </Button>
           <Button block rounded
             onPress={() => {
               this.pushNewRoute('writeGrub')
             }}>
-            Write Grub
+            I wanna write about grub
           </Button>
         </Content>
       </Container>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Header, Title, Content, Text, Button, Icon } from 'native-base';
+
 import { openDrawer, closeDrawer } from './actions/drawer';
 import { replaceRoute, popRoute , pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
