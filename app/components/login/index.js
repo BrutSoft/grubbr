@@ -8,7 +8,7 @@ import { replaceRoute } from '../../actions/route';
 import { setUser } from '../../actions/user';
 import styles from './styles';
 
-// const background = require('../../../images/shadow.png');
+const background = require('./img/background.png');
 
 class Login extends Component {
 
