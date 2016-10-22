@@ -50,19 +50,19 @@ class Choices extends Component {
         <Content>
           <Button block rounded
             onPress={() => {
-              this.pushNewRoute('')
+              this.pushNewRoute('');
             }}>
             I know WHAT I want
           </Button>
           <Button block rounded
             onPress={() => {
-              props.dispatch({ id: 'knowWhere' });
+              this.pushNewRoute('');
             }}>
             I know WHERE I go
           </Button>
           <Button block rounded
             onPress={() => {
-              props.dispatch({ id: 'noClue' });
+              this.pushNewRoute('');
             }}>
             I ain't got a clue
           </Button>

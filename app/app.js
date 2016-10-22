@@ -10,14 +10,7 @@ import BestInTown from './bestInTown';
 import FoodProfile from './foodProfile';
 
 const App = () => (
-  <Container>
-  <Header>
-  <Text>Grubbr</Text>
-  </Header>
-    <Content>
-      <FoodProfile />
-    </Content>
-  </Container>
+  <AppNavigator />
 );
 
 export default App;
