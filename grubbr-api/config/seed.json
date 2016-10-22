@@ -9,6 +9,14 @@
       { "memo" : "Fruity" },
       { "memo" : "Full Bodied" }
     ],
+    "Restaurant": [
+      { "name" : "Harvey's" },
+      { "name" : "Shams Chomps" },
+      { "name" : "The Kitty Cat Club" },
+      { "name" : "Magnificant Max's" },
+      { "name" : "Fireside Frabroni" },
+      { "name" : "BrutSoft Vittles" }
+    ],
     "MenuType": [
       { "memo" : "Appertizers" },
       { "memo" : "Entrees" },
