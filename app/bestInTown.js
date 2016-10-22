@@ -79,7 +79,6 @@ class BestInTown extends Component {
 
         <Content>
           <Title>Best In Town</Title>
-          <Button onPress={this.pushNewRoute('foodProfile')}>button</Button>
           <InputGroup borderType='rounded' >
             <Icon name="ios-search" />
             <Input placeholder="Search" />
@@ -88,7 +87,7 @@ class BestInTown extends Component {
           <Card
             dataArray={cards}
             renderRow={(item) =>
-              <CardItem button>
+              <CardItem button onPress={() => this.pushNewRoute('foodProfile')}>
                 <Thumbnail size={80} source={item.image} />
                 <Text>{item.name}</Text>
                 <Icon name="ios-heart" style={{ color: '#ED4A6A' }} />
