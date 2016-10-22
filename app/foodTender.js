@@ -80,6 +80,7 @@ class Tender extends Component {
           <View>
             <Title>Tender</Title>
             <DeckSwiper
+              onSwipeRight={() => this.pushNewRoute('foodProfile')}
               dataSource={cards}
               renderItem={(item) =>
                 <Card>

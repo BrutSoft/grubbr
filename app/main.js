@@ -37,7 +37,7 @@ class Main extends Component {
     return (
       <Container>
         <Header>
-          <Button transparent onPress={() => this.popRoute()}>
+          <Button transparent onPress={() => this.replaceRoute('login')}>
             <Icon name="ios-arrow-back" />
           </Button>
 

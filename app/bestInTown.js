@@ -58,7 +58,6 @@ class BestInTown extends Component {
   }
 
   popRoute() {
-    console.log(this)
     this.props.popRoute();
   }
 
