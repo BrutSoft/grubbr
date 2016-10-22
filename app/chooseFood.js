@@ -54,12 +54,7 @@ class Choices extends Component {
             }}>
             I know WHAT I want
           </Button>
-          <Button block rounded
-            onPress={() => {
-              this.pushNewRoute('ratedMenu');
-            }}>
-            I know WHERE I wanna go
-          </Button>
+  
           <Button block rounded
             onPress={() => {
               this.pushNewRoute('tender');
