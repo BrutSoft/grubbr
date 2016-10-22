@@ -12,7 +12,7 @@ class CreateUsers extends Nodal.Migration {
   up() {
 
     return [
-      this.createTable("users", [])
+      this.createTable("users", [{"name":"name", "type":"string"}])
     ];
 
   }
