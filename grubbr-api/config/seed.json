@@ -22,7 +22,8 @@
       { "memo" : "Entrees" },
       { "memo" : "Specialty Drinks" },
       { "memo" : "Desserts" },
-      { "memo" : "Soup/Salad/Side" }
+      { "memo" : "Soup/Salad/Side" },
+      { "memo" : "Misc" }
     ],
     "DishType": [
       { "Memo" : "Asian" },
