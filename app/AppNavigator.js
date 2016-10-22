@@ -13,6 +13,7 @@ import BlankPage from './components/blankPage';
 import SplashPage from './components/splashscreen/';
 import SideBar from './components/sideBar';
 import { statusBarColor } from './themes/base-theme';
+import Choices from './chooseFood';
 
 Navigator.prototype.replaceWithAnimation = function replaceWithAnimation(route) {
   const activeLength = this.state.presentedIndex + 1;
@@ -88,6 +89,7 @@ class AppNavigator extends Component {
   }
 
   renderScene(route, navigator) { // eslint-disable-line class-methods-use-this
+    console.log(navigator)
     switch (route.id) {
       case 'splashscreen':
         return <SplashPage navigator={navigator} />;
@@ -95,14 +97,15 @@ class AppNavigator extends Component {
         return <Login navigator={navigator} />;
       case 'main':
         return <Main navigator={navigator} />;
-      case 'blankPage':
-        return <BlankPage navigator={navigator} />;
+      case 'chooseFood':
+        return <Choices navigator={navigator} />;
       default :
         return <Login navigator={navigator} />;
     }
   }
 
   render() {
+    console.log(this);
     return (
       <Drawer
         ref={(ref) => { this._drawer = ref; }}

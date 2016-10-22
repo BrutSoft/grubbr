@@ -1,28 +1,10 @@
 import React, { Component } from 'react';
+import { Navigator } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Header, Title, Content, Text, Button, Icon } from 'native-base';
 import { openDrawer, closeDrawer } from './actions/drawer';
-import { replaceRoute, replaceOrPushRoute, pushNewRoute } from './actions/route';
+import { replaceRoute, popRoute , pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
-
-// function Main(props) {
-//   return (
-//       <Content>
-//         <Button block rounded
-//           onPress={() => {
-//             props.dispatch({ id: 'findGrub'});
-//           }}>
-//           Find Grub
-//         </Button>
-//         <Button block rounded
-//           onPress={() => {
-//             props.dispatch({ id: 'writeGrub' });
-//           }}>
-//           Write Grub
-//         </Button>
-//       </Content>
-//   )
-// }
 
 class Main extends Component {
 
@@ -32,6 +14,7 @@ class Main extends Component {
     replaceRoute: React.PropTypes.func,
     replaceOrPushRoute: React.PropTypes.func,
     pushNewRoute: React.PropTypes.func,
+    popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
     name: React.PropTypes.string,
     list: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -46,12 +29,16 @@ class Main extends Component {
     this.props.pushNewRoute(route);
   }
 
+  popRoute() {
+    this.props.popRoute();
+  }
+
   render() {
     return (
       <Container>
         <Header>
-          <Button transparent onPress={() => this.replaceRoute('login')}>
-            <Icon name="ios-power" />
+          <Button transparent onPress={() => this.popRoute()}>
+            <Icon name="ios-arrow-back" />
           </Button>
 
           <Title>Grubbr</Title>
@@ -64,7 +51,8 @@ class Main extends Component {
         <Content>
           <Button block rounded
             onPress={() => {
-              this.pushNewRoute('findGrub')
+              console.log(this);
+              this.pushNewRoute('chooseFood')
             }}>
             Find Grub
           </Button>
@@ -73,12 +61,6 @@ class Main extends Component {
               this.pushNewRoute('writeGrub')
             }}>
             Write Grub
-          </Button>
-          <Button block rounded
-            onPress={() => {
-              this.pushNewRoute('tender')
-            }}>
-            Tender
           </Button>
         </Content>
       </Container>
@@ -92,6 +74,7 @@ function bindAction(dispatch) {
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
+    popRoute: () => dispatch(popRoute())
   };
 }
 
