@@ -14,6 +14,7 @@ import SplashPage from './components/splashscreen/';
 import SideBar from './components/sideBar';
 import { statusBarColor } from './themes/base-theme';
 import Choices from './chooseFood';
+import BestInTown from './bestInTown';
 
 Navigator.prototype.replaceWithAnimation = function replaceWithAnimation(route) {
   const activeLength = this.state.presentedIndex + 1;
@@ -96,8 +97,10 @@ class AppNavigator extends Component {
         return <Login navigator={navigator} />;
       case 'main':
         return <Main navigator={navigator} />;
-      case 'chooseFood':
+      case 'choices':
         return <Choices navigator={navigator} />;
+      case 'bestInTown':
+        return <BestInTown navigator={navigator} />;
       default :
         return <Login navigator={navigator} />;
     }
