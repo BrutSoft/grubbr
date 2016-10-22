@@ -126,4 +126,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(null, bindAction)(Tender);
+export default connect(mapStateToProps, bindAction)(Tender);

@@ -132,4 +132,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(null, bindAction)(RatedMenu);
+export default connect(mapStateToProps, bindAction)(RatedMenu);

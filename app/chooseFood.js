@@ -90,4 +90,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(null, bindAction)(Choices);
+export default connect(mapStateToProps, bindAction)(Choices);
