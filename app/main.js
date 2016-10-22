@@ -33,21 +33,6 @@ class Main extends Component {
     this.props.popRoute();
   }
 
-  renderScene(route, navigator) { // eslint-disable-line class-methods-use-this
-    switch (route.id) {
-      case 'splashscreen':
-        return <SplashPage navigator={navigator} />;
-      case 'login':
-        return <Login navigator={navigator} />;
-      case 'main':
-        return <Main navigator={navigator} />;
-      case 'chooseFood':
-        return <Choices navigator={navigator} />;
-      default :
-        return <Login navigator={navigator} />;
-    }
-  }
-
   render() {
     return (
       <Container>
@@ -89,6 +74,7 @@ function bindAction(dispatch) {
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
+    popRoute: () => dispatch(popRoute())
   };
 }
 

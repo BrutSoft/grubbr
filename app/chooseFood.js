@@ -29,7 +29,7 @@ class Choices extends Component {
   }
 
   popRoute() {
-    console.log(this)
+    this.props.popRoute();
   }
 
   render() {
@@ -50,7 +50,7 @@ class Choices extends Component {
         <Content>
           <Button block rounded
             onPress={() => {
-              this.popRoute()
+              this.pushNewRoute('')
             }}>
             I know WHAT I want
           </Button>
@@ -79,6 +79,7 @@ function bindAction(dispatch) {
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
+    popRoute: () => dispatch(popRoute())
   };
 }
 
