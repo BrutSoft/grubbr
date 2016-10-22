@@ -5,7 +5,7 @@ const Rating = Nodal.require('app/models/rating.js');
 
 const defaultResponse = [{adjective: ['memo']},
                           {dish: ['name', 'id', {menuType: ['memo']}, {dishType: ['memo']} ]},
-                          'id', 'user', 'image', 'rating', 'review', 'created_at']
+                          'id', {user: ['name']}, 'image', 'rating', 'review', 'created_at']
 
 class V1RatingsController extends Nodal.Controller {
 
