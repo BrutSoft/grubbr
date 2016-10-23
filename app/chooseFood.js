@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Header, Title, Content, Text, Button, Icon } from 'native-base';
+
 import { openDrawer, closeDrawer } from './actions/drawer';
 import { replaceRoute, popRoute , pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
@@ -50,19 +51,14 @@ class Choices extends Component {
         <Content>
           <Button block rounded
             onPress={() => {
-              this.pushNewRoute('');
+              this.pushNewRoute('bestInTown');
             }}>
             I know WHAT I want
           </Button>
+
           <Button block rounded
             onPress={() => {
-              this.pushNewRoute('');
-            }}>
-            I know WHERE I go
-          </Button>
-          <Button block rounded
-            onPress={() => {
-              this.pushNewRoute('');
+              this.pushNewRoute('tender');
             }}>
             I ain't got a clue
           </Button>
@@ -90,4 +86,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(null, bindAction)(Choices);
+export default connect(mapStateToProps, bindAction)(Choices);

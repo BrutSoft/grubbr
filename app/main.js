@@ -51,15 +51,15 @@ class Main extends Component {
         <Content>
           <Button block rounded
             onPress={() => {
-              this.pushNewRoute('chooseFood')
+              this.pushNewRoute('choices')
             }}>
-            Find Grub
+            I want grub
           </Button>
           <Button block rounded
             onPress={() => {
               this.pushNewRoute('writeGrub')
             }}>
-            Write Grub
+            I wanna write about grub
           </Button>
         </Content>
       </Container>
