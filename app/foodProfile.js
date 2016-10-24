@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image } from 'react-native';
-import { Container, Content, DeckSwiper, List, ListItem, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text } from 'native-base';
+import { Container, Content, ListItem, Title, Header, Icon, Button, Card, CardItem, Thumbnail, Text } from 'native-base';
 
-import { openDrawer, closeDrawer } from './actions/drawer';
-import { replaceRoute, popRoute , pushNewRoute } from './actions/route';
+import { openDrawer } from './actions/drawer';
+import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
 const dishes = [
@@ -19,23 +19,19 @@ const dishes = [
     adjective: 'spicy',
     dish_type: 'Thai',
     reviews: [
-      'Awesome taste, I will absolutely come back to grab them once again'
+      'Awesome taste, I will absolutely come back to grab them once again',
     ],
-  }
+  },
 ];
 
 class FoodProfile extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
-    closeDrawer: React.PropTypes.func,
     replaceRoute: React.PropTypes.func,
-    replaceOrPushRoute: React.PropTypes.func,
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
-    name: React.PropTypes.string,
-    list: React.PropTypes.arrayOf(React.PropTypes.string),
   }
 
   replaceRoute(route) {
@@ -70,14 +66,14 @@ class FoodProfile extends Component {
         <Content>
           <Card
             dataArray={dishes}
-            renderRow={(dish) =>
+            renderRow={dish =>
               <Card>
                 <CardItem>
                   <Text>{dish.name}</Text>
                   <Text note>{dish.dish_type}          {dish.restaurant}</Text>
                 </CardItem>
                 <ListItem>
-                  <Text>Tastes {dish.adjective}  </Text>
+                  <Text>Tastes {dish.adjective}</Text>
                   <Button transparent>
                     <Icon name="ios-heart" style={{ color: '#ED4A6A' }} />
                   </Button>
@@ -96,13 +92,13 @@ class FoodProfile extends Component {
                   </Button>
                 </ListItem>
                 <CardItem cardBody>
-                  <Image style={{height: 150}} source={dish.image} />
+                  <Image style={{ height: 150 }} source={dish.image} />
                 </CardItem>
                 <CardItem>
                   <Thumbnail size={80} source={dish.image} />
                 </CardItem>
                 <ListItem>
-                  <Text style={{width: 280}} >{dish.reviews}</Text>
+                  <Text style={{ width: 280 }} >{dish.reviews}</Text>
                   <Button transparent>
                     <Icon name="ios-thumbs-up" />
                   </Button>
@@ -111,8 +107,8 @@ class FoodProfile extends Component {
                   </Button>
                 </ListItem>
               </Card>
-            }>
-          </Card>
+            }
+          />
         </Content>
 
       </Container>
@@ -126,7 +122,7 @@ function bindAction(dispatch) {
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
-    popRoute: () => dispatch(popRoute())
+    popRoute: () => dispatch(popRoute()),
   };
 }
 
@@ -137,4 +133,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(null, bindAction)(FoodProfile);
+export default connect(mapStateToProps, bindAction)(FoodProfile);

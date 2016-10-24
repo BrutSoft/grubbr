@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Header, Title, Content, Text, Button, Icon } from 'native-base';
+import { Container, Header, Title, Content, Button, Icon } from 'native-base';
 
-import { openDrawer, closeDrawer } from './actions/drawer';
-import { replaceRoute, popRoute , pushNewRoute } from './actions/route';
+import { openDrawer } from './actions/drawer';
+import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
 class Choices extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
-    closeDrawer: React.PropTypes.func,
     replaceRoute: React.PropTypes.func,
-    replaceOrPushRoute: React.PropTypes.func,
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
-    name: React.PropTypes.string,
-    list: React.PropTypes.arrayOf(React.PropTypes.string),
   }
 
   replaceRoute(route) {
@@ -49,17 +45,23 @@ class Choices extends Component {
         </Header>
 
         <Content>
-          <Button block rounded
+          <Button
+            block
+            rounded
             onPress={() => {
               this.pushNewRoute('bestInTown');
-            }}>
+            }}
+          >
             I know WHAT I want
           </Button>
 
-          <Button block rounded
+          <Button
+            block
+            rounded
             onPress={() => {
               this.pushNewRoute('tender');
-            }}>
+            }}
+          >
             I ain't got a clue
           </Button>
         </Content>
@@ -75,7 +77,7 @@ function bindAction(dispatch) {
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
-    popRoute: () => dispatch(popRoute())
+    popRoute: () => dispatch(popRoute()),
   };
 }
 
