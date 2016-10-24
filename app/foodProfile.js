@@ -90,7 +90,7 @@ class FoodProfile extends Component {
                     <Icon name="ios-thumbs-down" />
                   </Button>
                   <Text>{dish.downvotes}</Text>
-                  <Button transparent>
+                  <Button transparent onPress={() => this.pushNewRoute('addReview')}>
                     <Icon name="ios-clipboard" />
                     <Text>Write review</Text>
                   </Button>
