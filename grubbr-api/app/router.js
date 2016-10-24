@@ -6,7 +6,7 @@ const router = new Nodal.Router();
 const relationships = Nodal.require('app/relationships.js')
 
 /* Middleware */
-/* executed *before* Controller-specific middleware */ 
+/* executed *before* Controller-specific middleware */
 
 const CORSMiddleware = Nodal.require('middleware/cors_middleware.js');
 // const CORSAuthorizationMiddleware = Nodal.require('middleware/cors_authorization_middleware.js');
@@ -39,6 +39,7 @@ const V1DishesController = Nodal.require('app/controllers/v1/dishes_controller.j
 const V1UsersController = Nodal.require('app/controllers/v1/users_controller.js');
 const V1FavoritesController = Nodal.require('app/controllers/v1/favorites_controller.js');
 const V1RestaurantsController = Nodal.require('app/controllers/v1/restaurants_controller.js');
+const V1ScoreController = Nodal.require('app/controllers/v1/score_controller.js');
 
 /* generator: end imports */
 
@@ -54,6 +55,7 @@ router.route('/v1/dishes/{id}').use(V1DishesController);
 router.route('/v1/users/{id}').use(V1UsersController);
 router.route('/v1/favorites/{id}').use(V1FavoritesController);
 router.route('/v1/restaurants/{id}').use(V1RestaurantsController);
+router.route('/v1/score/{id}').use(V1ScoreController);
 
 /* generator: end routes */
 
