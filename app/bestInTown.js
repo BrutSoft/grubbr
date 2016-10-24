@@ -5,34 +5,6 @@ import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
-const cards = [
-  {
-    name: 'Dish One',
-    restaurant: "Antoine's",
-    image: require('./img/food_one.png'),
-    hearts: '12',
-    upvotes: '43',
-    downvotes: '9',
-  },
-  {
-    name: 'Dish Two',
-    restaurant: 'Lelio',
-    image: require('./img/food_two.png'),
-    hearts: '45',
-    upvotes: '23',
-    downvotes: '8',
-  },
-  {
-    name: 'Dish Three',
-    restaurant: 'Bistro',
-    image: require('./img/food_three.png'),
-    hearts: '32',
-    upvotes: '100',
-    downvotes: '67',
-  },
-
-];
-
 class BestInTown extends Component {
 
   static propTypes = {
@@ -41,6 +13,21 @@ class BestInTown extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: null,
+      results: {
+        items: [],
+      },
+    };
+  }
+
+  componentDidMount() {
+    const that = this;
+    this.search();
   }
 
   replaceRoute(route) {
@@ -54,6 +41,30 @@ class BestInTown extends Component {
 
   popRoute() {
     this.props.popRoute();
+  }
+
+  search() {
+      // Set loading to true when the search starts to display a Spinner
+    this.setState({
+      loading: true,
+    });
+
+    const that = this;
+    return fetch(`https://grubbr-api.herokuapp.com/v1/dishes?name__icontains=${this.state.search}`)
+      .then(response => response.json())
+      .then((responseJson) => {
+        that.setState({
+          results: responseJson,
+          loading: false,
+        });
+        return responseJson.Search;
+      })
+      .catch((error) => {
+        that.setState({
+          loading: false,
+        });
+        console.error(error);
+      });
   }
 
   render() {
@@ -73,23 +84,23 @@ class BestInTown extends Component {
 
         <Content>
           <Title>Best In Town</Title>
-          <InputGroup borderType="rounded" >
+          <InputGroup borderType="rounded">
             <Icon name="ios-search" />
-            <Input placeholder="Search" />
+            <Input placeholder="Search" value={this.state.search} onChangeText={text => this.setState({ search: text })} onSubmitEditing={() => this.search()} />
           </InputGroup>
           <View>
             <Card
-              dataArray={cards}
+              dataArray={this.state.results.data}
               renderRow={item =>
                 <CardItem button onPress={() => this.pushNewRoute('foodProfile')}>
                   <Thumbnail size={80} source={item.image} />
                   <Text>{item.name}</Text>
                   <Icon name="ios-heart" style={{ color: '#ED4A6A' }} />
-                  <Text>{item.hearts}</Text>
+                  <Text>11</Text>
                   <Icon name="ios-thumbs-up" />
-                  <Text>{item.upvotes}</Text>
+                  <Text>11</Text>
                   <Icon name="ios-thumbs-down" />
-                  <Text>{item.downvotes}</Text>
+                  <Text>11</Text>
                 </CardItem>
                 }
             />
