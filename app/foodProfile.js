@@ -9,7 +9,7 @@ import { setIndex } from './actions/list';
 
 const dishes = [
   {
-    name: 'Dish One fuckin adorbz dish yeah',
+    name: 'Dish One',
     restaurant: "Antoine's",
     menu_type: 'Appetizers',
     image: require('./img/food_one.png'),

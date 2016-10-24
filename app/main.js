@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navigator } from 'react-native';
+import { Navigator, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Header, Title, Content, Text, Button, Icon } from 'native-base';
 import { openDrawer, closeDrawer } from './actions/drawer';
@@ -49,18 +49,20 @@ class Main extends Component {
         </Header>
 
         <Content>
+          <View>
           <Button block rounded
             onPress={() => {
               this.pushNewRoute('choices')
             }}>
-            I want grub
+            Find grub
           </Button>
           <Button block rounded
             onPress={() => {
               this.pushNewRoute('addReview')
             }}>
-            I wanna write about grub
+            Write grub
           </Button>
+        </View>
         </Content>
       </Container>
     );
