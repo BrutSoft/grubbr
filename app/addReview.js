@@ -85,10 +85,9 @@ class AddReview extends Component {
           </ListItem>
             <ListItem>
               <InputGroup borderType='regular' >
-                <Input numberOfLines={20} placeholder='Type your text herekjdhfkadhfuasdhfhsfuarouighkfgoierutoieruoi orighoir ierhgoer oirugoiergu oirgoir go goieru '/>
+                <Input multiline={true} placeholder='Type your text'/>
               </InputGroup>
             </ListItem>
-
               <Picker
                 iosHeader="Select one"
                 mode="dropdown"
@@ -101,7 +100,6 @@ class AddReview extends Component {
                 <Item label="Fruity" value="key4" />
                 <Item label="Full Bodied" value="key5" />
               </Picker>
-
           <ListItem>
             <Button block>
               Add image
