@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
-import { Navigator, View } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Header, Title, Content, Text, Button, Icon } from 'native-base';
-import { openDrawer, closeDrawer } from './actions/drawer';
-import { replaceRoute, popRoute , pushNewRoute } from './actions/route';
+import { Container, Header, Title, Content, Button, Icon } from 'native-base';
+import { openDrawer } from './actions/drawer';
+import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
 class Main extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
-    closeDrawer: React.PropTypes.func,
     replaceRoute: React.PropTypes.func,
-    replaceOrPushRoute: React.PropTypes.func,
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
-    name: React.PropTypes.string,
-    list: React.PropTypes.arrayOf(React.PropTypes.string),
   }
 
   replaceRoute(route) {
@@ -50,19 +46,25 @@ class Main extends Component {
 
         <Content>
           <View>
-          <Button block rounded
-            onPress={() => {
-              this.pushNewRoute('choices')
-            }}>
+            <Button
+              block
+              rounded
+              onPress={() => {
+                this.pushNewRoute('choices');
+              }}
+            >
             Find grub
-          </Button>
-          <Button block rounded
-            onPress={() => {
-              this.pushNewRoute('addReview')
-            }}>
+            </Button>
+            <Button
+              block
+              rounded
+              onPress={() => {
+                this.pushNewRoute('addReview');
+              }}
+            >
             Write grub
-          </Button>
-        </View>
+            </Button>
+          </View>
         </Content>
       </Container>
     );
@@ -75,7 +77,7 @@ function bindAction(dispatch) {
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
-    popRoute: () => dispatch(popRoute())
+    popRoute: () => dispatch(popRoute()),
   };
 }
 
@@ -86,4 +88,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(null, bindAction)(Main);
+export default connect(mapStateToProps, bindAction)(Main);
