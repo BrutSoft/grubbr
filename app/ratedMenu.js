@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image } from 'react-native';
-import { Container, Content, DeckSwiper, List, ListItem, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text } from 'native-base';
+import { Container, Content, List, ListItem, Title, Header, InputGroup, Input, Icon, Button, Card, Text } from 'native-base';
 import { openDrawer, closeDrawer } from './actions/drawer';
-import { replaceRoute, popRoute , pushNewRoute } from './actions/route';
+import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
 const dishes = [
@@ -42,7 +41,7 @@ const dishes = [
     hearts: '32',
     upvotes: '104',
     downvotes: '67',
-  }
+  },
 ];
 
 class RatedMenu extends Component {
@@ -89,14 +88,14 @@ class RatedMenu extends Component {
 
         <Content>
           <Title>Rated Menu</Title>
-            <InputGroup borderType='rounded' >
-              <Icon name="ios-search" />
-              <Input placeholder="Search" />
-            </InputGroup>
-            <List
-              dataArray={dishes}
-              renderRow={(dish) =>
-                <Card>
+          <InputGroup borderType="rounded" >
+            <Icon name="ios-search" />
+            <Input placeholder="Search" />
+          </InputGroup>
+          <List
+            dataArray={dishes}
+            renderRow={dish =>
+              <Card>
                 <ListItem itemDivider rounded>
                   <Text>{dish.menu_type}</Text>
                 </ListItem>
@@ -105,9 +104,9 @@ class RatedMenu extends Component {
                   <Icon name="ios-thumbs-up" />
                   <Text>{dish.upvotes - dish.downvotes}</Text>
                 </ListItem>
-                </Card>
-              }>
-            </List>
+              </Card>
+              }
+          />
         </Content>
 
       </Container>
@@ -121,7 +120,7 @@ function bindAction(dispatch) {
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
-    popRoute: () => dispatch(popRoute())
+    popRoute: () => dispatch(popRoute()),
   };
 }
 
