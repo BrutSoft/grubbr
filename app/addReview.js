@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image } from 'react-native';
+import { Image, Dimensions } from 'react-native';
 import { Container, Content, DeckSwiper, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text, List, ListItem, Picker } from 'native-base';
 
 import { openDrawer, closeDrawer } from './actions/drawer';
 import { replaceRoute, popRoute , pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
+const deviceWidth = Dimensions.get('window').width;
 const Item = Picker.Item;
 class AddReview extends Component {
 
@@ -84,8 +85,8 @@ class AddReview extends Component {
               </Button>
           </ListItem>
             <ListItem>
-              <InputGroup borderType='regular' >
-                <Input multiline={true} placeholder='Type your text'/>
+              <InputGroup borderType='regular' style={{width: deviceWidth - 33}} >
+                <Input style={{height: 200}} multiline={true} placeholder='Type your text'/>
               </InputGroup>
             </ListItem>
               <Picker
@@ -101,12 +102,12 @@ class AddReview extends Component {
                 <Item label="Full Bodied" value="key5" />
               </Picker>
           <ListItem>
-            <Button block>
+            <Button block rounded>
               Add image
             </Button>
           </ListItem>
           <ListItem>
-            <Button block>
+            <Button block rounded>
               Submit
             </Button>
           </ListItem>

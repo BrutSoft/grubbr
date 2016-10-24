@@ -56,7 +56,7 @@ class Login extends Component {
                     secureTextEntry
                   />
                 </InputGroup>
-                <Button style={styles.btn} onPress={() => this.pushNewRoute('main')}>
+                <Button onPress={() => this.pushNewRoute('main')} block rounded>
                   Login
                 </Button>
               </View>
