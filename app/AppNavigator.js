@@ -96,8 +96,6 @@ class AppNavigator extends Component {
 
   renderScene(route, navigator) { // eslint-disable-line class-methods-use-this
     switch (route.id) {
-      case 'splashscreen':
-        return <SplashPage navigator={navigator} />;
       case 'login':
         return <Login navigator={navigator} />;
       case 'main':
