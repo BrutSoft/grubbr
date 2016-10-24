@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Content, List, ListItem, Title, Header, InputGroup, Input, Icon, Button, Card, Text } from 'native-base';
-import { openDrawer, closeDrawer } from './actions/drawer';
+import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
@@ -48,14 +48,10 @@ class RatedMenu extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
-    closeDrawer: React.PropTypes.func,
     replaceRoute: React.PropTypes.func,
-    replaceOrPushRoute: React.PropTypes.func,
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
-    name: React.PropTypes.string,
-    list: React.PropTypes.arrayOf(React.PropTypes.string),
   }
 
   replaceRoute(route) {
