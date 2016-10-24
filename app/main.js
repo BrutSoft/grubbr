@@ -57,7 +57,7 @@ class Main extends Component {
           </Button>
           <Button block rounded
             onPress={() => {
-              this.pushNewRoute('writeGrub')
+              this.pushNewRoute('addReview')
             }}>
             I wanna write about grub
           </Button>

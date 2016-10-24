@@ -36,7 +36,7 @@ class SideBar extends Component {
           <ListItem button onPress={() => this.navigateTo('tender')} >
             <Text>Tender</Text>
           </ListItem>
-          <ListItem button onPress={() => this.navigateTo('bestInTown')} >
+          <ListItem button onPress={() => this.navigateTo('addReview')} >
             <Text>Add Review</Text>
           </ListItem>
         </List>
