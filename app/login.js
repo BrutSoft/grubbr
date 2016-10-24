@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Content, InputGroup, Input, Button, Icon, View, Header, Title } from 'native-base';
+import { Container, Content, InputGroup, Input, Button, Icon, View } from 'native-base';
 
-import { replaceRoute, popRoute , pushNewRoute } from './actions/route';
+import { replaceRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
-import { setUser } from './actions/user';
 
 import styles from './components/login/styles';
+
 const background = require('./img/background.png');
 
 class Login extends Component {
@@ -15,6 +15,8 @@ class Login extends Component {
   static propTypes = {
     setUser: React.PropTypes.func,
     replaceRoute: React.PropTypes.func,
+    pushNewRoute: React.PropTypes.func,
+    setIndex: React.PropTypes.func,
   }
 
   constructor(props) {
