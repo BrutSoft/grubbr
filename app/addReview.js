@@ -87,8 +87,6 @@ class AddReview extends Component {
             <ListItem>
               <InputGroup borderType='regular' style={{width: deviceWidth - 33}} >
                 <Input style={{height: 200}} multiline={true} placeholder='Type your text'/>
-              <InputGroup borderType='regular' >
-                <Input multiline={true} placeholder='Type your text'/>
               </InputGroup>
             </ListItem>
               <Picker
