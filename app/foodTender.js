@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image } from 'react-native';
-import { Container, Content, DeckSwiper, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text } from 'native-base';
+import { Container, Content, DeckSwiper, Title, Header, Icon, Button, View, Card, CardItem, Thumbnail, Text } from 'native-base';
 
-import { openDrawer, closeDrawer } from './actions/drawer';
-import { replaceRoute, popRoute , pushNewRoute } from './actions/route';
+import { openDrawer } from './actions/drawer';
+import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
 const cards = [
@@ -31,21 +31,17 @@ const cards = [
     hearts: '32',
     upvotes: '100',
     downvotes: '67',
-  }
+  },
 ];
 
 class Tender extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
-    closeDrawer: React.PropTypes.func,
     replaceRoute: React.PropTypes.func,
-    replaceOrPushRoute: React.PropTypes.func,
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
-    name: React.PropTypes.string,
-    list: React.PropTypes.arrayOf(React.PropTypes.string),
   }
 
   replaceRoute(route) {
@@ -82,7 +78,7 @@ class Tender extends Component {
             <DeckSwiper
               onSwipeRight={() => this.pushNewRoute('foodProfile')}
               dataSource={cards}
-              renderItem={(item) =>
+              renderItem={item =>
                 <Card>
                   <CardItem>
                     <Thumbnail source={item.image} />
@@ -101,7 +97,8 @@ class Tender extends Component {
                     <Text>{item.downvotes}</Text>
                   </CardItem>
                 </Card>
-              }/>
+              }
+            />
           </View>
         </Content>
 
@@ -116,7 +113,7 @@ function bindAction(dispatch) {
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
-    popRoute: () => dispatch(popRoute())
+    popRoute: () => dispatch(popRoute()),
   };
 }
 
