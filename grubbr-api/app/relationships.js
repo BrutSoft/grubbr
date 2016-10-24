@@ -31,5 +31,4 @@ Dish.joinsTo(DishType, {multiple: true});
 Favorite.joinsTo(User, {multiple: true});
 Favorite.joinsTo(Dish, {multiple: true});
 
-
 module.exports = {}; // Don't need to export anything
