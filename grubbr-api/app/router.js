@@ -6,7 +6,7 @@ const router = new Nodal.Router();
 const relationships = Nodal.require('app/relationships.js')
 
 /* Middleware */
-/* executed *before* Controller-specific middleware */
+/* executed *before* Controller-specific middleware */ 
 
 const CORSMiddleware = Nodal.require('middleware/cors_middleware.js');
 // const CORSAuthorizationMiddleware = Nodal.require('middleware/cors_authorization_middleware.js');
