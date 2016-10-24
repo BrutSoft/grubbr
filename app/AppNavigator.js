@@ -19,7 +19,7 @@ import BestInTown from './bestInTown';
 import RatedMenu from './ratedMenu';
 import Tender from './foodTender';
 import FoodProfile from './foodProfile';
-import AddReview from './addReview'
+import AddReview from './addReview';
 
 Navigator.prototype.replaceWithAnimation = function replaceWithAnimation(route) {
   const activeLength = this.state.presentedIndex + 1;

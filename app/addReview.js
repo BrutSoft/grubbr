@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, Dimensions } from 'react-native';
-import { Container, Content, DeckSwiper, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text, List, ListItem, Picker } from 'native-base';
+import { Dimensions } from 'react-native';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, Text, List, ListItem, Picker } from 'native-base';
 
 import { openDrawer, closeDrawer } from './actions/drawer';
-import { replaceRoute, popRoute , pushNewRoute } from './actions/route';
+import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
 const deviceWidth = Dimensions.get('window').width;
@@ -25,17 +25,19 @@ class AddReview extends Component {
 
   constructor(props) {
     super(props);
-      this.state = {
-        selectedItem: undefined,
-        selected1: 'key1',
-          results: {
-            items: []
-          }
-      }
+    this.state = {
+      selectedItem: undefined,
+      selected1: 'key1',
+      results: {
+        items: [],
+      },
+    };
   }
 
-  replaceRoute(route) {
-    this.props.replaceRoute(route);
+  onValueChange(value: string) {
+    this.setState({
+      selected1: value,
+    });
   }
 
   pushNewRoute(route, index) {
@@ -47,13 +49,11 @@ class AddReview extends Component {
     this.props.popRoute();
   }
 
-  onValueChange (value: string) {
-    this.setState({
-      selected1 : value
-    });
+  replaceRoute(route) {
+    this.props.replaceRoute(route);
   }
 
-  render () {
+  render() {
     return (
       <Container>
         <Header>
@@ -83,38 +83,39 @@ class AddReview extends Component {
               <Button transparent>
                 <Icon name="ios-thumbs-down" />
               </Button>
-          </ListItem>
+            </ListItem>
             <ListItem>
-              <InputGroup borderType='regular' style={{width: deviceWidth - 33}} >
-                <Input style={{height: 200}} multiline={true} placeholder='Type your text'/>
+              <InputGroup borderType="regular" style={{ width: deviceWidth - 33 }} >
+                <Input style={{ height: 200 }} multiline placeholder="Type your text" />
               </InputGroup>
             </ListItem>
-              <Picker
-                iosHeader="Select one"
-                mode="dropdown"
-                selectedValue={this.state.selected1}
-                onValueChange={this.onValueChange.bind(this)}>
-                <Item label="Spicy" value="key0" />
-                <Item label="Sweet" value="key1" />
-                <Item label="Savory" value="key2" />
-                <Item label="Earthy" value="key3" />
-                <Item label="Fruity" value="key4" />
-                <Item label="Full Bodied" value="key5" />
-              </Picker>
-          <ListItem>
-            <Button block rounded>
+            <Picker
+              iosHeader="Select one"
+              mode="dropdown"
+              selectedValue={this.state.selected1}
+              onValueChange={this.onValueChange.bind(this)}
+            >
+              <Item label="Spicy" value="key0" />
+              <Item label="Sweet" value="key1" />
+              <Item label="Savory" value="key2" />
+              <Item label="Earthy" value="key3" />
+              <Item label="Fruity" value="key4" />
+              <Item label="Full Bodied" value="key5" />
+            </Picker>
+            <ListItem>
+              <Button block rounded>
               Add image
-            </Button>
-          </ListItem>
-          <ListItem>
-            <Button block rounded>
+              </Button>
+            </ListItem>
+            <ListItem>
+              <Button block rounded>
               Submit
-            </Button>
-          </ListItem>
+              </Button>
+            </ListItem>
           </List>
         </Content>
       </Container>
-    )
+    );
   }
 }
 
@@ -124,7 +125,7 @@ function bindAction(dispatch) {
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
-    popRoute: () => dispatch(popRoute())
+    popRoute: () => dispatch(popRoute()),
   };
 }
 
