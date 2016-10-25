@@ -27,7 +27,7 @@ class BestInTown extends Component {
 
   componentDidMount() {
     const that = this;
-    this.search();
+    that.search();
   }
 
   replaceRoute(route) {
@@ -74,14 +74,11 @@ class BestInTown extends Component {
           <Button transparent onPress={() => this.popRoute()}>
             <Icon name="ios-arrow-back" />
           </Button>
-
           <Title>Grubbr</Title>
-
           <Button transparent onPress={this.props.openDrawer}>
             <Icon name="ios-menu" />
           </Button>
         </Header>
-
         <Content>
           <Title>Best In Town</Title>
           <InputGroup borderType="rounded">
@@ -95,8 +92,6 @@ class BestInTown extends Component {
                 <CardItem button onPress={() => this.pushNewRoute('foodProfile')}>
                   <Thumbnail size={80} source={item.image} />
                   <Text>{item.name}</Text>
-                  <Icon name="ios-heart" style={{ color: '#ED4A6A' }} />
-                  <Text>11</Text>
                   <Icon name="ios-thumbs-up" />
                   <Text>11</Text>
                   <Icon name="ios-thumbs-down" />
@@ -106,7 +101,6 @@ class BestInTown extends Component {
             />
           </View>
         </Content>
-
       </Container>
     );
   }
