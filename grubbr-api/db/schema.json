@@ -1,6 +1,6 @@
 {
 
-  "migration_id": 2016102218310436,
+  "migration_id": 2016102517263693,
 
   "models": {
 
@@ -26,6 +26,19 @@
         {"name": "restaurant_id", "type": "int", "properties": {}},
         {"name": "name", "type": "string", "properties": {}},
         {"name": "menu_type_id", "type": "int", "properties": {}},
+        {"name": "created_at", "type": "datetime", "properties": {}},
+        {"name": "updated_at", "type": "datetime", "properties": {}}
+      ]
+
+    },
+
+    "DishDishType": {
+
+      "table": "dish_dish_types",
+
+      "columns": [
+        {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
+        {"name": "dish_id", "type": "int", "properties": {}},
         {"name": "dish_type_id", "type": "int", "properties": {}},
         {"name": "created_at", "type": "datetime", "properties": {}},
         {"name": "updated_at", "type": "datetime", "properties": {}}
