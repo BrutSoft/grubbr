@@ -12,7 +12,7 @@ class V1ScoreController extends Nodal.Controller {
       .join('adjective')
       .where({ dish_id: this.params.route.id })
       .end((err, models) => {
-        let dishName
+        let dishName;
         let restaurant;
         let score = 0;
         let upvotes = 0;
