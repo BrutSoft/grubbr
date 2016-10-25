@@ -7,9 +7,13 @@ class V1ScoreController extends Nodal.Controller {
 
   get() {
     Rating.query()
+      .join('dish')
+      .join('dish__restaurant')
       .join('adjective')
       .where({ dish_id: this.params.route.id })
       .end((err, models) => {
+        let dishName
+        let restaurant;
         let score = 0;
         let upvotes = 0;
         let downvotes = 0;
@@ -36,8 +40,18 @@ class V1ScoreController extends Nodal.Controller {
             if (best === null) { return adj; }
             return count > adjectivesCount[best] ? adj : best;
           }, null);
+          if (dishName === undefined) {
+            dishName = rating.joined('dish').get('name');
+            restaurant = rating.joined('dish').joined('restaurant').get('name');
+          }
         });
-        this.respond(err || { score, upvotes, downvotes, images, adjective: bestAdjective });
+        this.respond(err || { score,
+          upvotes,
+          downvotes,
+          images,
+          adjective: bestAdjective,
+          dishName,
+          restaurant });
       });
     // this.respond({message: `GET request to ${this.constructor.name}`});
   }
