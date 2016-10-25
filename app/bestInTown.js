@@ -1,6 +1,7 @@
 import React, { Component, Image } from 'react';
 import { connect } from 'react-redux';
 import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text } from 'native-base';
+import _ from 'lodash';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
@@ -56,21 +57,20 @@ class BestInTown extends Component {
             return Promise.all(responses.map(response => response.json()));
           })
         .then((response) => {
-          console.log(response);
+          const sortedScores = _.orderBy(response, (e) => e.data[0].score, ['desc']);
           that.setState({
-            scores: response,
+            scores: sortedScores,
             loading: false,
           });
-          console.log(that)
         });
       })
       .catch((error) => {
         that.setState({
           loading: false,
         });
-        console.error(error);
       });
   }
+
   render() {
     return (
       <Container>
@@ -96,7 +96,6 @@ class BestInTown extends Component {
                 const item = elem.data[0];
                 return (
                   <CardItem button onPress={() => this.pushNewRoute('foodProfile')}>
-
                     <Text>{item.dishName}</Text>
                     <Icon name="ios-thumbs-up" />
                     <Text>{item.upvotes}</Text>
