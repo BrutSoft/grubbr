@@ -1,7 +1,6 @@
 const Nodal = require('nodal');
 const _ = require('underscore');
 
-// const Dish = Nodal.require('app/models/dish.js');
 const Rating = Nodal.require('app/models/rating.js');
 
 class V1ScoreController extends Nodal.Controller {
@@ -18,7 +17,6 @@ class V1ScoreController extends Nodal.Controller {
         const adjectivesCount = {};
         let bestAdjective = null;
         models.forEach((rating) => {
-          // console.log(rating);
           const vote = rating.get('rating');
           score += vote;
           if (vote === 1) { upvotes += 1; }
@@ -27,7 +25,6 @@ class V1ScoreController extends Nodal.Controller {
           if (rating.joined('adjective') !== null) {
             const adjectiveModel = rating.joined('adjective');
             const adjective = adjectiveModel.get('memo');
-            console.log(adjective);
             if (adjectivesCount[adjective]) {
               adjectivesCount[adjective] += 1;
             } else {
