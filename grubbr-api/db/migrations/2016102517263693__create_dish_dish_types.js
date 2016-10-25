@@ -1,5 +1,3 @@
-'use strict';
-
 const Nodal = require('nodal');
 
 class CreateDishDishTypes extends Nodal.Migration {
@@ -10,21 +8,16 @@ class CreateDishDishTypes extends Nodal.Migration {
   }
 
   up() {
-
     return [
       this.createTable("dish_dish_types", [{"name":"dish_id","type":"int"},{"name":"dish_type_id","type":"int"}])
     ];
-
   }
 
   down() {
-
     return [
       this.dropTable("dish_dish_types")
     ];
-
   }
 
 }
-
 module.exports = CreateDishDishTypes;
