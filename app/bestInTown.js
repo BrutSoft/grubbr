@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text } from 'native-base';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text, Spinner } from 'native-base';
 import _ from 'lodash';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
@@ -61,6 +61,7 @@ class BestInTown extends Component {
     .catch(() => {
       that.setState({
         loading: false,
+        noResults: true,
       });
     });
   }
@@ -89,23 +90,28 @@ class BestInTown extends Component {
             />
           </InputGroup>
           <View>
-            <Card
-              dataArray={this.state.scores}
-              renderRow={(elem) => {
-                const item = elem.data[0];
-                return (
-                  <CardItem button onPress={() => this.pushNewRoute('foodProfile')}>
-                    <Thumbnail size={80} source={{ uri: item.images[0] }} />
-                    <Text>{item.dishName}</Text>
-                    <Icon name="ios-thumbs-up" />
-                    <Text>{item.upvotes}</Text>
-                    <Icon name="ios-thumbs-down" />
-                    <Text>{item.downvotes}</Text>
-                  </CardItem>
-                );
+            {this.state.loading ?
+              <View>
+                <Spinner color="blue" />
+              </View> :
+                <Card
+                  dataArray={this.state.scores}
+                  renderRow={(elem) => {
+                    const item = elem.data[0];
+                    return (
+                      <CardItem button onPress={() => this.pushNewRoute('foodProfile')}>
+                        <Thumbnail size={80} source={{ uri: item.images[0] }} />
+                        <Text>{item.dishName}</Text>
+                        <Icon name="ios-thumbs-up" />
+                        <Text>{item.upvotes}</Text>
+                        <Icon name="ios-thumbs-down" />
+                        <Text>{item.downvotes}</Text>
+                      </CardItem>
+                    );
+                  }
+                }
+                />
               }
-            }
-            />
           </View>
         </Content>
       </Container>
