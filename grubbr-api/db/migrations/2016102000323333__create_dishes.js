@@ -12,7 +12,7 @@ class CreateDishes extends Nodal.Migration {
   up() {
 
     return [
-      this.createTable("dishes", [{"name":"restaurant_id","type":"int"},{"name":"name","type":"string"},{"name":"menu_type_id","type":"int"},{"name":"dish_type_id","type":"int"}])
+      this.createTable("dishes", [{"name":"restaurant_id","type":"int"},{"name":"name","type":"string"},{"name":"menu_type_id","type":"int"}])
     ];
 
   }
