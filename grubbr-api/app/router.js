@@ -1,6 +1,5 @@
-'use strict';
-
 const Nodal = require('nodal');
+
 const router = new Nodal.Router();
 
 const relationships = Nodal.require('app/relationships.js')
@@ -21,7 +20,7 @@ router.middleware.use(CORSMiddleware);
 /* Renderware */
 /* executed *after* Controller-specific renderware */
 
-const GzipRenderware = Nodal.require('renderware/gzip_renderware.js')
+const GzipRenderware = Nodal.require('renderware/gzip_renderware.js');
 
 router.renderware.use(GzipRenderware);
 
