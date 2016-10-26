@@ -40,6 +40,7 @@ const V1FavoritesController = Nodal.require('app/controllers/v1/favorites_contro
 const V1RestaurantsController = Nodal.require('app/controllers/v1/restaurants_controller.js');
 const V1ScoreController = Nodal.require('app/controllers/v1/score_controller.js');
 const V1DishesDishTypesController = Nodal.require('app/controllers/v1/dishes_dish_types_controller.js');
+const V1TenderController = Nodal.require('app/controllers/v1/tender_controller.js');
 
 /* generator: end imports */
 
@@ -57,6 +58,7 @@ router.route('/v1/favorites/{id}').use(V1FavoritesController);
 router.route('/v1/restaurants/{id}').use(V1RestaurantsController);
 router.route('/v1/score/{id}').use(V1ScoreController);
 router.route('/v1/dishes_dish_types/{id}').use(V1DishesDishTypesController);
+router.route('/v1/tender/{id}').use(V1TenderController);
 
 /* generator: end routes */
 
