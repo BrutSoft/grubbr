@@ -50,6 +50,7 @@ class AddReview extends Component {
   }
 
   render() {
+    console.log(this);
     return (
       <Container>
         <Header>
@@ -129,6 +130,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
+    results: state.search,
   };
 }
 

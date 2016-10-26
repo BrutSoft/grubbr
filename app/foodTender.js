@@ -7,7 +7,7 @@ import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
-const cards = [
+const dishes = [
   {
     name: 'Dish One',
     restaurant: "Antoine's",
@@ -44,6 +44,21 @@ class Tender extends Component {
     setIndex: React.PropTypes.func,
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      dishes: [],
+    };
+  }
+
+  componentWillMount() {
+    this.fetch().done();
+  }
+
+  componentDidMount() {
+    this.fetch().done();
+  }
+
   replaceRoute(route) {
     this.props.replaceRoute(route);
   }
@@ -55,6 +70,20 @@ class Tender extends Component {
 
   popRoute() {
     this.props.popRoute();
+  }
+
+  fetch() {
+    this.setState({
+      loading: true,
+    });
+
+    return fetch()
+      .then(response => response.json())
+      .then((responseJson) => {
+        this.setState({
+          dishes: responseJson,
+        });
+      });
   }
 
   render() {
@@ -77,7 +106,7 @@ class Tender extends Component {
             <Title>Tender</Title>
             <DeckSwiper
               onSwipeRight={() => this.pushNewRoute('foodProfile')}
-              dataSource={cards}
+              dataSource={dishes}
               renderItem={item =>
                 <Card>
                   <CardItem>
@@ -89,8 +118,6 @@ class Tender extends Component {
                     <Image size={80} source={item.image} />
                   </CardItem>
                   <CardItem>
-                    <Icon name="ios-heart" style={{ color: '#ED4A6A' }} />
-                    <Text>{item.hearts}</Text>
                     <Icon name="ios-thumbs-up" />
                     <Text>{item.upvotes}</Text>
                     <Icon name="ios-thumbs-down" />
@@ -114,6 +141,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
+    setCurrentDish: dish => dispatch(setCurrentDish(dish)),
   };
 }
 
@@ -121,6 +149,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
+    results: state.search,
   };
 }
 
