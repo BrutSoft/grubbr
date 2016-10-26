@@ -7,6 +7,33 @@ import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
+const dishes = [
+  {
+    name: 'Dish One',
+    restaurant: "Antoine's",
+    image: require('./img/food_one.png'),
+    hearts: '12',
+    upvotes: '43',
+    downvotes: '9',
+  },
+  {
+    name: 'Dish Two',
+    restaurant: 'Lelio',
+    image: require('./img/food_two.png'),
+    hearts: '45',
+    upvotes: '23',
+    downvotes: '8',
+  },
+  {
+    name: 'Dish Three',
+    restaurant: 'Bistro',
+    image: require('./img/food_three.png'),
+    hearts: '32',
+    upvotes: '100',
+    downvotes: '67',
+  },
+];
+
 class Tender extends Component {
 
   static propTypes = {
@@ -20,12 +47,10 @@ class Tender extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fetch: null,
-      results: {
-        items: [],
-      },
+      dishes: [],
     };
   }
+
   componentWillMount() {
     this.fetch().done();
   }
@@ -48,36 +73,20 @@ class Tender extends Component {
   }
 
   fetch() {
-      // Set loading to true when the search starts to display a Spinner
     this.setState({
       loading: true,
     });
-    const that = this;
-    return fetch('https://grubbr-api.herokuapp.com/v1/dishes')
+
+    return fetch()
       .then(response => response.json())
       .then((responseJson) => {
-        console.log(responseJson.data[0].id);
-        Promise.all(responseJson.data.map(dish => fetch(`https://grubbr-api.herokuapp.com/v1/score/${dish.id}`)))
-          .then((responses) => {
-            return Promise.all(responses.map(response => response.json()));
-          })
-        .then((response) => {
-          that.setState({
-            scores: response,
-            loading: false,
-          });
+        this.setState({
+          dishes: responseJson,
         });
-      })
-      .catch((error) => {
-        that.setState({
-          loading: false,
-        });
-        console.error(error);
       });
   }
 
   render() {
-    console.log('DATA', this.state.scores);
     return (
       <Container>
         <Header>
@@ -96,28 +105,26 @@ class Tender extends Component {
           <View>
             <Title>Tender</Title>
             <DeckSwiper
-              dataSource={this.state.scores}
-              renderItem={(elem) => {
-                const item = elem.data[0];
-                return (
-                  <Card style={{ elevation: 3 }}>
-                    <CardItem>
-                      <Thumbnail source={item.images[0]} />
-                      <Text>{item.dishName}</Text>
-                      <Text note>{item.restaurant}</Text>
-                    </CardItem>
-                    <CardItem>
-                      <Image size={80} source={item.images[0]} />
-                    </CardItem>
-                    <CardItem>
-                      <Icon name="ios-thumbs-up" />
-                      <Text>{item.upvotes}</Text>
-                      <Icon name="ios-thumbs-down" />
-                      <Text>{item.downvotes}</Text>
-                    </CardItem>
-                  </Card>
-              ); }
-            }
+              onSwipeRight={() => this.pushNewRoute('foodProfile')}
+              dataSource={dishes}
+              renderItem={item =>
+                <Card>
+                  <CardItem>
+                    <Thumbnail source={item.image} />
+                    <Text>{item.name}</Text>
+                    <Text note>{item.restaurant}</Text>
+                  </CardItem>
+                  <CardItem>
+                    <Image size={80} source={item.image} />
+                  </CardItem>
+                  <CardItem>
+                    <Icon name="ios-thumbs-up" />
+                    <Text>{item.upvotes}</Text>
+                    <Icon name="ios-thumbs-down" />
+                    <Text>{item.downvotes}</Text>
+                  </CardItem>
+                </Card>
+              }
             />
           </View>
         </Content>
@@ -134,6 +141,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
+    setCurrentDish: dish => dispatch(setCurrentDish(dish)),
   };
 }
 
@@ -141,6 +149,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
+    results: state.search,
   };
 }
 
