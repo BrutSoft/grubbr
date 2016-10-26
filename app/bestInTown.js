@@ -131,6 +131,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
+    results: state.search.results,
   };
 }
 export default connect(mapStateToProps, bindAction)(BestInTown);
