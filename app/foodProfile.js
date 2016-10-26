@@ -32,6 +32,7 @@ class FoodProfile extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+    results: React.PropTypes.obj,
   }
 
   replaceRoute(route) {
@@ -48,6 +49,7 @@ class FoodProfile extends Component {
   }
 
   render() {
+    console.log(this)
     return (
       <Container>
         <Header>
@@ -65,19 +67,19 @@ class FoodProfile extends Component {
 
         <Content>
           <Card
-            dataArray={dishes}
+            dataArray={this.props.results.currentDish.data}
             renderRow={dish =>
               <Card>
                 <CardItem>
-                  <Text>{dish.name}</Text>
-                  <Text note>{dish.dish_type}          {dish.restaurant}</Text>
+                  <Text>{dish.dishName}</Text>
+                  <Text note>TYPE          {dish.restaurant}</Text>
                 </CardItem>
                 <ListItem>
                   <Text>Tastes {dish.adjective}</Text>
                   <Button transparent>
                     <Icon name="ios-heart" style={{ color: '#ED4A6A' }} />
                   </Button>
-                  <Text>{dish.hearts}</Text>
+                  <Text>HEARTS</Text>
                   <Button transparent>
                     <Icon name="ios-thumbs-up" />
                   </Button>
@@ -92,13 +94,13 @@ class FoodProfile extends Component {
                   </Button>
                 </ListItem>
                 <CardItem cardBody>
-                  <Image style={{ height: 150 }} source={dish.image} />
+                  <Image style={{ height: 150 }} source={{ uri: dish.images[0] }} />
                 </CardItem>
                 <CardItem>
-                  <Thumbnail size={80} source={dish.image} />
+                  <Thumbnail size={80} source={{ uri: dish.images[0] }} />
                 </CardItem>
                 <ListItem>
-                  <Text style={{ width: 280 }} >{dish.reviews}</Text>
+                  <Text style={{ width: 280 }} >REVIEWS</Text>
                   <Button transparent>
                     <Icon name="ios-thumbs-up" />
                   </Button>
@@ -130,6 +132,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
+    results: state.search,
   };
 }
 
