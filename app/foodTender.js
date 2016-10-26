@@ -48,17 +48,21 @@ class Tender extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       dishes: [],
     };
   }
 
-  componentWillMount() {
-    this.fetch().done();
-  }
-
-  componentDidMount() {
-    this.fetch().done();
-  }
+  // componentWillMount() {
+  //   fetch('https://grubbr-api.herokuapp.com/v1/score/5')
+  //     .then(response => response.json())
+  //     .then((responseJson) => {
+  //       this.setState({
+  //         dishes: responseJson,
+  //         loading: false,
+  //       });
+  //     });
+  // }
 
   replaceRoute(route) {
     this.props.replaceRoute(route);
@@ -73,22 +77,22 @@ class Tender extends Component {
     this.props.popRoute();
   }
 
-  fetch() {
-    this.setState({
-      loading: true,
-    });
-
-    return fetch('https://grubbr-api.herokuapp.com/v1/score/5')
-      .then(response => response.json())
-      .then((responseJson) => {
-        this.setState({
-          dishes: responseJson,
-        });
-      });
-  }
+  // fetch() {
+  //   this.setState({
+  //     loading: true,
+  //   });
+  //
+  //   return fetch('https://grubbr-api.herokuapp.com/v1/score/5')
+  //     .then(response => response.json())
+  //     .then((responseJson) => {
+  //       this.setState({
+  //         dishes: responseJson,
+  //       });
+  //     });
+  // }
 
   render() {
-    console.log('THIS', this);
+    console.log(this)
     return (
       <Container>
         <Header>
@@ -107,7 +111,7 @@ class Tender extends Component {
           <View>
             <Title>Tender</Title>
             <DeckSwiper
-              dataSource={this.state.dishes.data}
+              dataSource={dishes}
               renderItem={dish =>
                 <Card
                   button
@@ -118,12 +122,12 @@ class Tender extends Component {
                   }}
                 >
                   <CardItem>
-                    <Thumbnail size={80} source={{ uri: dish.images[0] }} />
-                    <Text>{dish.dishName}</Text>
+                    <Thumbnail size={80} source={{ uri: dish.image }} />
+                    <Text>{dish.name}</Text>
                     <Text note>{dish.restaurant}</Text>
                   </CardItem>
                   <CardItem>
-                    <Image size={80} source={{ uri: dish.images[0] }} />
+                    <Image size={80} source={{ uri: dish.image }} />
                   </CardItem>
                   <CardItem>
                     <Icon name="ios-thumbs-up" />
