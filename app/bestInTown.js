@@ -67,6 +67,7 @@ class BestInTown extends Component {
   }
 
   render() {
+    console.log(this)
     return (
       <Container>
         <Header>
@@ -131,7 +132,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
-    results: state.search.results,
+    results: state.search,
   };
 }
 export default connect(mapStateToProps, bindAction)(BestInTown);
