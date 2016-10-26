@@ -4,6 +4,7 @@ import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, Vie
 import _ from 'lodash';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
+import { setCurrentDish } from './actions/search';
 import { setIndex } from './actions/list';
 
 class BestInTown extends Component {
@@ -13,6 +14,7 @@ class BestInTown extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+    setCurrentDish: React.PropTypes.func,
   }
   constructor(props) {
     super(props);
@@ -25,6 +27,9 @@ class BestInTown extends Component {
   }
   componentDidMount() {
     this.search().done();
+  }
+  setCurrentDish(dish) {
+    this.props.setCurrentDish(dish);
   }
   replaceRoute(route) {
     this.props.replaceRoute(route);
@@ -100,7 +105,14 @@ class BestInTown extends Component {
                   renderRow={(elem) => {
                     const item = elem.data[0];
                     return (
-                      <CardItem button onPress={() => this.pushNewRoute('foodProfile')}>
+                      <CardItem
+                        button
+                        onPress={() => {
+                          console.log(elem);
+                          this.setCurrentDish(elem);
+                          this.pushNewRoute('foodProfile');
+                        }}
+                      >
                         <Thumbnail size={80} source={{ uri: item.images[0] }} />
                         <Text>{item.dishName}</Text>
                         <Icon name="ios-thumbs-up" />
@@ -126,6 +138,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
+    setCurrentDish: dish => dispatch(setCurrentDish(dish)),
   };
 }
 function mapStateToProps(state) {
