@@ -26,7 +26,6 @@ class Login extends Component {
       name: '',
     };
   }
-
   setUser(name) {
     this.props.setUser(name);
   }
