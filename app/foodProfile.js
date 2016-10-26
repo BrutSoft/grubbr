@@ -32,7 +32,7 @@ class FoodProfile extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
-    results: React.PropTypes.obj,
+    results: React.PropTypes.object,
   }
 
   replaceRoute(route) {
@@ -72,14 +72,10 @@ class FoodProfile extends Component {
               <Card>
                 <CardItem>
                   <Text>{dish.dishName}</Text>
-                  <Text note>TYPE          {dish.restaurant}</Text>
+                  <Text note>{dish.restaurant}</Text>
                 </CardItem>
                 <ListItem>
                   <Text>Tastes {dish.adjective}</Text>
-                  <Button transparent>
-                    <Icon name="ios-heart" style={{ color: '#ED4A6A' }} />
-                  </Button>
-                  <Text>HEARTS</Text>
                   <Button transparent>
                     <Icon name="ios-thumbs-up" />
                   </Button>
@@ -94,10 +90,7 @@ class FoodProfile extends Component {
                   </Button>
                 </ListItem>
                 <CardItem cardBody>
-                  <Image style={{ height: 150 }} source={{ uri: dish.images[0] }} />
-                </CardItem>
-                <CardItem>
-                  <Thumbnail size={80} source={{ uri: dish.images[0] }} />
+                  <Image style={{ height: 150 }} source={{ uri: dish.images[dish.images.length - 1] }} />
                 </CardItem>
                 <ListItem>
                   <Text style={{ width: 280 }} >REVIEWS</Text>
@@ -107,6 +100,7 @@ class FoodProfile extends Component {
                   <Button transparent>
                     <Icon name="ios-thumbs-down" />
                   </Button>
+                    <Thumbnail size={80} source={{ uri: dish.images[0] }} />
                 </ListItem>
               </Card>
             }

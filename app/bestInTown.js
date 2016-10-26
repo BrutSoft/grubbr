@@ -20,9 +20,6 @@ class BestInTown extends Component {
     super(props);
     this.state = {
       search: null,
-      results: {
-        items: [],
-      },
     };
   }
   componentDidMount() {
@@ -72,7 +69,7 @@ class BestInTown extends Component {
   }
 
   render() {
-    console.log(this)
+    console.log('THIS', this);
     return (
       <Container>
         <Header>
