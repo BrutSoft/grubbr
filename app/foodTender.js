@@ -6,6 +6,7 @@ import { Container, Content, DeckSwiper, Title, Header, Icon, Button, View, Card
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
+import { setCurrentDish } from './actions/search';
 
 const dishes = [
   {
@@ -77,7 +78,7 @@ class Tender extends Component {
       loading: true,
     });
 
-    return fetch()
+    return fetch('https://grubbr-api.herokuapp.com/v1/score/5')
       .then(response => response.json())
       .then((responseJson) => {
         this.setState({
@@ -87,6 +88,7 @@ class Tender extends Component {
   }
 
   render() {
+    console.log('THIS', this);
     return (
       <Container>
         <Header>
@@ -105,23 +107,29 @@ class Tender extends Component {
           <View>
             <Title>Tender</Title>
             <DeckSwiper
-              onSwipeRight={() => this.pushNewRoute('foodProfile')}
-              dataSource={dishes}
-              renderItem={item =>
-                <Card>
+              dataSource={this.state.dishes.data}
+              renderItem={dish =>
+                <Card
+                  button
+                  onPress={() => {
+                    console.log('DISH', dish);
+                    this.setCurrentDish(dish);
+                    this.pushNewRoute('foodProfile');
+                  }}
+                >
                   <CardItem>
-                    <Thumbnail source={item.image} />
-                    <Text>{item.name}</Text>
-                    <Text note>{item.restaurant}</Text>
+                    <Thumbnail size={80} source={{ uri: dish.images[0] }} />
+                    <Text>{dish.dishName}</Text>
+                    <Text note>{dish.restaurant}</Text>
                   </CardItem>
                   <CardItem>
-                    <Image size={80} source={item.image} />
+                    <Image size={80} source={{ uri: dish.images[0] }} />
                   </CardItem>
                   <CardItem>
                     <Icon name="ios-thumbs-up" />
-                    <Text>{item.upvotes}</Text>
+                    <Text>{dish.upvotes}</Text>
                     <Icon name="ios-thumbs-down" />
-                    <Text>{item.downvotes}</Text>
+                    <Text>{dish.downvotes}</Text>
                   </CardItem>
                 </Card>
               }
