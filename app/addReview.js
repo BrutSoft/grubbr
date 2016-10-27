@@ -120,7 +120,7 @@ class AddReview extends Component {
               block rounded
               onPress={() => {
                 this.submitReview();
-                this.pushNewRoute('main');
+                this.popRoute();
               }}
             >
               Submit
