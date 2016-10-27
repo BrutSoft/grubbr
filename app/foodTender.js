@@ -18,22 +18,8 @@ class Tender extends Component {
     setIndex: React.PropTypes.func,
     setCurrentDish: React.PropTypes.func,
     setTenderIndex: React.PropTypes.func,
-    tenderData: React.PropTypes.object,
+    tenderData: React.PropTypes.array,
     tenderIndex: React.PropTypes.number,
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      tenderData: [],
-      currentIndex: 0,
-    };
-  }
-
-  componentWillMount() {
-    this.setState({
-      tenderData: this.props.tenderData,
-    });
   }
 
   setCurrentDish(dish) {
