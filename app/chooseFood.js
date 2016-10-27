@@ -33,7 +33,7 @@ class Choices extends Component {
 
   render() {
     return (
-      <Container style={styles.bgColor}>
+      <Container>
         <Header>
           <Button transparent onPress={() => this.popRoute()}>
             <Icon name="ios-arrow-back" />
@@ -58,7 +58,7 @@ class Choices extends Component {
                     this.pushNewRoute('bestInTown');
                   }}
                 >
-                    I know WHAT I want
+                  I know WHAT I want
                 </Button>
               </View>
             </Row>
