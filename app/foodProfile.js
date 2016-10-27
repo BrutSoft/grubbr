@@ -7,6 +7,8 @@ import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
+const defaultImg = 'https://s-media-cache-ak0.pinimg.com/236x/33/04/e3/3304e35f47f81180e8c8b896b5d57332.jpg';
+
 class FoodProfile extends Component {
 
   static propTypes = {
@@ -21,22 +23,20 @@ class FoodProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviews: this.props.results.currentDish.reviews || [],
+      reviews: [],
     };
   }
 
   componentWillMount() {
     const dishID = this.props.results.currentDish.dishID;
     const that = this;
-    if (this.state.reviews.length === 0) {
-      fetch(`https://grubbr-api.herokuapp.com/v1/score/${dishID}`)
-      .then(response => response.json())
-      .then((responseJson) => {
-        that.setState({
-          reviews: responseJson.data[0].reviews,
-        });
+    fetch(`https://grubbr-api.herokuapp.com/v1/score/${dishID}`)
+    .then(response => response.json())
+    .then((responseJson) => {
+      that.setState({
+        reviews: responseJson.data[0].reviews,
       });
-    }
+    });
   }
 
   replaceRoute(route) {
@@ -101,7 +101,7 @@ class FoodProfile extends Component {
               renderRow={review =>
                 <ListItem>
                   <Text style={{ width: 280 }} >{review.review}</Text>
-                  <Thumbnail size={80} source={{ uri: review.image }} />
+                  <Thumbnail size={80} source={{ uri: review.image || defaultImg }} />
                 </ListItem>
               }
             />

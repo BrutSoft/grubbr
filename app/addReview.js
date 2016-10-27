@@ -64,13 +64,12 @@ class AddReview extends Component {
         user_id: this.state.user_id,
         rating: Number(this.state.rating),
         review: this.state.review,
-        adjective_id: this.state.selectedItem,
+        adjective_id: Number(this.state.selected),
       }),
     });
   }
 
   render() {
-    console.log(this)
     return (
       <Container>
         <Header>
