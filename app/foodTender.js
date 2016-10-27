@@ -43,26 +43,32 @@ class Tender extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+    setCurrentDish: React.PropTypes.func,
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
-      dishes: [],
+      tenderData: [],
+      currentIndex: 0,
     };
   }
 
-  // componentWillMount() {
-  //   fetch('https://grubbr-api.herokuapp.com/v1/score/5')
-  //     .then(response => response.json())
-  //     .then((responseJson) => {
-  //       this.setState({
-  //         dishes: responseJson,
-  //         loading: false,
-  //       });
-  //     });
-  // }
+  componentWillMount() {
+    this.setState({
+      tenderData: this.props.tenderData,
+    });
+  }
+
+  rejectSwipe() {
+    this.setState({
+      currentIndex: this.state.currentIndex + 1,
+    });
+  }
+
+  setCurrentDish(dish) {
+    this.props.setCurrentDish(dish);
+  }
 
   replaceRoute(route) {
     this.props.replaceRoute(route);
@@ -76,20 +82,6 @@ class Tender extends Component {
   popRoute() {
     this.props.popRoute();
   }
-
-  // fetch() {
-  //   this.setState({
-  //     loading: true,
-  //   });
-  //
-  //   return fetch('https://grubbr-api.herokuapp.com/v1/score/5')
-  //     .then(response => response.json())
-  //     .then((responseJson) => {
-  //       this.setState({
-  //         dishes: responseJson,
-  //       });
-  //     });
-  // }
 
   render() {
     console.log(this)
@@ -111,19 +103,19 @@ class Tender extends Component {
           <View>
             <Title>Tender</Title>
             <DeckSwiper
-              dataSource={this.props.results.dishesNearMe._65._65.data}
+              dataSource={this.props.tenderData}
+              onSwipeLeft={() => this.rejectSwipe()}
+              onSwipeRight={() => {
+                this.setCurrentDish(this.state.tenderData[this.state.currentIndex]);
+                this.pushNewRoute('foodProfile');
+              }}
               renderItem={dish =>
                 <Card
                   button
-                  onPress={() => {
-                    console.log('DISH', dish);
-                    this.setCurrentDish(dish);
-                    this.pushNewRoute('foodProfile');
-                  }}
                 >
                   <CardItem>
                     <Thumbnail size={80} source={{ uri: dish.images[0] }} />
-                    <Text>{dish.name}</Text>
+                    <Text>{dish.dishName}</Text>
                     <Text note>{dish.restaurant}</Text>
                   </CardItem>
                   <CardItem>
@@ -161,7 +153,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
-    results: state.search,
+    tenderData: state.search.tenderData,
   };
 }
 

@@ -49,7 +49,7 @@ class FoodProfile extends Component {
   }
 
   render() {
-    console.log(this)
+    const dish = this.props.results.currentDish;
     return (
       <Container>
         <Header>
@@ -66,45 +66,40 @@ class FoodProfile extends Component {
         </Header>
 
         <Content>
-          <Card
-            dataArray={this.props.results.currentDish.data}
-            renderRow={dish =>
-              <Card>
-                <CardItem>
-                  <Text>{dish.dishName}</Text>
-                  <Text note>{dish.restaurant}</Text>
-                </CardItem>
-                <ListItem>
-                  <Text>Tastes {dish.adjective}</Text>
-                  <Button transparent>
-                    <Icon name="ios-thumbs-up" />
-                  </Button>
-                  <Text>{dish.upvotes}</Text>
-                  <Button transparent>
-                    <Icon name="ios-thumbs-down" />
-                  </Button>
-                  <Text>{dish.downvotes}</Text>
-                  <Button transparent onPress={() => this.pushNewRoute('addReview')}>
-                    <Icon name="ios-clipboard" />
-                    <Text>Write review</Text>
-                  </Button>
-                </ListItem>
-                <CardItem cardBody>
-                  <Image style={{ height: 150 }} source={{ uri: dish.images[dish.images.length - 1] }} />
-                </CardItem>
-                <ListItem>
-                  <Text style={{ width: 280 }} >REVIEWS</Text>
-                  <Button transparent>
-                    <Icon name="ios-thumbs-up" />
-                  </Button>
-                  <Button transparent>
-                    <Icon name="ios-thumbs-down" />
-                  </Button>
-                    <Thumbnail size={80} source={{ uri: dish.images[0] }} />
-                </ListItem>
-              </Card>
-            }
-          />
+          <Card>
+            <CardItem>
+              <Text>{dish.dishName}</Text>
+              <Text note>{dish.restaurant}</Text>
+            </CardItem>
+            <ListItem>
+              <Text>Tastes {dish.adjective}</Text>
+              <Button transparent>
+                <Icon name="ios-thumbs-up" />
+              </Button>
+              <Text>{dish.upvotes}</Text>
+              <Button transparent>
+                <Icon name="ios-thumbs-down" />
+              </Button>
+              <Text>{dish.downvotes}</Text>
+              <Button transparent onPress={() => this.pushNewRoute('addReview')}>
+                <Icon name="ios-clipboard" />
+                <Text>Write review</Text>
+              </Button>
+            </ListItem>
+            <CardItem cardBody>
+              <Image style={{ height: 150 }} source={{ uri: dish.images[dish.images.length - 1] }} />
+            </CardItem>
+            <ListItem>
+              <Text style={{ width: 280 }} >REVIEWS</Text>
+              <Button transparent>
+                <Icon name="ios-thumbs-up" />
+              </Button>
+              <Button transparent>
+                <Icon name="ios-thumbs-down" />
+              </Button>
+                <Thumbnail size={80} source={{ uri: dish.images[0] }} />
+            </ListItem>
+          </Card>
         </Content>
 
       </Container>
