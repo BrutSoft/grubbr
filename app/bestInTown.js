@@ -48,18 +48,12 @@ class BestInTown extends Component {
     // sorry, mom
     const that = this;
     // First fetch to get dishes by query
-    return fetch(`https://grubbr-api.herokuapp.com/v1/dishes?name__icontains=${this.state.search}`)
+    return fetch(`https://grubbr-api.herokuapp.com/v1/search?dish__name__icontains=${this.state.search}`)
     .then(response => response.json())
     .then((responseJson) => {
-      // Second promisified fetch for scores of all queried dishes
-      Promise.all(responseJson.data.map(dish => fetch(`https://grubbr-api.herokuapp.com/v1/score/${dish.id}`)))
-      .then(responses => Promise.all(responses.map(response => response.json())))
-      .then((response) => {
-        const sortedScores = _.orderBy(response, e => e.data[0].score, ['desc']);
-        that.setState({
-          scores: sortedScores,
-          loading: false,
-        });
+      that.setState({
+        dishes: responseJson.data,
+        loading: false,
       });
     })
     .catch(() => {
@@ -99,10 +93,8 @@ class BestInTown extends Component {
                 <Spinner color="blue" />
               </View> :
                 <Card
-                  dataArray={this.state.scores}
-                  renderRow={(elem) => {
-                    const dish = elem.data[0];
-                    return (
+                  dataArray={this.state.dishes}
+                  renderRow={(dish) => (
                       <CardItem
                         button
                         onPress={() => {
@@ -117,9 +109,7 @@ class BestInTown extends Component {
                         <Icon name="ios-thumbs-down" />
                         <Text>{dish.downvotes}</Text>
                       </CardItem>
-                    );
-                  }
-                }
+                    )}
                 />
               }
           </View>
