@@ -40,14 +40,15 @@ class V1TenderController extends Nodal.Controller {
         });
         // Put that info into an array
         dishInfo = _.map(dishInfo, info => info);
-        // sort info by score TODO make it a random sort
-        dishInfo = dishInfo.sort((a, b) => {
-          if (a.score > b.score) { return -1; }
-          if (a.score < b.score) { return 1; }
-          return 0;
-        });
+        // sort randomly
+        const temp = dishInfo.slice(0);
+        const dishInfoRand = [];
+        while (dishInfoRand.length < dishInfo.length) {
+          const randDish = Math.floor(Math.random() * temp.length);
+          dishInfoRand.push(temp.splice(randDish, 1));
+        }
         // send that array back in response.
-        this.respond(dishInfo);
+        this.respond(dishInfoRand);
       });
   }
 }
