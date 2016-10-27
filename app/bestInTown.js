@@ -54,7 +54,6 @@ class BestInTown extends Component {
       .then(responses => Promise.all(responses.map(response => response.json())))
       .then((response) => {
         const sortedScores = _.orderBy(response, e => e.data[0].score, ['desc']);
-        console.log(response)
         that.setState({
           scores: sortedScores,
           loading: false,
@@ -70,7 +69,6 @@ class BestInTown extends Component {
   }
 
   render() {
-    console.log(this)
     return (
       <Container>
         <Header>
