@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Header, Title, Content, Button, Icon } from 'native-base';
+import { Container, Header, Title, Content, Button, Icon, Card } from 'native-base';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 import { setTenderData } from './actions/search';
-
+import styles from './components/login/styles';
 
 class Main extends Component {
 
@@ -31,7 +31,7 @@ class Main extends Component {
   }
 
   setTenderData(data) {
-    this.props.setTenderData(data)
+    this.props.setTenderData(data);
   }
 
   getTenderData() {
@@ -80,7 +80,7 @@ class Main extends Component {
         </Header>
 
         <Content>
-          <View>
+          <View style={styles.main}>
             <Button
               block
               rounded
@@ -114,7 +114,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
-    setTenderData: data => dispatch(setTenderData(data))
+    setTenderData: data => dispatch(setTenderData(data)),
   };
 }
 

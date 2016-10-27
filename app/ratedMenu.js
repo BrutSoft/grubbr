@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Content, List, ListItem, Title, Header, InputGroup, Input, Icon, Button, Card, Text } from 'native-base';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
+import { setCurrentDish } from './actions/search';
 import { setIndex } from './actions/list';
 
 const dishes = [
@@ -117,6 +118,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
+    setCurrentDish: dish => dispatch(setCurrentDish(dish)),
   };
 }
 
@@ -124,6 +126,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
+    results: state.search,
   };
 }
 

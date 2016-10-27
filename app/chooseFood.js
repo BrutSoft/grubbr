@@ -5,6 +5,8 @@ import { Container, Header, Title, Content, Button, Icon } from 'native-base';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
+import styles from './components/login/styles';
+
 
 class Choices extends Component {
 
@@ -44,7 +46,7 @@ class Choices extends Component {
           </Button>
         </Header>
 
-        <Content>
+        <Content style={styles.main}>
           <Button
             block
             rounded
