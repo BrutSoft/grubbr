@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Dimensions } from 'react-native';
 import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, Text, List, ListItem, Picker } from 'native-base';
 
 import { openDrawer } from './actions/drawer';
