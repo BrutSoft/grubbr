@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image } from 'react-native';
-import { Container, Content, ListItem, Title, Header, Icon, Button, Card, CardItem, Thumbnail, Text } from 'native-base';
+import { Container, Content, ListItem, Title, Header, Icon, Button, Card, CardItem, Thumbnail, Text, List } from 'native-base';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
@@ -96,16 +96,15 @@ class FoodProfile extends Component {
                 source={{ uri: dish.images[dish.images.length - 1] }}
               />
             </CardItem>
-            <ListItem>
-              <Text style={{ width: 280 }} >REVIEWS</Text>
-              <Button transparent>
-                <Icon name="ios-thumbs-up" />
-              </Button>
-              <Button transparent>
-                <Icon name="ios-thumbs-down" />
-              </Button>
-              <Thumbnail size={80} source={{ uri: dish.images[0] }} />
-            </ListItem>
+            <List
+              dataArray={this.state.reviews}
+              renderRow={review =>
+                <ListItem>
+                  <Text style={{ width: 280 }} >{review.review}</Text>
+                  <Thumbnail size={80} source={{ uri: review.image }} />
+                </ListItem>
+              }
+            />
           </Card>
         </Content>
 
