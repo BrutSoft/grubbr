@@ -5,6 +5,8 @@ import { Container, Header, Title, Content, Button, Icon } from 'native-base';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
+import { setTenderData } from './actions/search';
+
 
 class Main extends Component {
 
@@ -14,6 +16,39 @@ class Main extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+    setTenderData: React.PropTypes.func,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      tenderData: [],
+    };
+  }
+
+  componentWillMount() {
+    this.getTenderData();
+  }
+
+  setTenderData(data) {
+    this.props.setTenderData(data)
+  }
+
+  getTenderData() {
+    const that = this;
+    // First fetch to get dishes by query
+    return fetch('https://grubbr-api.herokuapp.com/v1/tender')
+    .then(response => response.json())
+    .then((responseJson) => {
+      that.setState({
+        tenderData: responseJson.data,
+      });
+    })
+    .catch(() => {
+      that.setState({
+        tenderData: [],
+      });
+    });
   }
 
   replaceRoute(route) {
@@ -50,6 +85,7 @@ class Main extends Component {
               block
               rounded
               onPress={() => {
+                this.setTenderData(this.state.tenderData);
                 this.pushNewRoute('choices');
               }}
             >
@@ -78,6 +114,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
+    setTenderData: data => dispatch(setTenderData(data))
   };
 }
 
@@ -85,6 +122,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
+    tenderData: state.search.tenderData,
   };
 }
 

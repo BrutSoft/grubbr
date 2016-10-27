@@ -6,34 +6,7 @@ import { Container, Content, DeckSwiper, Title, Header, Icon, Button, View, Card
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
-import { setCurrentDish } from './actions/search';
-
-const dishes = [
-  {
-    name: 'Dish One',
-    restaurant: "Antoine's",
-    image: require('./img/food_one.png'),
-    hearts: '12',
-    upvotes: '43',
-    downvotes: '9',
-  },
-  {
-    name: 'Dish Two',
-    restaurant: 'Lelio',
-    image: require('./img/food_two.png'),
-    hearts: '45',
-    upvotes: '23',
-    downvotes: '8',
-  },
-  {
-    name: 'Dish Three',
-    restaurant: 'Bistro',
-    image: require('./img/food_three.png'),
-    hearts: '32',
-    upvotes: '100',
-    downvotes: '67',
-  },
-];
+import { setCurrentDish, setTenderIndex } from './actions/search';
 
 class Tender extends Component {
 
@@ -43,21 +16,18 @@ class Tender extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+    setCurrentDish: React.PropTypes.func,
+    setTenderIndex: React.PropTypes.func,
+    tenderData: React.PropTypes.array,
+    tenderIndex: React.PropTypes.number,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      dishes: [],
-    };
+  setCurrentDish(dish) {
+    this.props.setCurrentDish(dish);
   }
 
-  componentWillMount() {
-    this.fetch().done();
-  }
-
-  componentDidMount() {
-    this.fetch().done();
+  setTenderIndex(index) {
+    this.props.setTenderIndex(index);
   }
 
   replaceRoute(route) {
@@ -73,22 +43,7 @@ class Tender extends Component {
     this.props.popRoute();
   }
 
-  fetch() {
-    this.setState({
-      loading: true,
-    });
-
-    return fetch('https://grubbr-api.herokuapp.com/v1/score/5')
-      .then(response => response.json())
-      .then((responseJson) => {
-        this.setState({
-          dishes: responseJson,
-        });
-      });
-  }
-
   render() {
-    console.log('THIS', this);
     return (
       <Container>
         <Header>
@@ -107,15 +62,16 @@ class Tender extends Component {
           <View>
             <Title>Tender</Title>
             <DeckSwiper
-              dataSource={this.state.dishes.data}
+              dataSource={this.props.tenderData}
+              onSwipeLeft={() => this.setTenderIndex(this.props.tenderIndex + 1)}
+              onSwipeRight={() => {
+                this.setCurrentDish(this.props.tenderData[this.props.tenderIndex]);
+                this.setTenderIndex(this.props.tenderIndex + 1);
+                this.pushNewRoute('foodProfile');
+              }}
               renderItem={dish =>
                 <Card
                   button
-                  onPress={() => {
-                    console.log('DISH', dish);
-                    this.setCurrentDish(dish);
-                    this.pushNewRoute('foodProfile');
-                  }}
                 >
                   <CardItem>
                     <Thumbnail size={80} source={{ uri: dish.images[0] }} />
@@ -150,6 +106,7 @@ function bindAction(dispatch) {
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
     setCurrentDish: dish => dispatch(setCurrentDish(dish)),
+    setTenderIndex: index => dispatch(setTenderIndex(index)),
   };
 }
 
@@ -157,7 +114,8 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
-    results: state.search,
+    tenderData: state.search.tenderData,
+    tenderIndex: state.search.tenderIndex,
   };
 }
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Container, Content, InputGroup, Input, Button, Icon, View } from 'native-base';
 
 import { replaceRoute, pushNewRoute } from './actions/route';
+import { setUser } from './actions/user';
 import { setIndex } from './actions/list';
 
 import styles from './components/login/styles';
@@ -25,7 +26,6 @@ class Login extends Component {
       name: '',
     };
   }
-
   setUser(name) {
     this.props.setUser(name);
   }
@@ -75,6 +75,7 @@ function bindActions(dispatch) {
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
+    setUser: name => dispatch(setUser(name)),
   };
 }
 
