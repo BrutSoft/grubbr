@@ -8,6 +8,11 @@ import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 import { setCurrentDish, setTenderIndex } from './actions/search';
 
+// TODO: I think we can do a fetch here before this component loads.  Currently it
+// grabs tenderData before the main.js component mounts and saves to redux state.
+// I think the previous error was caused because an anonymous function is needed
+// for onSwipeLeft or onSwipeRight.
+
 class Tender extends Component {
 
   static propTypes = {

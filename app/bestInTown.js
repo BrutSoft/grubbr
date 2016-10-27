@@ -104,7 +104,7 @@ class BestInTown extends Component {
                       <CardItem
                         button
                         onPress={() => {
-                          this.setCurrentDish(elem);
+                          this.setCurrentDish(dish);
                           this.pushNewRoute('foodProfile');
                         }}
                       >
