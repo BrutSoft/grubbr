@@ -18,11 +18,11 @@
       { "name" : "BrutSoft Vittles" }
     ],
     "MenuType": [
-      { "memo" : "Appertizers" },
-      { "memo" : "Entrees" },
       { "memo" : "Specialty Drinks" },
-      { "memo" : "Desserts" },
+      { "memo" : "Appertizers" },
       { "memo" : "Soup/Salad/Side" },
+      { "memo" : "Entrees" },
+      { "memo" : "Desserts" },
       { "memo" : "Misc" }
     ],
     "DishType": [
@@ -1035,11 +1035,11 @@
         { "name" : "BrutSoft Vittles" }
       ],
       "MenuType": [
-        { "memo" : "Appertizers" },
-        { "memo" : "Entrees" },
         { "memo" : "Specialty Drinks" },
-        { "memo" : "Desserts" },
+        { "memo" : "Appertizers" },
         { "memo" : "Soup/Salad/Side" },
+        { "memo" : "Entrees" },
+        { "memo" : "Desserts" },
         { "memo" : "Misc" }
       ],
       "DishType": [

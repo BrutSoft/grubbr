@@ -40,7 +40,7 @@ class V1TenderController extends Nodal.Controller {
         });
         // Put that info into an array
         dishInfo = _.map(dishInfo, info => info);
-        // sort info by score
+        // sort info by score TODO make it a random sort
         dishInfo = dishInfo.sort((a, b) => {
           if (a.score > b.score) { return -1; }
           if (a.score < b.score) { return 1; }
