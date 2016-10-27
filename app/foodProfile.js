@@ -87,7 +87,10 @@ class FoodProfile extends Component {
               </Button>
             </ListItem>
             <CardItem cardBody>
-              <Image style={{ height: 150 }} source={{ uri: dish.images[dish.images.length - 1] }} />
+              <Image
+                style={{ height: 150 }}
+                source={{ uri: dish.images[dish.images.length - 1] }}
+              />
             </CardItem>
             <ListItem>
               <Text style={{ width: 280 }} >REVIEWS</Text>
@@ -97,7 +100,7 @@ class FoodProfile extends Component {
               <Button transparent>
                 <Icon name="ios-thumbs-down" />
               </Button>
-                <Thumbnail size={80} source={{ uri: dish.images[0] }} />
+              <Thumbnail size={80} source={{ uri: dish.images[0] }} />
             </ListItem>
           </Card>
         </Content>

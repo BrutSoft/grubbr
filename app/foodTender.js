@@ -6,34 +6,7 @@ import { Container, Content, DeckSwiper, Title, Header, Icon, Button, View, Card
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
-import { setCurrentDish } from './actions/search';
-
-const dishes = [
-  {
-    name: 'Dish One',
-    restaurant: "Antoine's",
-    image: require('./img/food_one.png'),
-    hearts: '12',
-    upvotes: '43',
-    downvotes: '9',
-  },
-  {
-    name: 'Dish Two',
-    restaurant: 'Lelio',
-    image: require('./img/food_two.png'),
-    hearts: '45',
-    upvotes: '23',
-    downvotes: '8',
-  },
-  {
-    name: 'Dish Three',
-    restaurant: 'Bistro',
-    image: require('./img/food_three.png'),
-    hearts: '32',
-    upvotes: '100',
-    downvotes: '67',
-  },
-];
+import { setCurrentDish, setTenderIndex } from './actions/search';
 
 class Tender extends Component {
 
@@ -70,6 +43,10 @@ class Tender extends Component {
     this.props.setCurrentDish(dish);
   }
 
+  setTenderIndex(index) {
+    this.props.setTenderIndex(index);
+  }
+
   replaceRoute(route) {
     this.props.replaceRoute(route);
   }
@@ -104,9 +81,10 @@ class Tender extends Component {
             <Title>Tender</Title>
             <DeckSwiper
               dataSource={this.props.tenderData}
-              onSwipeLeft={() => this.rejectSwipe()}
+              onSwipeLeft={() => this.setTenderIndex(this.props.tenderIndex + 1)}
               onSwipeRight={() => {
-                this.setCurrentDish(this.state.tenderData[this.state.currentIndex]);
+                this.setCurrentDish(this.props.tenderData[this.props.tenderIndex]);
+                this.setTenderIndex(this.props.tenderIndex + 1);
                 this.pushNewRoute('foodProfile');
               }}
               renderItem={dish =>
@@ -146,6 +124,7 @@ function bindAction(dispatch) {
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
     setCurrentDish: dish => dispatch(setCurrentDish(dish)),
+    setTenderIndex: index => dispatch(setTenderIndex(index)),
   };
 }
 
@@ -154,6 +133,7 @@ function mapStateToProps(state) {
     name: state.user.name,
     list: state.list.list,
     tenderData: state.search.tenderData,
+    tenderIndex: state.search.tenderIndex,
   };
 }
 

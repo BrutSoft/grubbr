@@ -4,6 +4,7 @@ export const SEARCH_DISHES = 'SEARCH_DISHES';
 export const SEARCH_DISHES_NEAR_ME = 'SEARCH_DISHES_NEAR_ME';
 export const SET_CURRENT_DISH = 'SET_CURRENT_DISH';
 export const SET_TENDER_DATA = 'SET_TENDER_DATA';
+export const SET_TENDER_INDEX = 'SET_TENDER_INDEX';
 
 const API_URL = 'https://grubbr-api.herokuapp.com/v1/tender';
 
@@ -35,5 +36,13 @@ export function setTenderData(data:Array, passProps:any):Action {
     type: SET_TENDER_DATA,
     payload: data,
     passProps,
-  }
+  };
+}
+
+export function setTenderIndex(index:Number, passProps:any):Action {
+  return {
+    type: SET_TENDER_INDEX,
+    index,
+    passProps,
+  };
 }
