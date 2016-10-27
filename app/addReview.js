@@ -23,16 +23,17 @@ class AddReview extends Component {
     super(props);
     this.state = {
       selectedItem: undefined,
-      selected1: 'key1',
-      results: {
-        items: [],
-      },
+      selected: '3',
+      user_id: '1',
+      review: undefined,
+      dish_id: 1,
+      rating: 0,
     };
   }
 
   onValueChange(value: string) {
     this.setState({
-      selected1: value,
+      selected: value,
     });
   }
 
@@ -47,6 +48,23 @@ class AddReview extends Component {
 
   replaceRoute(route) {
     this.props.replaceRoute(route);
+  }
+
+  submitReview() {
+    return fetch('https://grubbr-api.herokuapp.com/v1/ratings', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        dish_id: this.state.dish_id,
+        user_id: this.state.user_id,
+        rating: Number(this.state.rating),
+        review: this.state.review,
+        adjective_id: this.state.selectedItem,
+      }),
+    });
   }
 
   render() {
@@ -71,41 +89,33 @@ class AddReview extends Component {
           </Title>
           <List>
             <ListItem>
-              <Button transparent>
-                <Icon name="ios-heart" style={{ color: '#ED4A6A' }} />
-              </Button>
-              <Button transparent>
+              <Button transparent value={this.state.rating} onPress={() => this.setState({ rating: this.state.rating + 1 })}>
                 <Icon name="ios-thumbs-up" />
               </Button>
-              <Button transparent>
+              <Button transparent value={this.state.rating} onPress={() => this.setState({ rating: this.state.rating - 1 })}>
                 <Icon name="ios-thumbs-down" />
               </Button>
             </ListItem>
             <ListItem>
               <InputGroup borderType="regular" style={{ width: deviceWidth - 33 }} >
-                <Input style={{ height: 200 }} multiline placeholder="Type your text" />
+                <Input style={{ height: 200 }} multiline placeholder="Type your text" value={this.state.review} onChangeText={text => this.setState({ review: text })} />
               </InputGroup>
             </ListItem>
             <Picker
               iosHeader="Select one"
               mode="dropdown"
-              selectedValue={this.state.selected1}
+              selectedValue={this.state.selected}
               onValueChange={this.onValueChange.bind(this)}
             >
-              <Item label="Spicy" value="key0" />
-              <Item label="Sweet" value="key1" />
-              <Item label="Savory" value="key2" />
-              <Item label="Earthy" value="key3" />
-              <Item label="Fruity" value="key4" />
-              <Item label="Full Bodied" value="key5" />
+              <Item label="Spicy" value="1" />
+              <Item label="Sweet" value="2" />
+              <Item label="Savory" value="3" />
+              <Item label="Earthy" value="4" />
+              <Item label="Fruity" value="5" />
+              <Item label="Full Bodied" value="6" />
             </Picker>
             <ListItem>
-              <Button block rounded>
-              Add image
-              </Button>
-            </ListItem>
-            <ListItem>
-              <Button block rounded>
+              <Button block rounded onPress={() => this.submitReview()}>
               Submit
               </Button>
             </ListItem>
