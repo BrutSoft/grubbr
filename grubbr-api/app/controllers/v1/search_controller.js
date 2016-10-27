@@ -3,12 +3,12 @@ const _ = require('underscore');
 
 const Ratings = Nodal.require('app/models/rating.js');
 
-class V1TenderController extends Nodal.Controller {
-
+class V1SearchController extends Nodal.Controller {
   get() {
     Ratings.query()
       .join('dish__restaurant')
       .join('dish__menuType')
+      .where(this.params.query)
       .end((err, models) => {
         let dishInfo = {};
         // consolidate all info from ratings and dishes into one object
@@ -40,17 +40,12 @@ class V1TenderController extends Nodal.Controller {
         });
         // Put that info into an array
         dishInfo = _.map(dishInfo, info => info);
-        // sort randomly
-        const temp = dishInfo.slice(0);
-        const dishInfoRand = [];
-        while (dishInfoRand.length < dishInfo.length) {
-          const randDish = Math.floor(Math.random() * temp.length);
-          dishInfoRand.push(temp.splice(randDish, 1)[0]);
-        }
+        // sort by score
+        dishInfo = dishInfo.sort((a, b) => b.score - a.score);
         // send that array back in response.
-        this.respond(dishInfoRand);
+        this.respond(dishInfo);
       });
   }
 }
 
-module.exports = V1TenderController;
+module.exports = V1SearchController;
