@@ -46,14 +46,15 @@ class BestInTown extends Component {
     // sorry, mom
     const that = this;
     // First fetch to get dishes by query
-    return fetch(`https://grubbr-api.herokuapp.com/v1/dishes?name__icontains=${this.state.search}`)
+    return fetch(`http://localhost:3000/v1/dishes?name__icontains=${this.state.search}`)
     .then(response => response.json())
     .then((responseJson) => {
       // Second promisified fetch for scores of all queried dishes
-      Promise.all(responseJson.data.map(dish => fetch(`https://grubbr-api.herokuapp.com/v1/score/${dish.id}`)))
+      Promise.all(responseJson.data.map(dish => fetch(`http://localhost:3000/v1/score/${dish.id}`)))
       .then(responses => Promise.all(responses.map(response => response.json())))
       .then((response) => {
         const sortedScores = _.orderBy(response, e => e.data[0].score, ['desc']);
+        console.log(response)
         that.setState({
           scores: sortedScores,
           loading: false,
@@ -69,6 +70,7 @@ class BestInTown extends Component {
   }
 
   render() {
+    console.log(this)
     return (
       <Container>
         <Header>
@@ -104,7 +106,7 @@ class BestInTown extends Component {
                       <CardItem
                         button
                         onPress={() => {
-                          this.setCurrentDish(elem);
+                          this.setCurrentDish(dish);
                           this.pushNewRoute('foodProfile');
                         }}
                       >

@@ -32,6 +32,7 @@ class FoodProfile extends Component {
   }
 
   render() {
+    console.log(this)
     const dish = this.props.results.currentDish;
     return (
       <Container>
