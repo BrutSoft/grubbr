@@ -8,8 +8,6 @@ import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 import styles from './components/login/styles';
 
-
-const deviceWidth = Dimensions.get('window').width;
 const Item = Picker.Item;
 class AddReview extends Component {
 
