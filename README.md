@@ -4,9 +4,9 @@ An app to help you find the best dishes in town
 
 ## Team
 
-  - __Product Owner__: David d'Aquin
-  - __Scrum Master__: Nathan Donolli
-  - __Creative Director__: Živilė Janulevičiūtė Goodwin
+  - __Product Owner__: David d'Aquin (Backend)
+  - __Scrum Master__: Nathan Donolli (Frontend)
+  - __Creative Director__: Živilė Janulevičiūtė Goodwin (Frontend)
 
 ## Table of Contents
 
@@ -81,13 +81,23 @@ $ npm install
 If React Native < 0.29
 
 ```sh
-$rnpm link
+$ rnpm link
 ```
 
 If React Native >= 0.29
 
 ```sh
 $ react-native link
+```
+
+For Local Database:
+
+```
+$ cd grubbr-api
+
+$ npm install
+
+$ nodal db:bootstrap
 ```
 
 ### <a name="simulate-ios"></a>3. Simulate for iOS
