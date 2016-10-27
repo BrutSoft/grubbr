@@ -69,7 +69,6 @@ class BestInTown extends Component {
   }
 
   render() {
-    console.log('THIS', this);
     return (
       <Container>
         <Header>
@@ -100,22 +99,21 @@ class BestInTown extends Component {
                 <Card
                   dataArray={this.state.scores}
                   renderRow={(elem) => {
-                    const item = elem.data[0];
+                    const dish = elem.data[0];
                     return (
                       <CardItem
                         button
                         onPress={() => {
-                          console.log(elem);
                           this.setCurrentDish(elem);
                           this.pushNewRoute('foodProfile');
                         }}
                       >
-                        <Thumbnail size={80} source={{ uri: item.images[0] }} />
-                        <Text>{item.dishName}</Text>
+                        <Thumbnail size={80} source={{ uri: dish.images[0] }} />
+                        <Text>{dish.dishName}</Text>
                         <Icon name="ios-thumbs-up" />
-                        <Text>{item.upvotes}</Text>
+                        <Text>{dish.upvotes}</Text>
                         <Icon name="ios-thumbs-down" />
-                        <Text>{item.downvotes}</Text>
+                        <Text>{dish.downvotes}</Text>
                       </CardItem>
                     );
                   }
