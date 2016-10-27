@@ -22,7 +22,7 @@
       { "memo" : "Appertizers" },
       { "memo" : "Soup/Salad/Side" },
       { "memo" : "Entrees" },
-      { "memo" : "Soup/Salad/Side" },
+      { "memo" : "Desserts" },
       { "memo" : "Misc" }
     ],
     "DishType": [
@@ -1039,7 +1039,7 @@
         { "memo" : "Appertizers" },
         { "memo" : "Soup/Salad/Side" },
         { "memo" : "Entrees" },
-        { "memo" : "Soup/Salad/Side" },
+        { "memo" : "Desserts" },
         { "memo" : "Misc" }
       ],
       "DishType": [
