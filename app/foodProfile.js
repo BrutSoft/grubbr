@@ -7,23 +7,6 @@ import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 
-const dishes = [
-  {
-    name: 'Dish One',
-    restaurant: "Antoine's",
-    menu_type: 'Appetizers',
-    image: require('./img/food_one.png'),
-    hearts: '12',
-    upvotes: '43',
-    downvotes: '9',
-    adjective: 'spicy',
-    dish_type: 'Thai',
-    reviews: [
-      'Awesome taste, I will absolutely come back to grab them once again',
-    ],
-  },
-];
-
 class FoodProfile extends Component {
 
   static propTypes = {

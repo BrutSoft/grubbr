@@ -17,6 +17,9 @@ class Tender extends Component {
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
     setCurrentDish: React.PropTypes.func,
+    setTenderIndex: React.PropTypes.func,
+    tenderData: React.PropTypes.object,
+    tenderIndex: React.PropTypes.number,
   }
 
   constructor(props) {
@@ -30,12 +33,6 @@ class Tender extends Component {
   componentWillMount() {
     this.setState({
       tenderData: this.props.tenderData,
-    });
-  }
-
-  rejectSwipe() {
-    this.setState({
-      currentIndex: this.state.currentIndex + 1,
     });
   }
 
@@ -61,7 +58,6 @@ class Tender extends Component {
   }
 
   render() {
-    console.log(this)
     return (
       <Container>
         <Header>

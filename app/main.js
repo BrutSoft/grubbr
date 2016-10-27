@@ -40,7 +40,6 @@ class Main extends Component {
     return fetch('https://grubbr-api.herokuapp.com/v1/tender')
     .then(response => response.json())
     .then((responseJson) => {
-      console.log('got this far')
       that.setState({
         tenderData: responseJson.data,
       });

@@ -30,7 +30,6 @@ class Choices extends Component {
   }
 
   render() {
-    console.log(this)
     return (
       <Container>
         <Header>
