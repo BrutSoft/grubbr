@@ -60,7 +60,7 @@ class AddReview extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        dish_id: this.state.dish_id,
+        dish_id: this.props.results.currentDish.dishID,
         user_id: this.state.user_id,
         rating: Number(this.state.rating),
         review: this.state.review,
@@ -70,6 +70,7 @@ class AddReview extends Component {
   }
 
   render() {
+    console.log(this)
     return (
       <Container>
         <Header>
