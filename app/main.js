@@ -5,6 +5,8 @@ import { Container, Header, Title, Content, Button, Icon } from 'native-base';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
+import { searchDishesNearMe } from './actions/search'
+
 
 class Main extends Component {
 
@@ -14,6 +16,7 @@ class Main extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+    searchDishesNearMe: React.PropTypes.func,
   }
 
   replaceRoute(route) {
@@ -27,6 +30,9 @@ class Main extends Component {
 
   popRoute() {
     this.props.popRoute();
+  }
+  searchDishesNearMe() {
+    this.props.searchDishesNearMe();
   }
 
   render() {
@@ -50,6 +56,7 @@ class Main extends Component {
               block
               rounded
               onPress={() => {
+                this.searchDishesNearMe();
                 this.pushNewRoute('choices');
               }}
             >
@@ -78,6 +85,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
+    searchDishesNearMe: () => dispatch(searchDishesNearMe()),
   };
 }
 

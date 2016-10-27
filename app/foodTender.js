@@ -111,7 +111,7 @@ class Tender extends Component {
           <View>
             <Title>Tender</Title>
             <DeckSwiper
-              dataSource={dishes}
+              dataSource={this.props.results.dishesNearMe._65._65.data}
               renderItem={dish =>
                 <Card
                   button
@@ -122,12 +122,12 @@ class Tender extends Component {
                   }}
                 >
                   <CardItem>
-                    <Thumbnail size={80} source={{ uri: dish.image }} />
+                    <Thumbnail size={80} source={{ uri: dish.images[0] }} />
                     <Text>{dish.name}</Text>
                     <Text note>{dish.restaurant}</Text>
                   </CardItem>
                   <CardItem>
-                    <Image size={80} source={{ uri: dish.image }} />
+                    <Image size={80} source={{ uri: dish.images[0] }} />
                   </CardItem>
                   <CardItem>
                     <Icon name="ios-thumbs-up" />

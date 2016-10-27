@@ -4,7 +4,7 @@ import { SET_CURRENT_DISH, SEARCH_DISHES_NEAR_ME } from '../actions/search';
 
 export type State = {
     currentDish: Object,
-    dishesNearMe: Object,
+    dishesNearMe: Promise,
 }
 
 const initialState = {

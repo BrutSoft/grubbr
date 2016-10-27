@@ -35,6 +35,7 @@ class Choices extends Component {
   }
 
   render() {
+    console.log(this)
     return (
       <Container>
         <Header>
@@ -64,7 +65,6 @@ class Choices extends Component {
             block
             rounded
             onPress={() => {
-              this.searchDishesNearMe();
               this.pushNewRoute('tender');
             }}
           >

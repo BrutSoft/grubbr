@@ -15,7 +15,9 @@ export function searchDishes(query:string, passProps:any):Action {
 }
 
 export function searchDishesNearMe(passProps:any):Action {
-  const data = fetch(API_URL)
+  // TODO:
+  // http://redux.js.org/docs/advanced/AsyncActions.html
+  const dishFetch = fetch(API_URL)
     .then(response => response.json());
   return {
     type: SEARCH_DISHES_NEAR_ME,
