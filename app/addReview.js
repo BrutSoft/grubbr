@@ -115,7 +115,12 @@ class AddReview extends Component {
               <Item label="Full Bodied" value="6" />
             </Picker>
             <ListItem>
-              <Button block rounded onPress={() => this.submitReview()}>
+              <Button block rounded
+                onPress={() => {
+                  this.submitReview();
+                  this.pushNewRoute('main');
+                }}
+              >
               Submit
               </Button>
             </ListItem>
