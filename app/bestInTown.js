@@ -6,6 +6,8 @@ import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setCurrentDish } from './actions/search';
 import { setIndex } from './actions/list';
+import styles from './components/login/styles';
+
 
 class BestInTown extends Component {
   static propTypes = {
@@ -80,8 +82,8 @@ class BestInTown extends Component {
             <Icon name="ios-menu" />
           </Button>
         </Header>
-        <Content>
-          <Title>Best In Town</Title>
+        <Content style={styles.padding}>
+          <Title style={styles.title}>Best In Town</Title>
           <InputGroup borderType="rounded">
             <Icon name="ios-search" />
             <Input

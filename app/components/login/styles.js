@@ -36,4 +36,42 @@ module.exports = StyleSheet.create({
     marginTop: 20,
     alignSelf: 'center',
   },
+  main: {
+    flex: 1,
+    marginTop: deviceHeight / 3,
+    paddingTop: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 30,
+    bottom: 0,
+  },
+  button: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 30,
+    bottom: 0,
+  },
+  padding: {
+    paddingTop: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 30,
+    bottom: 0,
+  },
+  title: {
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    bottom: 0,
+  },
+  center: {
+    alignSelf: 'center',
+  },
+  box: {
+    paddingTop: 10,
+    paddingRight: 15,
+    paddingBottom: 10,
+    bottom: 0,
+  },
 });

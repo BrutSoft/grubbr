@@ -6,6 +6,8 @@ import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, Tex
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
+import styles from './components/login/styles';
+
 
 const deviceWidth = Dimensions.get('window').width;
 const Item = Picker.Item;
@@ -68,7 +70,6 @@ class AddReview extends Component {
   }
 
   render() {
-    console.log(this);
     return (
       <Container>
         <Header>
@@ -83,11 +84,16 @@ class AddReview extends Component {
           </Button>
         </Header>
 
-        <Content>
+        <Content style={styles.padding}>
           <Title>
             <Text>Add Review</Text>
           </Title>
-          <List>
+          <List style={styles.box}>
+            <ListItem>
+              <InputGroup borderType="regular" >
+                <Input style={{ height: 200 }} multiline placeholder="Type your text" value={this.state.review} onChangeText={text => this.setState({ review: text })} />
+              </InputGroup>
+            </ListItem>
             <ListItem>
               <Button transparent value={this.state.rating} onPress={() => this.setState({ rating: this.state.rating + 1 })}>
                 <Icon name="ios-thumbs-up" />
@@ -95,35 +101,30 @@ class AddReview extends Component {
               <Button transparent value={this.state.rating} onPress={() => this.setState({ rating: this.state.rating - 1 })}>
                 <Icon name="ios-thumbs-down" />
               </Button>
-            </ListItem>
-            <ListItem>
-              <InputGroup borderType="regular" style={{ width: deviceWidth - 33 }} >
-                <Input style={{ height: 200 }} multiline placeholder="Type your text" value={this.state.review} onChangeText={text => this.setState({ review: text })} />
-              </InputGroup>
-            </ListItem>
-            <Picker
-              iosHeader="Select one"
-              mode="dropdown"
-              selectedValue={this.state.selected}
-              onValueChange={this.onValueChange.bind(this)}
-            >
-              <Item label="Spicy" value="1" />
-              <Item label="Sweet" value="2" />
-              <Item label="Savory" value="3" />
-              <Item label="Earthy" value="4" />
-              <Item label="Fruity" value="5" />
-              <Item label="Full Bodied" value="6" />
-            </Picker>
-            <ListItem>
-              <Button block rounded
-                onPress={() => {
-                  this.submitReview();
-                  this.pushNewRoute('main');
-                }}
+              <Picker
+                style={styles.center}
+                iosHeader="Select one"
+                mode="dropdown"
+                selectedValue={this.state.selected}
+                onValueChange={this.onValueChange.bind(this)}
               >
-              Submit
-              </Button>
+                <Item label="Spicy" value="1" />
+                <Item label="Sweet" value="2" />
+                <Item label="Savory" value="3" />
+                <Item label="Earthy" value="4" />
+                <Item label="Fruity" value="5" />
+                <Item label="Full Bodied" value="6" />
+              </Picker>
             </ListItem>
+            <Button
+              block rounded
+              onPress={() => {
+                this.submitReview();
+                this.pushNewRoute('main');
+              }}
+            >
+              Submit
+            </Button>
           </List>
         </Content>
       </Container>
