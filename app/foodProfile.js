@@ -18,6 +18,27 @@ class FoodProfile extends Component {
     results: React.PropTypes.object,
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      reviews: this.props.results.currentDish.reviews || [],
+    };
+  }
+
+  componentWillMount() {
+    const dishID = this.props.results.currentDish.dishID;
+    const that = this;
+    if (this.state.reviews.length === 0) {
+      fetch(`https://grubbr-api.herokuapp.com/v1/score/${dishID}`)
+      .then(response => response.json())
+      .then((responseJson) => {
+        that.setState({
+          reviews: responseJson.data[0].reviews,
+        });
+      });
+    }
+  }
+
   replaceRoute(route) {
     this.props.replaceRoute(route);
   }
