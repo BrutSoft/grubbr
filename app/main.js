@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Header, Title, Content, Button, Icon } from 'native-base';
+import { Container, Header, Title, Content, Button, Icon, Grid, Row, View } from 'native-base';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
@@ -66,7 +65,7 @@ class Main extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.bgColor}>
         <Header>
           <Button transparent onPress={() => this.popRoute()}>
             <Icon name="ios-arrow-back" />
@@ -79,11 +78,14 @@ class Main extends Component {
           </Button>
         </Header>
 
-        <Content>
-          <View style={styles.main}>
+        <Content style={styles.main}>
+          <Grid>
+            <Row style={{ height: 100 }}>
+              <View>
             <Button
+              style={styles.border}
+              large
               block
-              rounded
               onPress={() => {
                 this.setTenderData(this.state.tenderData);
                 this.pushNewRoute('choices');
@@ -91,9 +93,14 @@ class Main extends Component {
             >
             Find grub
             </Button>
+          </View>
+        </Row>
+        <Row style={{ height: 100 }}>
+          <View>
             <Button
+              style={styles.border}
+              large
               block
-              rounded
               onPress={() => {
                 this.pushNewRoute('addReview');
               }}
@@ -101,6 +108,8 @@ class Main extends Component {
             Write grub
             </Button>
           </View>
+        </Row>
+        </Grid>
         </Content>
       </Container>
     );

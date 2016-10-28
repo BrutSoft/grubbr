@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image } from 'react-native';
-import { Container, Content, DeckSwiper, Title, Header, Icon, Button, View, Card, CardItem, Thumbnail, Text } from 'native-base';
+import { Container, Content, DeckSwiper, Title, Header, Icon, Button, View, Card, CardItem, Thumbnail, Text, ListItem } from 'native-base';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 import { setCurrentDish, setTenderIndex } from './actions/search';
+import styles from './components/login/styles';
 
 // TODO: I think we can do a fetch here before this component loads.  Currently it
 // grabs tenderData before the main.js component mounts and saves to redux state.
@@ -50,7 +51,7 @@ class Tender extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.bgColor}>
         <Header>
           <Button transparent onPress={() => this.popRoute()}>
             <Icon name="ios-arrow-back" />
@@ -64,8 +65,8 @@ class Tender extends Component {
         </Header>
 
         <Content>
-          <View>
-            <Title>Tender</Title>
+          <View style={styles.padding}>
+            <Title style={styles.title}>Tender</Title>
             <DeckSwiper
               dataSource={this.props.tenderData}
               onSwipeLeft={() => this.setTenderIndex(this.props.tenderIndex + 1)}
@@ -75,12 +76,12 @@ class Tender extends Component {
                 this.pushNewRoute('foodProfile');
               }}
               renderItem={dish =>
-                <Card>
-                  <CardItem>
+                <Card backgroundColor={'#FFFAEE'}>
+                  <ListItem>
                     <Thumbnail size={80} source={{ uri: dish.images[0] }} />
                     <Text>{dish.dishName}</Text>
-                    <Text note>{dish.restaurant}</Text>
-                  </CardItem>
+                    <Text note>{dish.restaurantName}</Text>
+                  </ListItem>
                   <CardItem>
                     <Image size={80} source={{ uri: dish.images[0] }} />
                   </CardItem>

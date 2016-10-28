@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text, Spinner } from 'native-base';
-import _ from 'lodash';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setCurrentDish } from './actions/search';
 import { setIndex } from './actions/list';
 import styles from './components/login/styles';
-
 
 class BestInTown extends Component {
   static propTypes = {
@@ -66,7 +64,7 @@ class BestInTown extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.bgColor}>
         <Header>
           <Button transparent onPress={() => this.popRoute()}>
             <Icon name="ios-arrow-back" />
@@ -76,9 +74,12 @@ class BestInTown extends Component {
             <Icon name="ios-menu" />
           </Button>
         </Header>
+
         <Content style={styles.padding}>
           <Title style={styles.title}>Best In Town</Title>
-          <InputGroup borderType="rounded">
+          <InputGroup
+            style={styles.search}
+          >
             <Icon name="ios-search" />
             <Input
               placeholder="Search"
@@ -87,28 +88,29 @@ class BestInTown extends Component {
               onSubmitEditing={() => this.search()}
             />
           </InputGroup>
-          <View>
+          <View style={styles.padding}>
             {this.state.loading ?
               <View>
-                <Spinner color="blue" />
+                <Spinner color="green" />
               </View> :
                 <Card
+                  backgroundColor={'#FFFAEE'}
                   dataArray={this.state.dishes}
-                  renderRow={(dish) => (
-                      <CardItem
-                        button
-                        onPress={() => {
-                          this.setCurrentDish(dish);
-                          this.pushNewRoute('foodProfile');
-                        }}
-                      >
-                        <Thumbnail size={80} source={{ uri: dish.images[0] }} />
-                        <Text>{dish.dishName}</Text>
-                        <Icon name="ios-thumbs-up" />
-                        <Text>{dish.upvotes}</Text>
-                        <Icon name="ios-thumbs-down" />
-                        <Text>{dish.downvotes}</Text>
-                      </CardItem>
+                  renderRow={dish => (
+                    <CardItem
+                      button
+                      onPress={() => {
+                        this.setCurrentDish(dish);
+                        this.pushNewRoute('foodProfile');
+                      }}
+                    >
+                      <Thumbnail size={80} source={{ uri: dish.images[0] }} />
+                      <Text>{dish.dishName}</Text>
+                      <Icon name="ios-thumbs-up" />
+                      <Text>{dish.upvotes}</Text>
+                      <Icon name="ios-thumbs-down" />
+                      <Text>{dish.downvotes}</Text>
+                    </CardItem>
                     )}
                 />
               }
