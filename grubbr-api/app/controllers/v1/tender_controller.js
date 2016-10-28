@@ -33,7 +33,7 @@ class V1TenderController extends Nodal.Controller {
             dishInfo[dishID].upvotes += 1;
             dishInfo[dishID].score += 1;
           } else if (rating.get('rating') === -1) {
-            dishInfo[dishID].downvotes -= 1;
+            dishInfo[dishID].downvotes -= 1; //TODO bad bad david
             dishInfo[dishID].score -= 1;
           }
           if (rating.get('image')) { dishInfo[dishID].images.push(rating.get('image')); }
