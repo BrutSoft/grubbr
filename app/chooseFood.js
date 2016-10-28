@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Header, Title, Content, Button, Icon } from 'native-base';
+import { Container, Header, Title, Content, Button, Icon, Grid, Row, View } from 'native-base';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
@@ -33,7 +33,7 @@ class Choices extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.bgColor}>
         <Header>
           <Button transparent onPress={() => this.popRoute()}>
             <Icon name="ios-arrow-back" />
@@ -47,27 +47,51 @@ class Choices extends Component {
         </Header>
 
         <Content style={styles.main}>
-          <Button
-            block
-            rounded
-            onPress={() => {
-              this.pushNewRoute('bestInTown');
-            }}
-          >
-            I know WHAT I want
-          </Button>
-
-          <Button
-            block
-            rounded
-            onPress={() => {
-              this.pushNewRoute('tender');
-            }}
-          >
-            I ain't got a clue
-          </Button>
-        </Content>
-
+            <Grid>
+              <Row style={{ height: 100 }}>
+                <View>
+                  <Button
+                    style={styles.border}
+                    large
+                    block
+                    onPress={() => {
+                      this.pushNewRoute('bestInTown');
+                    }}
+                  >
+                    I know WHAT I want
+                  </Button>
+                </View>
+              </Row>
+              <Row style={{ height: 100 }}>
+                <View>
+                  <Button
+                    style={styles.border}
+                    large
+                    block
+                    onPress={() => {
+                      this.pushNewRoute('ratedMenu');
+                    }}
+                  >
+                   I know WHERE I go
+                  </Button>
+                </View>
+              </Row>
+              <Row style={{ height: 100 }}>
+                <View>
+                  <Button
+                    style={styles.border}
+                    large
+                    block
+                    onPress={() => {
+                      this.pushNewRoute('tender');
+                    }}
+                  >
+                    I ain't got a clue
+                  </Button>
+                </View>
+              </Row>
+            </Grid>
+          </Content>
       </Container>
     );
   }

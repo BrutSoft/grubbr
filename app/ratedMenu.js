@@ -5,6 +5,7 @@ import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setCurrentDish } from './actions/search';
 import { setIndex } from './actions/list';
+import styles from './components/login/styles';
 
 const dishes = [
   {
@@ -70,7 +71,7 @@ class RatedMenu extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.bgColor}>
         <Header>
           <Button transparent onPress={() => this.popRoute()}>
             <Icon name="ios-arrow-back" />
@@ -83,13 +84,14 @@ class RatedMenu extends Component {
           </Button>
         </Header>
 
-        <Content>
-          <Title>Rated Menu</Title>
-          <InputGroup borderType="rounded" >
+        <Content style={styles.padding}>
+          <Title style={styles.title}>Rated Menu</Title>
+          <InputGroup style={styles.search}>
             <Icon name="ios-search" />
             <Input placeholder="Search" />
           </InputGroup>
           <List
+            style={styles.padding}
             dataArray={dishes}
             renderRow={dish =>
               <Card>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, Text, List, ListItem, Picker } from 'native-base';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, Text, List, ListItem, Picker, View } from 'native-base';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
@@ -68,7 +68,7 @@ class AddReview extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.bgColor}>
         <Header>
           <Button transparent onPress={() => this.popRoute()}>
             <Icon name="ios-arrow-back" />
@@ -81,13 +81,11 @@ class AddReview extends Component {
           </Button>
         </Header>
 
-        <Content style={styles.padding}>
-          <Title>
-            <Text>Add Review</Text>
-          </Title>
+        <Content>
+          <Title style={styles.title}>Add Review</Title>
           <List style={styles.box}>
             <ListItem>
-              <InputGroup borderType="regular" >
+              <InputGroup backgroundColor={'#FFFAEE'} borderType="regular" >
                 <Input style={{ height: 200 }} multiline placeholder="Type your text" value={this.state.review} onChangeText={text => this.setState({ review: text })} />
               </InputGroup>
             </ListItem>
@@ -113,15 +111,19 @@ class AddReview extends Component {
                 <Item label="Full Bodied" value="6" />
               </Picker>
             </ListItem>
-            <Button
-              block rounded
-              onPress={() => {
-                this.submitReview();
-                this.popRoute();
-              }}
-            >
+            <View style={styles.padding}>
+              <Button
+                style={styles.border}
+                large
+                block
+                onPress={() => {
+                  this.submitReview();
+                  this.popRoute();
+                }}
+              >
               Submit
-            </Button>
+              </Button>
+            </View>
           </List>
         </Content>
       </Container>

@@ -9,7 +9,7 @@ import { setIndex } from './actions/list';
 
 import styles from './components/login/styles';
 
-const background = require('./img/background.png');
+const background = require('./img/background2.png');
 
 class Login extends Component {
 
@@ -42,7 +42,7 @@ class Login extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.bgColor}>
         <View style={styles.container}>
           <Content>
             <Image source={background} style={styles.shadow}>
@@ -58,7 +58,12 @@ class Login extends Component {
                     secureTextEntry
                   />
                 </InputGroup>
-                <Button onPress={() => this.pushNewRoute('main')} block rounded>
+                <Button
+                  large
+                  style={styles.border}
+                  block
+                  onPress={() => this.pushNewRoute('main')}
+                >
                   Login
                 </Button>
               </View>

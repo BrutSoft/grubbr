@@ -6,6 +6,7 @@ import { Container, Content, ListItem, Title, Header, Icon, Button, Card, CardIt
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
+import styles from './components/login/styles';
 
 const defaultImg = 'https://s-media-cache-ak0.pinimg.com/236x/33/04/e3/3304e35f47f81180e8c8b896b5d57332.jpg';
 
@@ -55,7 +56,7 @@ class FoodProfile extends Component {
   render() {
     const dish = this.props.results.currentDish;
     return (
-      <Container>
+      <Container style={styles.bgColor}>
         <Header>
 
           <Button transparent onPress={() => this.popRoute()}>
@@ -69,14 +70,14 @@ class FoodProfile extends Component {
           </Button>
         </Header>
 
-        <Content>
-          <Card>
+        <Content style={styles.padding}>
+          <Card backgroundColor={'#FFFAEE'}>
             <CardItem>
               <Text>{dish.dishName}</Text>
-              <Text note>{dish.restaurant}</Text>
+              <Text note>{dish.restaurantName}</Text>
             </CardItem>
             <ListItem>
-              <Text>Tastes {dish.adjective}</Text>
+              <Text>Tastes ADJECTIVE</Text>
               <Button transparent>
                 <Icon name="ios-thumbs-up" />
               </Button>
