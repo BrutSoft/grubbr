@@ -76,7 +76,7 @@ class Tender extends Component {
                 this.pushNewRoute('foodProfile');
               }}
               renderItem={dish =>
-                <Card backgroundColor={'#FFFAEE'}>
+                <Card style={styles.card}>
                   <ListItem>
                     <Thumbnail size={80} source={{ uri: dish.images[0] }} />
                     <Text>{dish.dishName}</Text>
