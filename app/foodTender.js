@@ -28,6 +28,23 @@ class Tender extends Component {
     tenderIndex: React.PropTypes.number,
   }
 
+  getTenderData() {
+    const that = this;
+    // First fetch to get dishes by query
+    return fetch('https://grubbr-api.herokuapp.com/v1/tender')
+    .then(response => response.json())
+    .then((responseJson) => {
+      that.setState({
+        tenderData: responseJson.data,
+      });
+    })
+    .catch(() => {
+      that.setState({
+        tenderData: [],
+      });
+    });
+  }
+
   setCurrentDish(dish) {
     this.props.setCurrentDish(dish);
   }
