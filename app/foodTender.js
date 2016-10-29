@@ -39,6 +39,10 @@ class Tender extends Component {
   componentWillMount() {
     if (this.props.tenderData.length === 0) {
       this.getTenderData();
+    } else {
+      this.setState({
+        loading: false,
+      })
     }
   }
 
