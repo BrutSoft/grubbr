@@ -82,34 +82,34 @@ class Main extends Component {
           <Grid>
             <Row style={{ height: 100 }}>
               <View>
-            <Button
-              style={styles.border}
-              large
-              block
-              onPress={() => {
-                this.setTenderData(this.state.tenderData);
-                this.pushNewRoute('choices');
-              }}
-            >
+                <Button
+                  style={styles.border}
+                  large
+                  block
+                  onPress={() => {
+                    this.setTenderData(this.state.tenderData);
+                    this.pushNewRoute('choices');
+                  }}
+                >
             Find grub
-            </Button>
-          </View>
-        </Row>
-        <Row style={{ height: 100 }}>
-          <View>
-            <Button
-              style={styles.border}
-              large
-              block
-              onPress={() => {
-                this.pushNewRoute('addReview');
-              }}
-            >
+                </Button>
+              </View>
+            </Row>
+            <Row style={{ height: 100 }}>
+              <View>
+                <Button
+                  style={styles.border}
+                  large
+                  block
+                  onPress={() => {
+                    this.pushNewRoute('addReview');
+                  }}
+                >
             Write grub
-            </Button>
-          </View>
-        </Row>
-        </Grid>
+                </Button>
+              </View>
+            </Row>
+          </Grid>
         </Content>
       </Container>
     );

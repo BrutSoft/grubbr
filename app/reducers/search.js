@@ -1,12 +1,14 @@
 
 import type { Action } from '../actions/types';
-import { SET_CURRENT_DISH, SEARCH_DISHES_NEAR_ME, SET_TENDER_DATA, SET_TENDER_INDEX } from '../actions/search';
+import { SET_CURRENT_DISH, SEARCH_DISHES_NEAR_ME, SET_TENDER_DATA, SET_TENDER_INDEX, SET_CURRENT_RESTAURANT, SEARCH_RESTAURANTS_NEAR_ME } from '../actions/search';
 
 export type State = {
     currentDish: Object,
     dishesNearMe: Promise,
     tenderData: Array,
     tenderIndex: Number,
+    currentRestaurant: Object,
+    restaurantsNearMe: Promise,
 }
 
 const initialState = {
@@ -14,6 +16,8 @@ const initialState = {
   dishesNearMe: {},
   tenderData: [],
   tenderIndex: 0,
+  currentRestaurant: {},
+  restaurantsNearMe: {},
 };
 
 export default function (state:State = initialState, action:Action): State {
@@ -42,6 +46,20 @@ export default function (state:State = initialState, action:Action): State {
     return {
       ...state,
       dishesNearMe: action.payload,
+    };
+  }
+
+  if (action.type === SET_CURRENT_RESTAURANT) {
+    return {
+      ...state,
+      currentRestaurant: action.payload,
+    };
+  }
+
+  if (action.type === SEARCH_RESTAURANTS_NEAR_ME) {
+    return {
+      ...state,
+      restaurantsNearMe: action.payload,
     };
   }
 

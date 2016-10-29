@@ -71,7 +71,7 @@ class FoodProfile extends Component {
         </Header>
 
         <Content style={styles.padding}>
-          <Card backgroundColor={'#FFFAEE'}>
+          <Card style={styles.card}>
             <CardItem>
               <Text>{dish.dishName}</Text>
               <Text note>{dish.restaurantName}</Text>
@@ -94,7 +94,7 @@ class FoodProfile extends Component {
             <CardItem cardBody>
               <Image
                 style={{ height: 150 }}
-                source={{ uri: dish.images[dish.images.length - 1] }}
+                source={{ uri: dish.images[0] }}
               />
             </CardItem>
             <List
