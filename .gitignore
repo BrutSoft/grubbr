@@ -42,3 +42,6 @@ android/keystores/debug.keystore
 
 # Excel files
 *.xlsx
+
+# ENV Files
+!.env
