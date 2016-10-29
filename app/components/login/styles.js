@@ -90,10 +90,13 @@ module.exports = StyleSheet.create({
   search: {
     borderWidth: 1,
     borderColor: '#32393D',
-    backgroundColor: '#FFFAEE',
+    backgroundColor: '#EBDAC7',
     borderRadius: 50,
   },
   bgColor: {
     backgroundColor: '#32393D',
+  },
+  card: {
+    backgroundColor: '#EBDAC7',
   },
 });

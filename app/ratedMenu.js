@@ -1,50 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, List, ListItem, Title, Header, InputGroup, Input, Icon, Button, Card, Text } from 'native-base';
+import { Container, Content, List, ListItem, Title, Header, Icon, Button, Card, Text } from 'native-base';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
-import { setCurrentDish } from './actions/search';
+import { setCurrentDish, setCurrentRestaurant } from './actions/search';
 import { setIndex } from './actions/list';
 import styles from './components/login/styles';
-
-const dishes = [
-  {
-    name: 'Dish One',
-    restaurant: "Antoine's",
-    menu_type: 'Appetizers',
-    image: require('./img/food_one.png'),
-    hearts: '12',
-    upvotes: '43',
-    downvotes: '9',
-  },
-  {
-    name: 'Dish Two',
-    restaurant: 'Lelio',
-    menu_type: 'Soups & Salads',
-    image: require('./img/food_two.png'),
-    hearts: '45',
-    upvotes: '23',
-    downvotes: '8',
-  },
-  {
-    name: 'Dish Three',
-    restaurant: 'Bistro',
-    menu_type: 'Entrees',
-    image: require('./img/food_three.png'),
-    hearts: '32',
-    upvotes: '100',
-    downvotes: '67',
-  },
-  {
-    name: 'Dish Four',
-    restaurant: 'Bistro',
-    menu_type: 'Entrees',
-    image: require('./img/food_three.png'),
-    hearts: '32',
-    upvotes: '104',
-    downvotes: '67',
-  },
-];
 
 class RatedMenu extends Component {
 
@@ -54,6 +15,44 @@ class RatedMenu extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+    setCurrentDish: React.PropTypes.func,
+    setCurrentRestaurant: React.PropTypes.func,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      restaurantData: [],
+    };
+  }
+
+  componentWillMount() {
+    this.getDishes();
+  }
+
+  setCurrentRestaurant(data) {
+    this.props.setCurrentRestaurant(data);
+  }
+
+  setCurrentDish(restaurant) {
+    this.props.setCurrentDish(restaurant);
+  }
+
+  getDishes() {
+    const that = this;
+    // First fetch to get dishes by query
+    return fetch(`https://grubbr-api.herokuapp.com/v1/ratedmenu/${this.props.currentRestaurant.id}`)
+    .then(response => response.json())
+    .then((responseJson) => {
+      that.setState({
+        restaurantData: responseJson.data[0].menuItems,
+      });
+    })
+    .catch(() => {
+      that.setState({
+        restaurantData: [],
+      });
+    });
   }
 
   replaceRoute(route) {
@@ -70,6 +69,7 @@ class RatedMenu extends Component {
   }
 
   render() {
+    console.log('RESTAURANT INFO', this.state.restaurantData);
     return (
       <Container style={styles.bgColor}>
         <Header>
@@ -86,22 +86,24 @@ class RatedMenu extends Component {
 
         <Content style={styles.padding}>
           <Title style={styles.title}>Rated Menu</Title>
-          <InputGroup style={styles.search}>
-            <Icon name="ios-search" />
-            <Input placeholder="Search" />
-          </InputGroup>
           <List
             style={styles.padding}
-            dataArray={dishes}
-            renderRow={dish =>
+            dataArray={this.state.restaurantData}
+            renderRow={restaurant =>
               <Card>
                 <ListItem itemDivider rounded>
-                  <Text>{dish.menu_type}</Text>
+                  <Text>{restaurant.menuType}</Text>
                 </ListItem>
-                <ListItem>
-                  <Text>{dish.name}</Text>
+                <ListItem
+                  button
+                  onPress={() => {
+                    this.setCurrentDish(restaurant);
+                    this.pushNewRoute('foodProfile');
+                  }}
+                >
+                  <Text>{restaurant.dishName}</Text>
                   <Icon name="ios-thumbs-up" />
-                  <Text>{dish.upvotes - dish.downvotes}</Text>
+                  <Text>{restaurant.score}</Text>
                 </ListItem>
               </Card>
               }
@@ -120,7 +122,8 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
-    setCurrentDish: dish => dispatch(setCurrentDish(dish)),
+    setCurrentDish: restaurant => dispatch(setCurrentDish(restaurant)),
+    setCurrentRestaurant: restaurant => dispatch(setCurrentRestaurant(restaurant)),
   };
 }
 
@@ -128,7 +131,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
-    results: state.search,
+    currentRestaurant: state.search.currentRestaurant,
   };
 }
 

@@ -47,51 +47,51 @@ class Choices extends Component {
         </Header>
 
         <Content style={styles.main}>
-            <Grid>
-              <Row style={{ height: 100 }}>
-                <View>
-                  <Button
-                    style={styles.border}
-                    large
-                    block
-                    onPress={() => {
-                      this.pushNewRoute('bestInTown');
-                    }}
-                  >
+          <Grid>
+            <Row style={{ height: 100 }}>
+              <View>
+                <Button
+                  style={styles.border}
+                  large
+                  block
+                  onPress={() => {
+                    this.pushNewRoute('bestInTown');
+                  }}
+                >
                     I know WHAT I want
-                  </Button>
-                </View>
-              </Row>
-              <Row style={{ height: 100 }}>
-                <View>
-                  <Button
-                    style={styles.border}
-                    large
-                    block
-                    onPress={() => {
-                      this.pushNewRoute('ratedMenu');
-                    }}
-                  >
+                </Button>
+              </View>
+            </Row>
+            <Row style={{ height: 100 }}>
+              <View>
+                <Button
+                  style={styles.border}
+                  large
+                  block
+                  onPress={() => {
+                    this.pushNewRoute('getLocation');
+                  }}
+                >
                    I know WHERE I go
-                  </Button>
-                </View>
-              </Row>
-              <Row style={{ height: 100 }}>
-                <View>
-                  <Button
-                    style={styles.border}
-                    large
-                    block
-                    onPress={() => {
-                      this.pushNewRoute('tender');
-                    }}
-                  >
+                </Button>
+              </View>
+            </Row>
+            <Row style={{ height: 100 }}>
+              <View>
+                <Button
+                  style={styles.border}
+                  large
+                  block
+                  onPress={() => {
+                    this.pushNewRoute('tender');
+                  }}
+                >
                     I ain't got a clue
-                  </Button>
-                </View>
-              </Row>
-            </Grid>
-          </Content>
+                </Button>
+              </View>
+            </Row>
+          </Grid>
+        </Content>
       </Container>
     );
   }

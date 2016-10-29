@@ -94,7 +94,7 @@ class BestInTown extends Component {
                 <Spinner color="green" />
               </View> :
                 <Card
-                  backgroundColor={'#FFFAEE'}
+                  style={styles.card}
                   dataArray={this.state.dishes}
                   renderRow={dish => (
                     <CardItem
