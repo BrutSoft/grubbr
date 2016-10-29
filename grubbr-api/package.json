@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "bluebird": "^3.4.6",
+    "cloudinary": "^1.4.4",
     "nodal": "0.12.9",
     "pg": "6.1.0",
     "underscore": "^1.8.3"
