@@ -58,6 +58,7 @@ class FoodProfile extends Component {
   }
 
   render() {
+    const dish = this.props.results.currentDish;
     return (
       <Container style={styles.bgColor}>
         <Header>

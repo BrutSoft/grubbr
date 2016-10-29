@@ -117,7 +117,6 @@ class RatedMenu extends Component {
           >Add dish</Button>
           <Title style={styles.title}>Rated Menu</Title>
           <List
-<<<<<<< 25f7f5b2647ab12df12f890bdc5d195693bc7208
             style={styles.padding}
             dataArray={this.state.restaurantData}
             renderRow={restaurant =>
