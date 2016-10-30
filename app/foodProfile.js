@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Image } from 'react-native';
-import { Container, Content, ListItem, Title, Header, Icon, Button, Card, CardItem, Thumbnail, Text, List } from 'native-base';
+import { connect } from 'react-redux'
+import { Container, Content, ListItem, Title, Header, Icon, Button, Card, CardItem, Thumbnail, Text, List, Image } from 'native-base';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
@@ -24,7 +23,7 @@ class FoodProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviews: [],
+      dish: [],
     };
   }
 
@@ -35,7 +34,12 @@ class FoodProfile extends Component {
     .then(response => response.json())
     .then((responseJson) => {
       that.setState({
-        reviews: responseJson.data[0].reviews,
+        dish: responseJson.data[0],
+      });
+    })
+    .catch(() => {
+      that.setState({
+        dish: [],
       });
     });
   }
@@ -54,7 +58,6 @@ class FoodProfile extends Component {
   }
 
   render() {
-    const dish = this.props.results.currentDish;
     return (
       <Container style={styles.bgColor}>
         <Header>
@@ -73,32 +76,26 @@ class FoodProfile extends Component {
         <Content style={styles.padding}>
           <Card style={styles.card}>
             <CardItem>
-              <Text>{dish.dishName}</Text>
-              <Text note>{dish.restaurantName}</Text>
+              <Text>{this.state.dish.dishName}</Text>
+              <Text note>{this.state.dish.restaurant}</Text>
             </CardItem>
             <ListItem>
-              <Text>Tastes ADJECTIVE</Text>
+              <Text>Tastes {this.state.dish.adjective}</Text>
               <Button transparent>
                 <Icon name="ios-thumbs-up" />
               </Button>
-              <Text>{dish.upvotes}</Text>
+              <Text>{this.state.dish.upvotes}</Text>
               <Button transparent>
                 <Icon name="ios-thumbs-down" />
               </Button>
-              <Text>{dish.downvotes}</Text>
+              <Text>{this.state.dish.downvotes}</Text>
               <Button transparent onPress={() => this.pushNewRoute('addReview')}>
                 <Icon name="ios-clipboard" />
                 <Text>Write review</Text>
               </Button>
             </ListItem>
-            <CardItem cardBody>
-              <Image
-                style={{ height: 150 }}
-                source={{ uri: dish.images[0] }}
-              />
-            </CardItem>
             <List
-              dataArray={this.state.reviews}
+              dataArray={this.state.dish.reviews}
               renderRow={review =>
                 <ListItem>
                   <Text style={{ width: 280 }} >{review.review}</Text>
