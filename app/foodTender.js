@@ -78,7 +78,6 @@ class Tender extends Component {
               renderItem={dish =>
                 <Card style={styles.card}>
                   <ListItem>
-                    <Thumbnail size={80} source={{ uri: dish.images[0] }} />
                     <Text>{dish.dishName}</Text>
                     <Text note>{dish.restaurantName}</Text>
                   </ListItem>
