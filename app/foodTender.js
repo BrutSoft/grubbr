@@ -7,6 +7,7 @@ import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 import { setCurrentDish, setTenderIndex, setTenderData } from './actions/search';
+import { setLocation } from './actions/location';
 import styles from './components/login/styles';
 
 // TODO: I think we can do a fetch here before this component loads.  Currently it
@@ -25,6 +26,7 @@ class Tender extends Component {
     setCurrentDish: React.PropTypes.func,
     setTenderIndex: React.PropTypes.func,
     setTenderData: React.PropTypes.func,
+    setLocation: React.PropTypes.func,
     tenderData: React.PropTypes.array,
     tenderIndex: React.PropTypes.number,
   }
@@ -39,6 +41,7 @@ class Tender extends Component {
 
   componentWillMount() {
     if (this.props.tenderData.length === 0) {
+      this.getLocation();
       this.getTenderData();
     } else {
       this.setTenderIndex(0);
@@ -50,6 +53,20 @@ class Tender extends Component {
 
   setTenderData(data) {
     this.props.setTenderData(data);
+  }
+
+  setLocation(location) {
+    this.props.setLocation(location);
+  }
+
+  getLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setLocation(position);
+      },
+      error => alert(JSON.stringify(error)),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
   }
 
   getTenderData() {
@@ -165,6 +182,7 @@ function bindAction(dispatch) {
     setCurrentDish: dish => dispatch(setCurrentDish(dish)),
     setTenderIndex: index => dispatch(setTenderIndex(index)),
     setTenderData: data => dispatch(setTenderData(data)),
+    setLocation: location => dispatch(setLocation(location)),
   };
 }
 
@@ -174,6 +192,7 @@ function mapStateToProps(state) {
     list: state.list.list,
     tenderData: state.search.tenderData,
     tenderIndex: state.search.tenderIndex,
+    location: state.location.location,
   };
 }
 

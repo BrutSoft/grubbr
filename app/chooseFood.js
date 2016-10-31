@@ -5,6 +5,7 @@ import { Container, Header, Title, Content, Button, Icon, Grid, Row, View } from
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
+import { setLocation } from './actions/location';
 import styles from './components/login/styles';
 
 
@@ -16,6 +17,24 @@ class Choices extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+  }
+
+  componentWillMount() {
+    this.getLocation();
+  }
+
+  getLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setLocation(position);
+      },
+      error => alert(JSON.stringify(error)),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+  }
+
+  setLocation(location) {
+    this.props.setLocation(location);
   }
 
   replaceRoute(route) {
@@ -45,7 +64,6 @@ class Choices extends Component {
             <Icon name="ios-menu" />
           </Button>
         </Header>
-
         <Content style={styles.main}>
           <Grid>
             <Row style={{ height: 100 }}>
@@ -104,6 +122,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
+    setLocation: location => dispatch(setLocation(location)),
   };
 }
 
@@ -111,6 +130,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
+    location: state.location.location,
   };
 }
 
