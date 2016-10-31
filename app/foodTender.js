@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image } from 'react-native';
-import { Container, Content, DeckSwiper, Title, Header, Icon, Button, View, Card, CardItem, Thumbnail, Text, ListItem, Spinner } from 'native-base';
+import { Container, Content, DeckSwiper, Title, Header, Icon, Button, View, Card, CardItem, Text, ListItem, Spinner } from 'native-base';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
@@ -41,6 +41,7 @@ class Tender extends Component {
     if (this.props.tenderData.length === 0) {
       this.getTenderData();
     } else {
+      this.setTenderIndex(0);
       this.setState({
         loading: false,
       })
@@ -58,6 +59,7 @@ class Tender extends Component {
     )
     .then((responseJson) => {
       that.setTenderData(responseJson.data);
+      that.setTenderIndex(0);
       that.setState({
         loading: false,
       })
@@ -114,7 +116,13 @@ class Tender extends Component {
               </View> :
             <DeckSwiper
               dataSource={this.props.tenderData}
-              onSwipeLeft={() => this.setTenderIndex(this.props.tenderIndex + 1)}
+              onSwipeLeft={() => {
+                let nextIndex = this.props.tenderIndex + 1;
+                if (nextIndex >= this.props.tenderData.length) {
+                  nextIndex = 0;
+                }
+                this.setTenderIndex(nextIndex);
+              }}
               onSwipeRight={() => {
                 this.setCurrentDish(this.props.tenderData[this.props.tenderIndex]);
                 this.setTenderIndex(this.props.tenderIndex + 1);
