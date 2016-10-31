@@ -5,6 +5,7 @@ import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setCurrentDish } from './actions/search';
 import { setIndex } from './actions/list';
+import { setLocation } from './actions/location';
 import styles from './components/login/styles';
 
 class BestInTown extends Component {
@@ -15,6 +16,8 @@ class BestInTown extends Component {
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
     setCurrentDish: React.PropTypes.func,
+    setLocation: React.PropTypes.func,
+
   }
   constructor(props) {
     super(props);
@@ -22,30 +25,39 @@ class BestInTown extends Component {
       search: null,
     };
   }
+
   componentDidMount() {
+    this.setLocation(location);
     this.search().done();
   }
+
+  setLocation(location) {
+    this.props.setLocation(location);
+  }
+
   setCurrentDish(dish) {
     this.props.setCurrentDish(dish);
   }
+
   replaceRoute(route) {
     this.props.replaceRoute(route);
   }
+
   pushNewRoute(route, index) {
     this.props.setIndex(index);
     this.props.pushNewRoute(route);
   }
+
   popRoute() {
     this.props.popRoute();
   }
+
   search() {
       // Set loading to true when the search starts to display a Spinner
     this.setState({
       loading: true,
     });
-    // sorry, mom
     const that = this;
-    // First fetch to get dishes by query
     return fetch(`https://grubbr-api.herokuapp.com/v1/search?dish__name__icontains=${this.state.search}`)
     .then(response => response.json())
     .then((responseJson) => {
@@ -135,6 +147,7 @@ function mapStateToProps(state) {
     name: state.user.name,
     list: state.list.list,
     results: state.search,
+    location: state.location.location,
   };
 }
 export default connect(mapStateToProps, bindAction)(BestInTown);
