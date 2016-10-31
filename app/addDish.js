@@ -16,6 +16,7 @@ class AddDish extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+    restaurant: React.PropTypes.object,
   }
 
   constructor(props) {
@@ -27,8 +28,7 @@ class AddDish extends Component {
       review: undefined,
       rating: 0,
       restaurantID: this.props.restaurant.id,
-      restaurantName: this.props.restaurant.name,
-      review: undefined,
+      dishName: undefined,
     };
   }
 
@@ -52,7 +52,7 @@ class AddDish extends Component {
   }
 
   submitDish() {
-    return fetch('https://grubbr-api.herokuapp.com/v1/ratings', {
+    return fetch('https://grubbr-api.herokuapp.com/v1/newDish', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -61,8 +61,11 @@ class AddDish extends Component {
       body: JSON.stringify({
         user_id: this.state.user_id,
         rating: Number(this.state.rating),
-        dish: this.state.dishName,
+        dishName: this.state.dishName,
         adjective_id: Number(this.state.selectedTaste),
+        review: this.state.review,
+        restaurandID: this.state.restaurandID,
+        menuType: this.state.selectedMenuType,
       }),
     });
   }
@@ -138,8 +141,8 @@ class AddDish extends Component {
                 large
                 block
                 onPress={() => {
-                  this.submitReview();
-                  this.popRoute();
+                  this.submitDish();
+                  this.pushNewRoute('chooseFood');
                 }}
               >
               Submit
