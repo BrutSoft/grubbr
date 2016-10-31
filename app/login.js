@@ -62,7 +62,7 @@ class Login extends Component {
                   large
                   style={styles.border}
                   block
-                  onPress={() => this.pushNewRoute('main')}
+                  onPress={() => this.pushNewRoute('chooseFood')}
                 >
                   Login
                 </Button>
