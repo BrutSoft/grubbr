@@ -49,7 +49,6 @@ module.exports = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 30,
-    bottom: 0,
   },
   padding: {
     paddingTop: 20,
@@ -60,8 +59,6 @@ module.exports = StyleSheet.create({
   },
   title: {
     paddingTop: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
     paddingBottom: 20,
     bottom: 0,
     alignSelf: 'center',

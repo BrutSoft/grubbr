@@ -19,6 +19,7 @@ import Tender from './foodTender';
 import FoodProfile from './foodProfile';
 import AddReview from './addReview';
 import GetLocation from './getLocation';
+import AddDish from './addDish';
 
 Navigator.prototype.replaceWithAnimation = function replaceWithAnimation(route) {
   const activeLength = this.state.presentedIndex + 1;
@@ -113,6 +114,8 @@ class AppNavigator extends Component {
         return <AddReview navigator={navigator} />;
       case 'getLocation':
         return <GetLocation navigator={navigator} />;
+      case 'addDish':
+        return <AddDish navigator={navigator} />;
       default :
         return <Login navigator={navigator} />;
     }

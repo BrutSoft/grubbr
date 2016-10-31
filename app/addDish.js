@@ -8,7 +8,7 @@ import { setIndex } from './actions/list';
 import styles from './components/login/styles';
 
 const Item = Picker.Item;
-class AddReview extends Component {
+class AddDish extends Component {
 
   static propTypes = {
     openDrawer: React.PropTypes.func,
@@ -16,23 +16,25 @@ class AddReview extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+    restaurant: React.PropTypes.object,
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedItem: undefined,
-      selected: '3',
+      selectedTaste: '3',
+      selectedMenuType: '4',
       user_id: '1',
       review: undefined,
-      dish_id: 1,
       rating: 0,
+      restaurantID: this.props.restaurant.id,
+      dishName: undefined,
     };
   }
 
   onValueChange(value: string) {
     this.setState({
-      selected: value,
+      selectedTaste: value,
     });
   }
 
@@ -49,24 +51,27 @@ class AddReview extends Component {
     this.props.replaceRoute(route);
   }
 
-  submitReview() {
-    return fetch('https://grubbr-api.herokuapp.com/v1/ratings', {
+  submitDish() {
+    return fetch('https://grubbr-api.herokuapp.com/v1/newDish', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        dish_id: this.props.results.currentDish.dishID,
         user_id: this.state.user_id,
         rating: Number(this.state.rating),
+        dishName: this.state.dishName,
+        adjective_id: Number(this.state.selectedTaste),
         review: this.state.review,
-        adjective_id: Number(this.state.selected),
+        restaurandID: this.state.restaurandID,
+        menuType: this.state.selectedMenuType,
       }),
     });
   }
 
   render() {
+    console.log(this.props.results);
     return (
       <Container style={styles.bgColor}>
         <Header>
@@ -82,11 +87,16 @@ class AddReview extends Component {
         </Header>
 
         <Content>
-          <Title style={styles.title}>Add Review</Title>
+          <Title style={styles.title}>Add Dish</Title>
           <List style={styles.box}>
             <ListItem>
               <InputGroup backgroundColor={'#FFFAEE'} borderType="regular" >
-                <Input style={{ height: 200 }} multiline placeholder="Type your text" value={this.state.review} onChangeText={text => this.setState({ review: text })} />
+                <Input placeholder="Dish name" value={this.state.dishName} onChangeText={text => this.setState({ dishName: text })} />
+              </InputGroup>
+            </ListItem>
+            <ListItem>
+              <InputGroup backgroundColor={'#FFFAEE'} borderType="regular" >
+                <Input style={{ height: 200 }} multiline placeholder="Your review" value={this.state.review} onChangeText={text => this.setState({ review: text })} />
               </InputGroup>
             </ListItem>
             <ListItem>
@@ -100,7 +110,21 @@ class AddReview extends Component {
                 style={styles.center}
                 iosHeader="Select one"
                 mode="dropdown"
-                selectedValue={this.state.selected}
+                selectedValue={this.state.selectedMenuType}
+                onValueChange={this.onValueChange.bind(this)}
+              >
+                <Item label="Specialty Drinks" value="1" />
+                <Item label="Appetizers" value="2" />
+                <Item label="Soup/Salad/Side" value="3" />
+                <Item label="Entrees" value="4" />
+                <Item label="Desserts" value="5" />
+                <Item label="Misc" value="6" />
+              </Picker>
+              <Picker
+                style={styles.center}
+                iosHeader="Select one"
+                mode="dropdown"
+                selectedValue={this.state.selectedTaste}
                 onValueChange={this.onValueChange.bind(this)}
               >
                 <Item label="Spicy" value="1" />
@@ -117,8 +141,8 @@ class AddReview extends Component {
                 large
                 block
                 onPress={() => {
-                  this.submitReview();
-                  this.popRoute();
+                  this.submitDish();
+                  this.pushNewRoute('chooseFood');
                 }}
               >
               Submit
@@ -145,8 +169,8 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
-    results: state.search,
+    restaurant: state.search.currentRestaurant,
   };
 }
 
-export default connect(mapStateToProps, bindAction)(AddReview);
+export default connect(mapStateToProps, bindAction)(AddDish);

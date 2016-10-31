@@ -69,7 +69,6 @@ class RatedMenu extends Component {
   }
 
   render() {
-    console.log('RESTAURANT INFO', this.state.restaurantData);
     return (
       <Container style={styles.bgColor}>
         <Header>
@@ -85,6 +84,15 @@ class RatedMenu extends Component {
         </Header>
 
         <Content style={styles.padding}>
+          <Button
+            bordered
+            success
+            rounded
+            small
+            onPress={() => {
+              this.pushNewRoute('addDish');
+            }}
+          >Add dish</Button>
           <Title style={styles.title}>Rated Menu</Title>
           <List
             style={styles.padding}
