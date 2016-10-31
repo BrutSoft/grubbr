@@ -53,12 +53,9 @@ class Tender extends Component {
   getTenderData() {
     const that = this;
     fetch('https://grubbr-api.herokuapp.com/v1/tender')
-    .then(response => {
-      console.log('response', response)
-      return response.json()
-    })
+    .then(response => response.json()
+    )
     .then((responseJson) => {
-      console.log('responseJson', responseJson)
       that.setTenderData(responseJson.data);
       that.setState({
         loading: false,

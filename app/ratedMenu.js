@@ -55,27 +55,27 @@ class RatedMenu extends Component {
     });
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      search: null,
-      restaurantData: [],
-      menuTypeIsMounted: false,
-      menuItemIndex: 0,
-    };
-  }
-
-  componentWillMount() {
-    const restaurantID = this.state.search;
-    const that = this;
-    fetch(`https://grubbr-api.herokuapp.com/v1/ratedmenu/1`)
-    .then(response => response.json())
-    .then((responseJson) => {
-      that.setState({
-        restaurantData: responseJson.data[0],
-      });
-    });
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     search: null,
+  //     restaurantData: [],
+  //     menuTypeIsMounted: false,
+  //     menuItemIndex: 0,
+  //   };
+  // }
+  //
+  // componentWillMount() {
+  //   const restaurantID = this.state.search;
+  //   const that = this;
+  //   fetch(`https://grubbr-api.herokuapp.com/v1/ratedmenu/1`)
+  //   .then(response => response.json())
+  //   .then((responseJson) => {
+  //     that.setState({
+  //       restaurantData: responseJson.data[0],
+  //     });
+  //   });
+  // }
 
   replaceRoute(route) {
     this.props.replaceRoute(route);

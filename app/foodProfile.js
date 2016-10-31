@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Container, Content, ListItem, Title, Header, Icon, Button, Card, CardItem, Thumbnail, Text, List, Image } from 'native-base';
+import { Image } from 'react-native';
+import { Container, Content, ListItem, Title, Header, Icon, Button, Card, CardItem, Thumbnail, Text, List, View, Spinner } from 'native-base';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
+import { setCurrentDish } from './actions/search'
 import styles from './components/login/styles';
 
 const defaultImg = 'https://s-media-cache-ak0.pinimg.com/236x/33/04/e3/3304e35f47f81180e8c8b896b5d57332.jpg';
@@ -17,32 +19,51 @@ class FoodProfile extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
-    results: React.PropTypes.object,
+    setCurrentDish: React.PropTypes.func,
+    currentDish: React.PropTypes.object,
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      dish: [],
+      loading: true,
     };
   }
 
   componentWillMount() {
-    const dishID = this.props.results.currentDish.dishID;
+    this.getFoodProfile();
+  }
+
+  setCurrentDish(dish) {
+    this.props.setCurrentDish(dish)
+  }
+
+  getFoodProfile() {
+    const dishID = this.props.currentDish.dishID;
     const that = this;
+    console.log('bout to fetch')
     fetch(`https://grubbr-api.herokuapp.com/v1/score/${dishID}`)
-    .then(response => response.json())
+    .then(response => {
+      console.log('first response', response)
+      return response.json()
+    })
     .then((responseJson) => {
+      console.log('to json', responseJson)
+      that.setCurrentDish(responseJson.data[0]);
+      console.log('set dish')
       that.setState({
-        dish: responseJson.data[0],
-      });
+        loading: false,
+      })
+      console.log('loading false', that)
     })
     .catch(() => {
       that.setState({
-        dish: [],
-      });
+        loading: false,
+      })
+      console.log('error')
     });
   }
+
 
   replaceRoute(route) {
     this.props.replaceRoute(route);
@@ -58,7 +79,7 @@ class FoodProfile extends Component {
   }
 
   render() {
-    const dish = this.props.results.currentDish;
+    console.log(this)
     return (
       <Container style={styles.bgColor}>
         <Header>
@@ -73,30 +94,39 @@ class FoodProfile extends Component {
             <Icon name="ios-menu" />
           </Button>
         </Header>
-
+        { this.state.loading ?
+          <View>
+            <Spinner color="green" />
+          </View> :
         <Content style={styles.padding}>
           <Card style={styles.card}>
             <CardItem>
-              <Text>{this.state.dish.dishName}</Text>
-              <Text note>{this.state.dish.restaurant}</Text>
+              <Text>{this.props.currentDish.dishName}</Text>
+              <Text note>{this.props.currentDish.restaurant}</Text>
             </CardItem>
+            <CardItem cardBody>
+              <Image
+                source={{ uri: this.props.currentDish.images[0] || defaultImg }}
+              />
+            </CardItem>
+
             <ListItem>
-              <Text>Tastes {this.state.dish.adjective}</Text>
+              <Text>Tastes {this.props.currentDish.adjective}</Text>
               <Button transparent>
                 <Icon name="ios-thumbs-up" />
               </Button>
-              <Text>{this.state.dish.upvotes}</Text>
+              <Text>{this.props.currentDish.upvotes}</Text>
               <Button transparent>
                 <Icon name="ios-thumbs-down" />
               </Button>
-              <Text>{this.state.dish.downvotes}</Text>
+              <Text>{this.props.currentDish.downvotes}</Text>
               <Button transparent onPress={() => this.pushNewRoute('addReview')}>
                 <Icon name="ios-clipboard" />
                 <Text>Write review</Text>
               </Button>
             </ListItem>
             <List
-              dataArray={this.state.dish.reviews}
+              dataArray={this.props.currentDish.reviews}
               renderRow={review =>
                 <ListItem>
                   <Text style={{ width: 280 }} >{review.review}</Text>
@@ -106,7 +136,7 @@ class FoodProfile extends Component {
             />
           </Card>
         </Content>
-
+      }
       </Container>
     );
   }
@@ -119,6 +149,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
+    setCurrentDish: dish => dispatch(setCurrentDish(dish)),
   };
 }
 
@@ -126,7 +157,7 @@ function mapStateToProps(state) {
   return {
     name: state.user.name,
     list: state.list.list,
-    results: state.search,
+    currentDish: state.search.currentDish,
   };
 }
 
