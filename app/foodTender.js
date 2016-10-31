@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image } from 'react-native';
-import { Container, Content, DeckSwiper, Title, Header, Icon, Button, View, Card, CardItem, Thumbnail, Text, ListItem } from 'native-base';
+import { Container, Content, DeckSwiper, Title, Header, Icon, Button, View, Card, CardItem, Text, ListItem, Spinner } from 'native-base';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
-import { setCurrentDish, setTenderIndex } from './actions/search';
+import { setCurrentDish, setTenderIndex, setTenderData } from './actions/search';
 import styles from './components/login/styles';
 
 // TODO: I think we can do a fetch here before this component loads.  Currently it
@@ -24,8 +24,51 @@ class Tender extends Component {
     setIndex: React.PropTypes.func,
     setCurrentDish: React.PropTypes.func,
     setTenderIndex: React.PropTypes.func,
+    setTenderData: React.PropTypes.func,
     tenderData: React.PropTypes.array,
     tenderIndex: React.PropTypes.number,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      error: false,
+    }
+  }
+
+  componentWillMount() {
+    if (this.props.tenderData.length === 0) {
+      this.getTenderData();
+    } else {
+      this.setTenderIndex(0);
+      this.setState({
+        loading: false,
+      })
+    }
+  }
+
+  setTenderData(data) {
+    this.props.setTenderData(data);
+  }
+
+  getTenderData() {
+    const that = this;
+    fetch('https://grubbr-api.herokuapp.com/v1/tender')
+    .then(response => response.json()
+    )
+    .then((responseJson) => {
+      that.setTenderData(responseJson.data);
+      that.setTenderIndex(0);
+      that.setState({
+        loading: false,
+      })
+    })
+    .catch(() => {
+      that.setState({
+        error: true,
+      })
+    });
   }
 
   setCurrentDish(dish) {
@@ -67,9 +110,19 @@ class Tender extends Component {
         <Content>
           <View style={styles.padding}>
             <Title style={styles.title}>Tender</Title>
+            { this.state.loading ?
+              <View>
+                <Spinner color="green" />
+              </View> :
             <DeckSwiper
               dataSource={this.props.tenderData}
-              onSwipeLeft={() => this.setTenderIndex(this.props.tenderIndex + 1)}
+              onSwipeLeft={() => {
+                let nextIndex = this.props.tenderIndex + 1;
+                if (nextIndex >= this.props.tenderData.length) {
+                  nextIndex = 0;
+                }
+                this.setTenderIndex(nextIndex);
+              }}
               onSwipeRight={() => {
                 this.setCurrentDish(this.props.tenderData[this.props.tenderIndex]);
                 this.setTenderIndex(this.props.tenderIndex + 1);
@@ -93,6 +146,7 @@ class Tender extends Component {
                 </Card>
               }
             />
+        }
           </View>
         </Content>
 
@@ -110,6 +164,7 @@ function bindAction(dispatch) {
     popRoute: () => dispatch(popRoute()),
     setCurrentDish: dish => dispatch(setCurrentDish(dish)),
     setTenderIndex: index => dispatch(setTenderIndex(index)),
+    setTenderData: data => dispatch(setTenderData(data)),
   };
 }
 

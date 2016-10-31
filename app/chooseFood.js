@@ -58,7 +58,7 @@ class Choices extends Component {
                     this.pushNewRoute('bestInTown');
                   }}
                 >
-                    I know WHAT I want
+                  I know WHAT I want
                 </Button>
               </View>
             </Row>
