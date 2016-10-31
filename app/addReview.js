@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, Text, List, ListItem, Picker, View } from 'native-base';
-import CameraRoll from 'rn-cameral-roll';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
