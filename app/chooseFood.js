@@ -51,7 +51,6 @@ class Choices extends Component {
   }
 
   render() {
-    console.log(this)
     return (
       <Container style={styles.bgColor}>
         <Header>

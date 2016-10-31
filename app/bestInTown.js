@@ -27,8 +27,18 @@ class BestInTown extends Component {
   }
 
   componentDidMount() {
-    this.setLocation(location);
+    this.getLocation();
     this.search().done();
+  }
+
+  getLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setLocation(position);
+      },
+      error => alert(JSON.stringify(error)),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
   }
 
   setLocation(location) {
@@ -140,6 +150,7 @@ function bindAction(dispatch) {
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
     setCurrentDish: dish => dispatch(setCurrentDish(dish)),
+    setLocation: location => dispatch(setLocation(location)),
   };
 }
 function mapStateToProps(state) {

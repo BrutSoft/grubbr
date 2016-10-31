@@ -41,6 +41,7 @@ class Tender extends Component {
 
   componentWillMount() {
     if (this.props.tenderData.length === 0) {
+      this.getLocation();
       this.getTenderData();
     } else {
       this.setTenderIndex(0);
@@ -56,6 +57,16 @@ class Tender extends Component {
 
   setLocation(location) {
     this.props.setLocation(location);
+  }
+
+  getLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setLocation(position);
+      },
+      error => alert(JSON.stringify(error)),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
   }
 
   getTenderData() {

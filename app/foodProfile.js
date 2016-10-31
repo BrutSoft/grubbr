@@ -54,6 +54,7 @@ class FoodProfile extends Component {
     .catch(() => {
       that.setState({
         loading: false,
+        error: true,
       })
     });
   }
@@ -73,7 +74,6 @@ class FoodProfile extends Component {
   }
 
   render() {
-    console.log(this)
     return (
       <Container style={styles.bgColor}>
         <Header>
@@ -92,45 +92,45 @@ class FoodProfile extends Component {
           <View>
             <Spinner color="green" />
           </View> :
-        <Content style={styles.padding}>
-          <Card style={styles.card}>
-            <CardItem>
-              <Text>{this.props.currentDish.dishName}</Text>
-              <Text note>{this.props.currentDish.restaurant}</Text>
-            </CardItem>
-            <CardItem cardBody>
-              <Image
-                source={{ uri: this.props.currentDish.images[0] || defaultImg }}
-              />
-            </CardItem>
+          <Content style={styles.padding}>
+            <Card style={styles.card}>
+              <CardItem>
+                <Text>{this.props.currentDish.dishName}</Text>
+                <Text note>{this.props.currentDish.restaurant}</Text>
+              </CardItem>
+              <CardItem cardBody>
+                <Image
+                  source={{ uri: this.props.currentDish.images[0] || defaultImg }}
+                />
+              </CardItem>
 
-            <ListItem>
-              <Text>Tastes {this.props.currentDish.adjective}</Text>
-              <Button transparent>
-                <Icon name="ios-thumbs-up" />
-              </Button>
-              <Text>{this.props.currentDish.upvotes}</Text>
-              <Button transparent>
-                <Icon name="ios-thumbs-down" />
-              </Button>
-              <Text>{this.props.currentDish.downvotes}</Text>
-              <Button transparent onPress={() => this.pushNewRoute('addReview')}>
-                <Icon name="ios-clipboard" />
-                <Text>Write review</Text>
-              </Button>
-            </ListItem>
-            <List
-              dataArray={this.props.currentDish.reviews}
-              renderRow={review =>
-                <ListItem>
-                  <Text style={{ width: 280 }} >{review.review}</Text>
-                  <Thumbnail size={80} source={{ uri: review.image || defaultImg }} />
-                </ListItem>
-              }
-            />
-          </Card>
-        </Content>
-      }
+              <ListItem>
+                <Text>Tastes {this.props.currentDish.adjective}</Text>
+                <Button transparent>
+                  <Icon name="ios-thumbs-up" />
+                </Button>
+                <Text>{this.props.currentDish.upvotes}</Text>
+                <Button transparent>
+                  <Icon name="ios-thumbs-down" />
+                </Button>
+                <Text>{this.props.currentDish.downvotes}</Text>
+                <Button transparent onPress={() => this.pushNewRoute('addReview')}>
+                  <Icon name="ios-clipboard" />
+                  <Text>Write review</Text>
+                </Button>
+              </ListItem>
+              <List
+                dataArray={this.props.currentDish.reviews}
+                renderRow={review =>
+                  <ListItem>
+                    <Text style={{ width: 280 }} >{review.review}</Text>
+                    <Thumbnail size={80} source={{ uri: review.image || defaultImg }} />
+                  </ListItem>
+                }
+              />
+            </Card>
+          </Content>
+        }
       </Container>
     );
   }
