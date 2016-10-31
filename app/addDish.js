@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View } from 'native-base';
+import { CameraRoll } from 'react-native';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
@@ -29,6 +30,7 @@ class AddDish extends Component {
       rating: 0,
       restaurantID: this.props.restaurant.id,
       dishName: undefined,
+      image: [],
     };
   }
 
