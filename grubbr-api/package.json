@@ -1,0 +1,28 @@
+{
+  "name": "grubbr-api",
+  "version": "0.0.0",
+  "description": "grubbr-api",
+  "author": "BrutSoft",
+  "main": "cluster.js",
+  "engines": {
+    "node": "6.0.0"
+  },
+  "dependencies": {
+    "@google/maps": "^0.3.0",
+    "bluebird": "^3.4.6",
+    "cloudinary": "^1.4.4",
+    "nodal": "0.12.9",
+    "pg": "6.1.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "chai": "~3.5.0",
+    "mocha": "~2.4.5"
+  },
+  "scripts": {
+    "test": "mocha ./test/runner.js",
+    "start": "node cluster.js",
+    "worker": "node worker.js"
+  },
+  "private": true
+}
