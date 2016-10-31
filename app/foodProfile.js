@@ -27,6 +27,7 @@ class FoodProfile extends Component {
     super(props);
     this.state = {
       loading: true,
+      error: false,
     };
   }
 
@@ -41,26 +42,19 @@ class FoodProfile extends Component {
   getFoodProfile() {
     const dishID = this.props.currentDish.dishID;
     const that = this;
-    console.log('bout to fetch')
     fetch(`https://grubbr-api.herokuapp.com/v1/score/${dishID}`)
-    .then(response => {
-      console.log('first response', response)
-      return response.json()
-    })
+    .then(response => response.json()
+    )
     .then((responseJson) => {
-      console.log('to json', responseJson)
       that.setCurrentDish(responseJson.data[0]);
-      console.log('set dish')
       that.setState({
         loading: false,
       })
-      console.log('loading false', that)
     })
     .catch(() => {
       that.setState({
         loading: false,
       })
-      console.log('error')
     });
   }
 

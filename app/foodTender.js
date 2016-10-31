@@ -33,6 +33,7 @@ class Tender extends Component {
     super(props);
     this.state = {
       loading: true,
+      error: false,
     }
   }
 
@@ -62,7 +63,9 @@ class Tender extends Component {
       })
     })
     .catch(() => {
-      console.error('error recieving tender data')
+      that.setState({
+        error: true,
+      })
     });
   }
 
@@ -88,7 +91,6 @@ class Tender extends Component {
   }
 
   render() {
-    console.log(this)
     return (
       <Container style={styles.bgColor}>
         <Header>

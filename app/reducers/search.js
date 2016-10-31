@@ -22,7 +22,6 @@ const initialState = {
 
 export default function (state:State = initialState, action:Action): State {
   if (action.type === SET_CURRENT_DISH) {
-    console.log('in reducer')
     return {
       ...state,
       currentDish: action.payload,
