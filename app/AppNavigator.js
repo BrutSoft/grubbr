@@ -8,7 +8,6 @@ import { closeDrawer } from './actions/drawer';
 import { popRoute } from './actions/route';
 
 import Login from './login';
-import Main from './main';
 import SideBar from './components/sideBar';
 import { statusBarColor } from './themes/base-theme';
 
@@ -98,8 +97,6 @@ class AppNavigator extends Component {
     switch (route.id) {
       case 'login':
         return <Login navigator={navigator} />;
-      case 'main':
-        return <Main navigator={navigator} />;
       case 'choices':
         return <Choices navigator={navigator} />;
       case 'bestInTown':
