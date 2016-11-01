@@ -31,7 +31,7 @@ class AddDish extends Component {
       rating: 0,
       restaurantID: this.props.restaurant.id,
       dishName: null,
-      image: null,
+      image: [],
     };
   }
 
@@ -79,14 +79,14 @@ class AddDish extends Component {
           source = { uri: response.uri.replace('file://', ''), isStatic: true };
         }
         this.setState({
-          image: source,
+          image: response.data,
         });
       }
     });
   }
 
   submitDish() {
-    return fetch('https://grubbr-api.herokuapp.com/v1/newDish', {
+    return fetch('https://grubbr-api.herokuapp.com/v1/newdish', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -98,8 +98,9 @@ class AddDish extends Component {
         dishName: this.state.dishName,
         adjective_id: Number(this.state.selectedTaste),
         review: this.state.review,
-        restaurandID: this.state.restaurandID,
+        restaurantID: this.state.restaurantID,
         menuType: this.state.selectedMenuType,
+        image: `data:image/png;base64,${this.state.image}`,
       }),
     });
   }
@@ -175,11 +176,7 @@ class AddDish extends Component {
                 block
                 onPress={this.selectPhotoTapped.bind(this)}
               >
-                <View>
-                  {this.state.image === null ? <Text>Select a Photo</Text> :
-                    <Image source={this.state.image} />
-               }
-                </View>
+                Select a Photo
               </Button>
               <Button
                 style={styles.border}
