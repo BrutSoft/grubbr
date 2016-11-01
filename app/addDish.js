@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View } from 'native-base';
-import { CameraRoll } from 'react-native';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Text } from 'native-base';
+import { Platform, Image } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
@@ -26,11 +27,11 @@ class AddDish extends Component {
       selectedTaste: '3',
       selectedMenuType: '4',
       user_id: '1',
-      review: undefined,
+      review: null,
       rating: 0,
       restaurantID: this.props.restaurant.id,
-      dishName: undefined,
-      image: [],
+      dishName: null,
+      image: null,
     };
   }
 
@@ -53,6 +54,37 @@ class AddDish extends Component {
     this.props.replaceRoute(route);
   }
 
+  selectPhotoTapped() {
+    const options = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true,
+      },
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response', response);
+      if (response.didCancel) {
+        console.log('User canceled');
+      } else if (response.error) {
+        console.log('ImagePicker Error', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button', response.customButton);
+      } else {
+        let source;
+        if (Platform.OS === 'android') {
+          source = { uri: response.uri, isStatic: true };
+        } else {
+          source = { uri: response.uri.replace('file://', ''), isStatic: true };
+        }
+        this.setState({
+          image: source,
+        });
+      }
+    });
+  }
+
   submitDish() {
     return fetch('https://grubbr-api.herokuapp.com/v1/newDish', {
       method: 'POST',
@@ -73,7 +105,6 @@ class AddDish extends Component {
   }
 
   render() {
-    console.log(this.props.results);
     return (
       <Container style={styles.bgColor}>
         <Header>
@@ -138,6 +169,18 @@ class AddDish extends Component {
               </Picker>
             </ListItem>
             <View style={styles.padding}>
+              <Button
+                style={styles.border}
+                large
+                block
+                onPress={this.selectPhotoTapped.bind(this)}
+              >
+                <View>
+                  {this.state.image === null ? <Text>Select a Photo</Text> :
+                    <Image source={this.state.image} />
+               }
+                </View>
+              </Button>
               <Button
                 style={styles.border}
                 large
