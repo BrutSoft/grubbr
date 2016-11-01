@@ -172,7 +172,7 @@ class BestInTown extends Component {
             <Icon name="ios-thumbs-down" />
             <Text>{dish.downvotes}</Text>
           </CardItem>
-          )}
+        )}
       />
     );
   }
