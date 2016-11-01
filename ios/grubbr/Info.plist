@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Used to access photos of food</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Used to take photos of food</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -37,8 +33,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Used to take photos of food</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Used to find restaurants near you</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Used to access photos of food</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Andale Mono.ttf</string>
