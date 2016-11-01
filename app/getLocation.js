@@ -75,10 +75,11 @@ class GetLocation extends Component {
       searchedYet: true,
       error: false,
     });
-    // sorry, mom
     const that = this;
-    // First fetch to get dishes by query
-    return fetch(`https://grubbr-api.herokuapp.com/v1/restaurants?name__icontains=${this.state.query}`)
+    const latitude = this.props.location.coords.latitude;
+    const longitude = this.props.location.coords.longitude;
+    const url = `https://grubbr-api.herokuapp.com/v1/restaurants?latitude=${latitude}&longitude=${longitude}&name__icontains=${this.state.query}`;
+    return fetch(url)
     .then(response => response.json())
     .then((responseJson) => {
       if (responseJson.data.length === 0) {
@@ -132,7 +133,7 @@ class GetLocation extends Component {
       errorMessage = 'There was a problem connecting to our delicious servers! Please try again in a short while';
     } else if (this.state.errorType === 'noResults') {
       errorMessage = 'No results found :(';
-    } ekse uf (this.state.errorType === 'geo') {
+    } else if (this.state.errorType === 'geo') {
       errorMessage = 'Uh oh! There was a problem sending your location to the server!';
     }
     return (
