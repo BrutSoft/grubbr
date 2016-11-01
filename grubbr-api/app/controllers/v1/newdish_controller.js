@@ -19,32 +19,31 @@ class V1NewdishController extends Nodal.Controller {
   }
 
   post() {
-    console.log('logging params image', this.params.body.image);
-    cloudinary.uploader.upload(this.params.body.image,
-                           function(result) { console.log(result) });
-
-    const newDishFields = {
-      restaurant_id: this.params.body.restaurant_id,
-      name: this.params.body.name,
-      menu_type_id: this.params.body.menu_type_id,
-    };
-    Dish.create(newDishFields, (err, dishModel) => {
-      if (err) { this.respond(err); return; }
-      const newRatingField = {
-        dish_id: dishModel.get('id'),
-        user_id: this.params.body.user_id,
-        // image: this.params.body.image,
-        rating: this.params.body.rating,
-        review: this.params.body.rating,
-        adjective_id: this.params.body.adjective_id,
+    cloudinary.uploader.upload(this.params.body.image, function (result) {
+      const imageURL = result.secure_url ? result.secure_url : null;
+      const newDishFields = {
+        restaurant_id: this.params.body.restaurant_id,
+        name: this.params.body.name,
+        menu_type_id: this.params.body.menu_type_id,
       };
-      Rating.create(newRatingField, (err2, ratingModel) => {
-        this.respond(err2 || {
-          dishModel: dishModel.toObject(),
-          ratingModel: ratingModel.toObject(),
+      Dish.create(newDishFields, (err, dishModel) => {
+        if (err) { this.respond(err); return; }
+        const newRatingField = {
+          dish_id: dishModel.get('id'),
+          user_id: this.params.body.user_id,
+          image: imageURL,
+          rating: this.params.body.rating,
+          review: this.params.body.rating,
+          adjective_id: this.params.body.adjective_id,
+        };
+        Rating.create(newRatingField, (err2, ratingModel) => {
+          this.respond(err2 || {
+            dishModel: dishModel.toObject(),
+            ratingModel: ratingModel.toObject(),
+          });
         });
       });
-    });
+    }.bind(this));
   }
 
   put() {
