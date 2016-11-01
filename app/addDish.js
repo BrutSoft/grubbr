@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Text } from 'native-base';
 import { Platform, Image } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
+=======
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View } from 'native-base';
+>>>>>>> 3d02aef82fc6699c7c12da576ea4b7cd8c59c868
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
