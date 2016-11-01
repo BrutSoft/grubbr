@@ -29,7 +29,7 @@ class AddReview extends Component {
       review: undefined,
       dish_id: 1,
       rating: 0,
-      image: [],
+      image: undefined,
       displayImage: undefined,
     };
   }
