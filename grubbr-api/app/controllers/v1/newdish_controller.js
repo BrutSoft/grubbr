@@ -1,4 +1,12 @@
 const Nodal = require('nodal');
+const cloudinary = require('cloudinary');
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 
 const Dish = Nodal.require('app/models/dish.js');
 const Rating = Nodal.require('app/models/rating.js');
@@ -11,6 +19,10 @@ class V1NewdishController extends Nodal.Controller {
   }
 
   post() {
+    console.log('logging params image', this.params.body.image);
+    cloudinary.uploader.upload(this.params.body.image,
+                           function(result) { console.log(result) });
+
     const newDishFields = {
       restaurant_id: this.params.body.restaurant_id,
       name: this.params.body.name,
@@ -21,7 +33,7 @@ class V1NewdishController extends Nodal.Controller {
       const newRatingField = {
         dish_id: dishModel.get('id'),
         user_id: this.params.body.user_id,
-        image: this.params.body.image,
+        // image: this.params.body.image,
         rating: this.params.body.rating,
         review: this.params.body.rating,
         adjective_id: this.params.body.adjective_id,
