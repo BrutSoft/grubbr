@@ -96,4 +96,10 @@ module.exports = StyleSheet.create({
   card: {
     backgroundColor: '#EBDAC7',
   },
+  errorMessage: {
+    color: '#EBDAC7',
+    fontFamily: 'futura',
+    alignSelf: 'center',
+    padding: 20,
+  },
 });
