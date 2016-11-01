@@ -98,7 +98,7 @@ class AddDish extends Component {
         dishName: this.state.dishName,
         adjective_id: Number(this.state.selectedTaste),
         review: this.state.review,
-        restaurandID: this.state.restaurandID,
+        restaurandID: this.state.restaurantID,
         menuType: this.state.selectedMenuType,
         image: `data:image/png;base64,${this.state.image}`,
       }),
