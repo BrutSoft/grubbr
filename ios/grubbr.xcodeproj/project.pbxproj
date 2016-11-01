@@ -484,12 +484,9 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-<<<<<<< HEAD
+
 						DevelopmentTeam = M3Y8HUKG83;
 						ProvisioningStyle = Automatic;
-=======
-						DevelopmentTeam = V3V5MVQDR5;
->>>>>>> changes in xcode project
 					};
 				};
 			};
@@ -546,11 +543,9 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-<<<<<<< HEAD
+
 					ProductGroup = 6DB3C67D1DC819A500990BA8 /* Products */;
-=======
-					ProductGroup = BBCCEB191DC8E29700700AE0 /* Products */;
->>>>>>> changes in xcode project
+
 					ProjectRef = D0726B537A2648BBBD15CE3B /* RNImagePicker.xcodeproj */;
 				},
 				{
@@ -807,11 +802,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-<<<<<<< HEAD
+
 				DEVELOPMENT_TEAM = M3Y8HUKG83;
-=======
-				DEVELOPMENT_TEAM = V3V5MVQDR5;
->>>>>>> changes in xcode project
+
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -838,11 +831,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-<<<<<<< HEAD
+
 				DEVELOPMENT_TEAM = M3Y8HUKG83;
-=======
-				DEVELOPMENT_TEAM = V3V5MVQDR5;
->>>>>>> changes in xcode project
+
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
