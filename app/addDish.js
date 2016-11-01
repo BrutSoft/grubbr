@@ -105,6 +105,7 @@ class AddDish extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <Container style={styles.bgColor}>
         <Header>
