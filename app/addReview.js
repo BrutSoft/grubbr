@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, Text, List, ListItem, Picker, View } from 'native-base';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Grid, Row, Thumbnail } from 'native-base';
+import { Platform } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
@@ -27,6 +29,8 @@ class AddReview extends Component {
       review: undefined,
       dish_id: 1,
       rating: 0,
+      image: [],
+      displayImage: undefined,
     };
   }
 
@@ -49,6 +53,38 @@ class AddReview extends Component {
     this.props.replaceRoute(route);
   }
 
+  selectPhotoTapped() {
+    const options = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true,
+      },
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response', response);
+      if (response.didCancel) {
+        console.log('User canceled');
+      } else if (response.error) {
+        console.log('ImagePicker Error', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button', response.customButton);
+      } else {
+        let source;
+        if (Platform.OS === 'android') {
+          source = { uri: response.uri, isStatic: true };
+        } else {
+          source = { uri: response.uri.replace('file://', ''), isStatic: true };
+        }
+        this.setState({
+          image: response.data,
+          displayImage: source.uri,
+        });
+      }
+    });
+  }
+
   submitReview() {
     return fetch('https://grubbr-api.herokuapp.com/v1/ratings', {
       method: 'POST',
@@ -62,6 +98,7 @@ class AddReview extends Component {
         rating: Number(this.state.rating),
         review: this.state.review,
         adjective_id: Number(this.state.selected),
+        image: `data:image/png;base64,${this.state.image}`,
       }),
     });
   }
@@ -111,19 +148,36 @@ class AddReview extends Component {
                 <Item label="Full Bodied" value="6" />
               </Picker>
             </ListItem>
-            <View style={styles.padding}>
-              <Button
-                style={styles.border}
-                large
-                block
-                onPress={() => {
-                  this.submitReview();
-                  this.popRoute();
-                }}
-              >
+            <Thumbnail size={80} source={{ uri: this.state.displayImage }} />
+            <Grid style={styles.padding}>
+              <Row style={{ height: 100 }}>
+                <View>
+                  <Button
+                    style={styles.border}
+                    large
+                    block
+                    onPress={this.selectPhotoTapped.bind(this)}
+                  >
+                Select a Photo
+                  </Button>
+                </View>
+              </Row>
+              <Row style={{ height: 100 }}>
+                <View>
+                  <Button
+                    style={styles.border}
+                    large
+                    block
+                    onPress={() => {
+                      this.submitDish();
+                      this.pushNewRoute('chooseFood');
+                    }}
+                  >
               Submit
-              </Button>
-            </View>
+                  </Button>
+                </View>
+              </Row>
+            </Grid>
           </List>
         </Content>
       </Container>

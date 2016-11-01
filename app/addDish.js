@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Text } from 'native-base';
-import { Platform, Image } from 'react-native';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Row, Grid, Thumbnail } from 'native-base';
+import { Platform } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 import { openDrawer } from './actions/drawer';
@@ -80,6 +80,7 @@ class AddDish extends Component {
         }
         this.setState({
           image: response.data,
+          displayImage: source.uri,
         });
       }
     });
@@ -169,27 +170,36 @@ class AddDish extends Component {
                 <Item label="Full Bodied" value="6" />
               </Picker>
             </ListItem>
-            <View style={styles.padding}>
-              <Button
-                style={styles.border}
-                large
-                block
-                onPress={this.selectPhotoTapped.bind(this)}
-              >
+            <Thumbnail size={80} source={{ uri: this.state.displayImage }} />
+            <Grid style={styles.padding}>
+              <Row style={{ height: 100 }}>
+                <View>
+                  <Button
+                    style={styles.border}
+                    large
+                    block
+                    onPress={this.selectPhotoTapped.bind(this)}
+                  >
                 Select a Photo
-              </Button>
-              <Button
-                style={styles.border}
-                large
-                block
-                onPress={() => {
-                  this.submitDish();
-                  this.pushNewRoute('chooseFood');
-                }}
-              >
+                  </Button>
+                </View>
+              </Row>
+              <Row style={{ height: 100 }}>
+                <View>
+                  <Button
+                    style={styles.border}
+                    large
+                    block
+                    onPress={() => {
+                      this.submitDish();
+                      this.pushNewRoute('chooseFood');
+                    }}
+                  >
               Submit
-              </Button>
-            </View>
+                  </Button>
+                </View>
+              </Row>
+            </Grid>
           </List>
         </Content>
       </Container>
