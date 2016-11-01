@@ -4,7 +4,6 @@ const _ = require('underscore');
 const Ratings = Nodal.require('app/models/rating.js');
 
 class V1TenderController extends Nodal.Controller {
-
   get() {
     Ratings.query()
       .join('dish__restaurant')
