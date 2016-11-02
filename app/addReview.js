@@ -63,7 +63,6 @@ class AddReview extends Component {
       },
     };
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response', response);
       if (response.didCancel) {
         console.log('User canceled');
       } else if (response.error) {
@@ -169,7 +168,7 @@ class AddReview extends Component {
                     large
                     block
                     onPress={() => {
-                      this.submitDish();
+                      this.submitReview();
                       this.pushNewRoute('chooseFood');
                     }}
                   >
