@@ -1,4 +1,5 @@
 const Nodal = require('nodal');
+const cloudinary = require('cloudinary');
 
 const Rating = Nodal.require('app/models/rating.js');
 
@@ -35,9 +36,20 @@ class V1RatingsController extends Nodal.Controller {
   }
 
   create() {
-    Rating.create(this.params.body, (err, model) => {
-      this.respond(err || model);
-    });
+    cloudinary.uploader.upload(this.params.body.image, function (result) {
+      const imageURL = result.secure_url ? result.secure_url : null;
+      const newRatingFields = {
+        image: imageURL,
+        review: this.params.body.review,
+        rating: this.params.body.rating,
+        dish_id: this.params.body.dish_id,
+        user_id: this.params.body.user_id,
+        adjective_id: this.params.body.adjective_id,
+      };
+      Rating.create(newRatingFields, (err, model) => {
+        this.respond(err || model);
+      });
+    }.bind(this));
   }
 
   update() {
