@@ -38,6 +38,11 @@ class AddDish extends Component {
   onValueChange(value: string) {
     this.setState({
       selectedTaste: value,
+    });
+  }
+
+  onValueChange1(value: string) {
+    this.setState({
       selectedMenuType: value,
     });
   }
@@ -149,7 +154,7 @@ class AddDish extends Component {
                 iosHeader="Select one"
                 mode="dropdown"
                 selectedValue={this.state.selectedMenuType}
-                onValueChange={this.onValueChange.bind(this)}
+                onValueChange={this.onValueChange1.bind(this)}
               >
                 <Item label="Specialty Drinks" value="1" />
                 <Item label="Appetizers" value="2" />

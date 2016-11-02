@@ -22,7 +22,7 @@ class RatedMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      restaurantData: [],
+      restaurantData: undefined,
     };
   }
 
@@ -50,7 +50,7 @@ class RatedMenu extends Component {
     })
     .catch(() => {
       that.setState({
-        restaurantData: [],
+        restaurantData: undefined,
       });
     });
   }
