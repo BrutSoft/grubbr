@@ -10,11 +10,6 @@ import { setCurrentDish, setTenderIndex, setTenderData } from './actions/search'
 import { setLocation } from './actions/location';
 import styles from './components/login/styles';
 
-// TODO: I think we can do a fetch here before this component loads.  Currently it
-// grabs tenderData before the main.js component mounts and saves to redux state.
-// I think the previous error was caused because an anonymous function is needed
-// for onSwipeLeft or onSwipeRight.
-
 class Tender extends Component {
 
   static propTypes = {
@@ -29,6 +24,7 @@ class Tender extends Component {
     setLocation: React.PropTypes.func,
     tenderData: React.PropTypes.array,
     tenderIndex: React.PropTypes.number,
+    location: React.PropTypes.object,
   }
 
   constructor(props) {
@@ -36,18 +32,18 @@ class Tender extends Component {
     this.state = {
       loading: true,
       error: false,
-    }
+      errorType: null,
+    };
   }
 
   componentWillMount() {
     if (this.props.tenderData.length === 0) {
       this.getLocation();
-      this.getTenderData();
     } else {
       this.setTenderIndex(0);
       this.setState({
         loading: false,
-      })
+      });
     }
   }
 
@@ -63,15 +59,24 @@ class Tender extends Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setLocation(position);
+        this.getTenderData();
       },
-      error => alert(JSON.stringify(error)),
+      () => {
+        this.setState({
+          error: true,
+          errorType: 'geo',
+        });
+      },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
   }
 
   getTenderData() {
+    const latitude = this.props.location.coords.latitude;
+    const longitude = this.props.location.coords.longitude;
     const that = this;
-    fetch('https://grubbr-api.herokuapp.com/v1/tender')
+
+    fetch(`https://grubbr-api.herokuapp.com/v1/tender?latitude=${latitude}&longitude=${longitude}`)
     .then(response => response.json()
     )
     .then((responseJson) => {
@@ -79,12 +84,13 @@ class Tender extends Component {
       that.setTenderIndex(0);
       that.setState({
         loading: false,
-      })
+      });
     })
     .catch(() => {
       that.setState({
         error: true,
-      })
+        errorType: 'fetch',
+      });
     });
   }
 
@@ -109,7 +115,43 @@ class Tender extends Component {
     this.props.popRoute();
   }
 
+  renderError() {
+    let errorMessage;
+    if (this.state.errorType === 'geo') {
+      errorMessage = 'Uh oh! There was a problem sending your location to the server!';
+    } else if (this.state.errorType === 'fetch') {
+      errorMessage = 'There was a problem connecting to our delicious servers! Please try again in a short while';
+    }
+    return (
+      <Container style={styles.bgColor}>
+        <Header>
+          <Button transparent onPress={() => this.popRoute()}>
+            <Icon name="ios-arrow-back" />
+          </Button>
+
+          <Title>Grubbr</Title>
+
+          <Button transparent onPress={this.props.openDrawer}>
+            <Icon name="ios-menu" />
+          </Button>
+        </Header>
+
+        <Content>
+          <View style={styles.padding}>
+            <Title style={styles.title}>Tender</Title>
+            <View>
+              <Text style={styles.errorMessage}>{errorMessage}</Text>
+            </View>
+          </View>
+        </Content>
+      </Container>
+    )
+  }
+
   render() {
+    if (this.state.error) {
+      return this.renderError();
+    }
     return (
       <Container style={styles.bgColor}>
         <Header>

@@ -27,17 +27,18 @@ class AddDish extends Component {
       selectedTaste: '3',
       selectedMenuType: '4',
       user_id: '1',
-      review: null,
+      review: undefined,
       rating: 0,
       restaurantID: this.props.restaurant.id,
-      dishName: null,
-      image: [],
+      dishName: undefined,
+      image: undefined,
     };
   }
 
   onValueChange(value: string) {
     this.setState({
       selectedTaste: value,
+      selectedMenuType: value,
     });
   }
 
@@ -64,7 +65,6 @@ class AddDish extends Component {
       },
     };
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response', response);
       if (response.didCancel) {
         console.log('User canceled');
       } else if (response.error) {
@@ -87,7 +87,7 @@ class AddDish extends Component {
   }
 
   submitDish() {
-    return fetch('https://grubbr-api.herokuapp.com/v1/newdish', {
+    const options = {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -96,14 +96,17 @@ class AddDish extends Component {
       body: JSON.stringify({
         user_id: this.state.user_id,
         rating: Number(this.state.rating),
-        dishName: this.state.dishName,
+        name: this.state.dishName,
         adjective_id: Number(this.state.selectedTaste),
         review: this.state.review,
-        restaurantID: this.state.restaurantID,
-        menuType: this.state.selectedMenuType,
+        restaurant_id: this.state.restaurantID,
+        menu_type_id: this.state.selectedMenuType,
         image: `data:image/png;base64,${this.state.image}`,
-      }),
-    });
+      })
+    }
+    return fetch('https://grubbr-api.herokuapp.com/v1/newdish', options)
+    .then(response => response.json())
+    .then(responseJson => console.log(responseJson));
   }
 
   render() {
