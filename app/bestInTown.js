@@ -30,7 +30,7 @@ class BestInTown extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getLocation();
   }
 
@@ -40,10 +40,12 @@ class BestInTown extends Component {
         this.setLocation(position);
       },
       () => {
-        this.setState({
-          error: true,
-          errorType: 'geo',
-        });
+        if (this.state.loading) {
+          this.setState({
+            error: true,
+            errorType: 'geo',
+          });
+        }
       },
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
@@ -78,8 +80,8 @@ class BestInTown extends Component {
       searchedYet: true,
     });
     const that = this;
-    const latitude = this.props.location.coords.latitude;
-    const longitude = this.props.location.coords.longitude;
+    const latitude = this.props.location.coords.latitude || null;
+    const longitude = this.props.location.coords.longitude || null;
     const url = `https://grubbr-api.herokuapp.com/v1/search?latitude=${latitude}&longitude=${longitude}&dish__name__icontains=${this.state.query}`;
     return fetch(url)
     .then(response => response.json())

@@ -172,7 +172,6 @@ class GetLocation extends Component {
   }
 
   render() {
-    console.log(this)
     if (this.state.error) {
       return this.renderError();
     }
