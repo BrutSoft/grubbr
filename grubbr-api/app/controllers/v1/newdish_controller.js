@@ -33,7 +33,7 @@ class V1NewdishController extends Nodal.Controller {
           user_id: this.params.body.user_id,
           image: imageURL,
           rating: this.params.body.rating,
-          review: this.params.body.rating,
+          review: this.params.body.review,
           adjective_id: this.params.body.adjective_id,
         };
         Rating.create(newRatingField, (err2, ratingModel) => {
