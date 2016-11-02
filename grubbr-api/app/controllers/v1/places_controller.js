@@ -16,7 +16,7 @@ class V1PlacesController extends Nodal.Controller {
       // opennow: true,
       type: 'restaurant',
     }, (err, results) => {
-      this.respond(results.json.results.map(model => model.name));
+      this.respond(results);
     });
   }
 
