@@ -6,7 +6,6 @@ const googleMapsClient = require('@google/maps').createClient({
 class V1PlacesController extends Nodal.Controller {
 
   get() {
-    console.log(this.params);
     const thisLat = this.params.query.latitude;
     console.log(thisLat);
     const thisLong = this.params.query.longitude;
@@ -19,10 +18,11 @@ class V1PlacesController extends Nodal.Controller {
     //     this.respond(response);
     //   }
     // });
-    googleMapsClient.places({
+    googleMapsClient.placesNearby({
       language: 'en',
       location: [thisLat, thisLong],
-      radius: 5000,
+      // radius: 16000,
+      rankby: 'distance',
       // minprice: 1,
       // maxprice: 4,
       // opennow: true,
