@@ -32,7 +32,7 @@ class AddDish extends Component {
       restaurantID: this.props.restaurant.id,
       dishName: undefined,
       image: undefined,
-      response: undefined,
+      responseImage: undefined,
       text: undefined,
     };
   }
@@ -113,17 +113,14 @@ class AddDish extends Component {
     };
     return fetch('https://grubbr-api.herokuapp.com/v1/newdish', options)
     .then(response => response.json())
-    .then(responseJson => this.setState({ response: responseJson.data[0] }));
+    .then(responseJson =>
+      this.setState({ responseImage: responseJson.data[0].ratingModel.image }));
   }
 
   showShareActionSheet = () => {
     ActionSheetIOS.showShareActionSheetWithOptions({
-      image: this.state.response.ratingModel.image,
-      subject: this.state.dishName,
+      url: this.state.responseImage,
       message: this.state.review,
-      excludeActivityTypes: [
-        'com.apple.UIKit.activity.PostToTwitter',
-      ],
     },
     error => alert(error),
     (success, method) => {
@@ -138,6 +135,7 @@ class AddDish extends Component {
   };
 
   render() {
+    console.log()
     return (
       <Container style={styles.bgColor}>
         <Header>
