@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Row, Grid, Thumbnail } from 'native-base';
-import { Platform } from 'react-native';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Row, Grid, Thumbnail, Text } from 'native-base';
+import { Platform, ActionSheetIOS } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 import { openDrawer } from './actions/drawer';
@@ -32,6 +32,8 @@ class AddDish extends Component {
       restaurantID: this.props.restaurant.id,
       dishName: undefined,
       image: undefined,
+      response: undefined,
+      text: undefined,
     };
   }
 
@@ -107,12 +109,33 @@ class AddDish extends Component {
         restaurant_id: this.state.restaurantID,
         menu_type_id: this.state.selectedMenuType,
         image: `data:image/png;base64,${this.state.image}`,
-      })
-    }
+      }),
+    };
     return fetch('https://grubbr-api.herokuapp.com/v1/newdish', options)
     .then(response => response.json())
-    .then(responseJson => console.log(responseJson));
+    .then(responseJson => this.setState({ response: responseJson.data[0] }));
   }
+
+  showShareActionSheet = () => {
+    ActionSheetIOS.showShareActionSheetWithOptions({
+      image: this.state.response.ratingModel.image,
+      subject: this.state.dishName,
+      message: this.state.review,
+      excludeActivityTypes: [
+        'com.apple.UIKit.activity.PostToTwitter',
+      ],
+    },
+    error => alert(error),
+    (success, method) => {
+      let text;
+      if (success) {
+        text = `Shared via ${method}`;
+      } else {
+        text = 'You didn\'t share';
+      }
+      this.setState({ text });
+    });
+  };
 
   render() {
     return (
@@ -200,11 +223,21 @@ class AddDish extends Component {
                     block
                     onPress={() => {
                       this.submitDish();
-                      this.pushNewRoute('chooseFood');
                     }}
                   >
               Submit
                   </Button>
+                  <Button
+                    style={styles.border}
+                    large
+                    block
+                    onPress={() => {
+                      this.showShareActionSheet();
+                    }}
+                  >
+              Share
+                  </Button>
+                  <Text>{this.state.text}</Text>
                 </View>
               </Row>
             </Grid>
