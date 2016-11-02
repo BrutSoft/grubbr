@@ -27,17 +27,18 @@ class AddDish extends Component {
       selectedTaste: '3',
       selectedMenuType: '4',
       user_id: '1',
-      review: null,
+      review: undefined,
       rating: 0,
       restaurantID: this.props.restaurant.id,
-      dishName: null,
-      image: [],
+      dishName: undefined,
+      image: undefined,
     };
   }
 
   onValueChange(value: string) {
     this.setState({
       selectedTaste: value,
+      selectedMenuType: value,
     });
   }
 
