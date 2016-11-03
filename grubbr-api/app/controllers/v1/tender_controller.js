@@ -23,6 +23,15 @@ class V1TenderController extends Nodal.Controller {
 
     placesSearch(searchOptions).bind(this).then((places) => {
       // create an array of query constructors
+      const placesInfo = places.json.results.reduce((summary, place) => {
+        const newSummary = summary;
+        newSummary[place.place_id] = {
+          place_id: place.place_id,
+          address: place.vicinity,
+          name: place.name,
+        };
+        return summary;
+      }, {});
       const placesIds = places.json.results.map((place) => {
         // return the place id in query ready form.
         return { dish__restaurant_id: place.place_id };
@@ -48,7 +57,10 @@ class V1TenderController extends Nodal.Controller {
               dishInfo[dishID].score = 0;
               dishInfo[dishID].images = [];
               dishInfo[dishID].restaurantID = rating.joined('dish').get('restaurant_id');
-              dishInfo[dishID].restaurantName = 'to be replaced';
+              dishInfo[dishID].restaurantName =
+                placesInfo[dishInfo[dishID].restaurantID].name;
+              dishInfo[dishID].restaurantAddress =
+                placesInfo[dishInfo[dishID].restaurantID].address;
             }
             // do all the things that are normally done now.
             if (rating.get('rating') === 1) {
