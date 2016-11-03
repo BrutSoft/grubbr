@@ -9,6 +9,7 @@ import { setUser } from './actions/user';
 import { setIndex } from './actions/list';
 
 import styles from './components/login/styles';
+import { iosClientId, webClientId } from '../clientId.config'
 
 const background = require('./img/background2.png');
 
@@ -50,10 +51,9 @@ class Login extends Component {
     try {
       await GoogleSignin.hasPlayServices({ autoResolve: true });
       await GoogleSignin.configure({
-        // scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-        iosClientId: '643134965705-upe81se7scqfv274e6gamf2ovcj60k8m.apps.googleusercontent.com',
-        webClientId: '643134965705-upe81se7scqfv274e6gamf2ovcj60k8m.apps.googleusercontent.com',
-        offlineAccess: false
+        iosClientId,
+        webClientId,
+        offlineAccess: false,
       });
 
       const user = await GoogleSignin.currentUserAsync();
