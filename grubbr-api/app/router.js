@@ -45,7 +45,6 @@ const V1RatedmenuController = Nodal.require('app/controllers/v1/ratedmenu_contro
 const V1SearchController = Nodal.require('app/controllers/v1/search_controller.js');
 const V1PlacesController = Nodal.require('app/controllers/v1/places_controller.js');
 const V1NewdishController = Nodal.require('app/controllers/v1/newdish_controller.js');
-const V1RestaurantsController = Nodal.require('app/controllers/v1/restaurants_controller.js');
 
 /* generator: end imports */
 
