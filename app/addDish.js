@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Row, Grid, Thumbnail, Text } from 'native-base';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Row, Grid, Thumbnail } from 'native-base';
 import { Platform, ActionSheetIOS } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
@@ -186,9 +186,14 @@ class AddDish extends Component {
   renderPicture() {
     if (this.state.picturePicked) {
       return (
-        <Thumbnail size={80} source={{ uri: this.state.displayImage }} />
+        <ListItem>
+          <Thumbnail style={{ width: 300, height: 100 }} alignSelf={'center'} source={{ uri: this.state.displayImage }} />
+        </ListItem>
       );
     }
+    return (
+      <List />
+    );
   }
 
   render() {
