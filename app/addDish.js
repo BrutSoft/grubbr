@@ -36,6 +36,7 @@ class AddDish extends Component {
       responseReview: undefined,
       responseDish: undefined,
       submited: false,
+      picturePicked: false,
     };
   }
 
@@ -182,6 +183,14 @@ class AddDish extends Component {
     }
   }
 
+  renderPicture() {
+    if (this.state.picturePicked) {
+      return (
+        <Thumbnail size={80} source={{ uri: this.state.displayImage }} />
+      );
+    }
+  }
+
   render() {
     return (
       <Container style={styles.bgColor}>
@@ -246,7 +255,7 @@ class AddDish extends Component {
                 <Item label="Full Bodied" value="6" />
               </Picker>
             </ListItem>
-            <Thumbnail size={80} source={{ uri: this.state.displayImage }} />
+            {this.renderPicture()}
             <Grid style={styles.padding}>
               <Row style={{ height: 100 }}>
                 <View>
@@ -254,7 +263,12 @@ class AddDish extends Component {
                     style={styles.border}
                     large
                     block
-                    onPress={this.selectPhotoTapped.bind(this)}
+                    onPress={() => {
+                      this.selectPhotoTapped();
+                      this.setState({
+                        picturePicked: true,
+                      });
+                    }}
                   >
                 Select a Photo
                   </Button>
