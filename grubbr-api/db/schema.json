@@ -23,7 +23,7 @@
 
       "columns": [
         {"name": "id", "type": "serial", "properties": {"nullable":false,"primary_key":true,"auto_increment":true}},
-        {"name": "restaurant_id", "type": "int", "properties": {}},
+        {"name": "restaurant_id", "type": "string", "properties": {}},
         {"name": "name", "type": "string", "properties": {}},
         {"name": "menu_type_id", "type": "int", "properties": {}},
         {"name": "created_at", "type": "datetime", "properties": {}},
