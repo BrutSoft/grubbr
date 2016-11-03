@@ -82,7 +82,7 @@ class V1TenderController extends Nodal.Controller {
             dishInfoRand.push(temp.splice(randDish, 1)[0]);
           }
           // send that array back in response.
-          this.respond(dishInfoRand);
+          this.respond(dishInfoRand.slice(0, 20));
         });
     });
   }
