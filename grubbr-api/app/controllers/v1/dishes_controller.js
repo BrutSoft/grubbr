@@ -5,7 +5,8 @@ const Dish = Nodal.require('app/models/dish.js');
 const defaultResponse = [
   'ratingScore',
   'id',
-  { restaurant: ['name', 'id'] },
+  // { restaurant: ['name', 'id'] },
+  'restaurant_id',
   'name',
   { menuType: ['memo'] },
   'created_at',
