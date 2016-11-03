@@ -23,7 +23,7 @@ module.exports = StyleSheet.create({
   bg: {
     flex: 1,
     marginTop: deviceHeight / 1.75,
-    paddingTop: 140,
+    paddingTop: 100,
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 30,

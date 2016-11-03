@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Content, List, ListItem, Title, Header, Icon, Button, Card, Text } from 'native-base';
-import { openDrawer } from './actions/drawer';
+
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setCurrentDish, setCurrentRestaurant } from './actions/search';
 import { setIndex } from './actions/list';
+
 import styles from './components/login/styles';
 
 class RatedMenu extends Component {
@@ -71,18 +72,6 @@ class RatedMenu extends Component {
   render() {
     return (
       <Container style={styles.bgColor}>
-        <Header>
-          <Button transparent onPress={() => this.popRoute()}>
-            <Icon name="ios-arrow-back" />
-          </Button>
-
-          <Title>Grubbr</Title>
-
-          <Button transparent onPress={this.props.openDrawer}>
-            <Icon name="ios-menu" />
-          </Button>
-        </Header>
-
         <Content style={styles.padding}>
           <Button
             bordered
@@ -125,7 +114,6 @@ class RatedMenu extends Component {
 
 function bindAction(dispatch) {
   return {
-    openDrawer: () => dispatch(openDrawer()),
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
@@ -137,8 +125,7 @@ function bindAction(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    name: state.user.name,
-    list: state.list.list,
+    user: state.user.user,
     currentRestaurant: state.search.currentRestaurant,
   };
 }

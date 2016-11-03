@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Image } from 'react-native';
 import { Container, Content, ListItem, Title, Header, Icon, Button, Card, CardItem, Thumbnail, Text, List, View, Spinner } from 'native-base';
 
-import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 import { setCurrentDish } from './actions/search'
@@ -14,7 +13,6 @@ const defaultImg = 'https://s-media-cache-ak0.pinimg.com/236x/33/04/e3/3304e35f4
 class FoodProfile extends Component {
 
   static propTypes = {
-    openDrawer: React.PropTypes.func,
     replaceRoute: React.PropTypes.func,
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
@@ -76,18 +74,6 @@ class FoodProfile extends Component {
   render() {
     return (
       <Container style={styles.bgColor}>
-        <Header>
-
-          <Button transparent onPress={() => this.popRoute()}>
-            <Icon name="ios-arrow-back" />
-          </Button>
-
-          <Title>Grubbr</Title>
-
-          <Button transparent onPress={this.props.openDrawer}>
-            <Icon name="ios-menu" />
-          </Button>
-        </Header>
         { this.state.loading ?
           <View>
             <Spinner color="green" />
@@ -138,7 +124,6 @@ class FoodProfile extends Component {
 
 function bindAction(dispatch) {
   return {
-    openDrawer: () => dispatch(openDrawer()),
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
@@ -149,8 +134,7 @@ function bindAction(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    name: state.user.name,
-    list: state.list.list,
+    user: state.user.user,
     currentDish: state.search.currentDish,
   };
 }
