@@ -22,19 +22,12 @@ class Login extends Component {
     setIndex: React.PropTypes.func,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: undefined,
-    };
-  }
-
   componentDidMount() {
     this._setupGoogleSignin();
   }
 
-  setUser(name) {
-    this.props.setUser(name);
+  setUser(user) {
+    this.props.setUser(user);
   }
 
   replaceRoute(route) {
@@ -68,7 +61,7 @@ class Login extends Component {
     GoogleSignin.signIn()
     .then((user) => {
       console.log(user);
-      this.setState({ user });
+      this.setUser(user);
       this.pushNewRoute('choices');
     })
     .catch((err) => {
