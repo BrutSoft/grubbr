@@ -18,7 +18,7 @@ class V1RestaurantsController extends Nodal.Controller {
       rankby: 'distance',
       // opennow: true,
       type: 'restaurant',
-    }
+    };
 
     if (thisLat && thisLong) { searchOptions.location = [thisLat, thisLong]; }
     if (this.params.query.name) { searchOptions.name = this.params.query.name; }
@@ -26,7 +26,15 @@ class V1RestaurantsController extends Nodal.Controller {
     placesSearch(searchOptions).bind(this)
     .catch((err) => { this.respond(err); })
     .then((places) => {
-      this.respond(places);
+      const placesData = places.json.results.map((place) => {
+        const placeData = {
+          id: place.place_id,
+          name: place.name,
+          address: place.vicinity,
+        };
+        return placeData;
+      });
+      this.respond(placesData);
     });
   }
 
