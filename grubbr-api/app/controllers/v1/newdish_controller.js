@@ -40,6 +40,12 @@ class V1NewdishController extends Nodal.Controller {
           this.respond(err2 || {
             dishModel: dishModel.toObject(),
             ratingModel: ratingModel.toObject(),
+            results: {
+              dishID: dishModel.get('id'),
+              dishName: dishModel.get('name'),
+              image: ratingModel.get('image'),
+              review: ratingModel.get('review'),
+            },
           });
         });
       });
