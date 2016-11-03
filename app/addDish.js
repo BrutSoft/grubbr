@@ -33,7 +33,9 @@ class AddDish extends Component {
       dishName: undefined,
       image: undefined,
       responseImage: undefined,
-      text: undefined,
+      responseReview: undefined,
+      responseDish: undefined,
+      submited: false,
     };
   }
 
@@ -114,28 +116,73 @@ class AddDish extends Component {
     return fetch('https://grubbr-api.herokuapp.com/v1/newdish', options)
     .then(response => response.json())
     .then(responseJson =>
-      this.setState({ responseImage: responseJson.data[0].ratingModel.image }));
+      this.setState({
+        responseImage: responseJson.data[0].ratingModel.image,
+        responseDish: responseJson.data[0].dishModel.name,
+        responseReview: responseJson.data[0].ratingModel.review,
+      }));
   }
 
-  showShareActionSheet = () => {
+  showShareActionSheet() {
     ActionSheetIOS.showShareActionSheetWithOptions({
       url: this.state.responseImage,
-      message: this.state.review,
+      subject: `My review on Grubbr about ${this.state.responseDish}`,
+      message: this.state.responseReview,
     },
     error => alert(error),
-    (success, method) => {
-      let text;
+    (success) => {
       if (success) {
-        text = `Shared via ${method}`;
+        console.log('Shared');
       } else {
-        text = 'You didn\'t share';
+        console.log("Didn't share");
       }
-      this.setState({ text });
     });
-  };
+  }
+
+  renderButton() {
+    if (!this.state.submitted) {
+      return (
+        <Row style={{ height: 100 }}>
+          <View>
+            <Button
+              style={styles.border}
+              large
+              block
+              onPress={() => {
+                this.submitDish();
+                this.setState({
+                  submitted: true,
+                  review: undefined,
+                  dishName: undefined,
+                });
+              }}
+            >
+    Submit
+            </Button>
+          </View>
+        </Row>
+      );
+    } else {
+      return (
+        <Row style={{ height: 100 }}>
+          <View>
+            <Button
+              style={styles.border}
+              large
+              block
+              onPress={() => {
+                this.showShareActionSheet();
+              }}
+            >
+    Share
+            </Button>
+          </View>
+        </Row>
+      );
+    }
+  }
 
   render() {
-    console.log()
     return (
       <Container style={styles.bgColor}>
         <Header>
@@ -215,27 +262,7 @@ class AddDish extends Component {
               </Row>
               <Row style={{ height: 100 }}>
                 <View>
-                  <Button
-                    style={styles.border}
-                    large
-                    block
-                    onPress={() => {
-                      this.submitDish();
-                    }}
-                  >
-              Submit
-                  </Button>
-                  <Button
-                    style={styles.border}
-                    large
-                    block
-                    onPress={() => {
-                      this.showShareActionSheet();
-                    }}
-                  >
-              Share
-                  </Button>
-                  <Text>{this.state.text}</Text>
+                  {this.renderButton()}
                 </View>
               </Row>
             </Grid>
