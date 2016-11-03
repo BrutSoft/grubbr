@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Text, Spinner } from 'native-base';
-
+import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setCurrentRestaurant } from './actions/search';
 import { setIndex } from './actions/list';
 import { setLocation } from './actions/location';
-
 import styles from './components/login/styles';
 
 class GetLocation extends Component {
   static propTypes = {
+    openDrawer: React.PropTypes.func,
     replaceRoute: React.PropTypes.func,
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
@@ -138,6 +138,16 @@ class GetLocation extends Component {
     }
     return (
       <Container style={styles.bgColor}>
+        <Header>
+          <Button transparent onPress={() => this.popRoute()}>
+            <Icon name="ios-arrow-back" />
+          </Button>
+          <Title>Grubbr</Title>
+          <Button transparent onPress={this.props.openDrawer}>
+            <Icon name="ios-menu" />
+          </Button>
+        </Header>
+
         <Content style={styles.padding}>
           <Title style={styles.title}>Search Restaurants</Title>
           <InputGroup
@@ -167,6 +177,16 @@ class GetLocation extends Component {
     }
     return (
       <Container style={styles.bgColor}>
+        <Header>
+          <Button transparent onPress={() => this.popRoute()}>
+            <Icon name="ios-arrow-back" />
+          </Button>
+          <Title>Grubbr</Title>
+          <Button transparent onPress={this.props.openDrawer}>
+            <Icon name="ios-menu" />
+          </Button>
+        </Header>
+
         <Content style={styles.padding}>
           <Title style={styles.title}>Search Restaurants</Title>
           <InputGroup
@@ -196,6 +216,7 @@ class GetLocation extends Component {
 
 function bindAction(dispatch) {
   return {
+    openDrawer: () => dispatch(openDrawer()),
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
@@ -206,7 +227,8 @@ function bindAction(dispatch) {
 }
 function mapStateToProps(state) {
   return {
-    user: state.user.user,
+    name: state.user.name,
+    list: state.list.list,
     results: state.search,
     location: state.location.location,
   };

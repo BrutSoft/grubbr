@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Image } from 'react-native';
 import { Container, Content, DeckSwiper, Title, Header, Icon, Button, View, Card, CardItem, Text, ListItem, Spinner } from 'native-base';
 
+import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 import { setCurrentDish, setTenderIndex, setTenderData } from './actions/search';
@@ -12,6 +13,7 @@ import styles from './components/login/styles';
 class Tender extends Component {
 
   static propTypes = {
+    openDrawer: React.PropTypes.func,
     replaceRoute: React.PropTypes.func,
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
@@ -122,6 +124,18 @@ class Tender extends Component {
     }
     return (
       <Container style={styles.bgColor}>
+        <Header>
+          <Button transparent onPress={() => this.popRoute()}>
+            <Icon name="ios-arrow-back" />
+          </Button>
+
+          <Title>Grubbr</Title>
+
+          <Button transparent onPress={this.props.openDrawer}>
+            <Icon name="ios-menu" />
+          </Button>
+        </Header>
+
         <Content>
           <View style={styles.padding}>
             <Title style={styles.title}>Tender</Title>
@@ -140,6 +154,18 @@ class Tender extends Component {
     }
     return (
       <Container style={styles.bgColor}>
+        <Header>
+          <Button transparent onPress={() => this.popRoute()}>
+            <Icon name="ios-arrow-back" />
+          </Button>
+
+          <Title>Grubbr</Title>
+
+          <Button transparent onPress={this.props.openDrawer}>
+            <Icon name="ios-menu" />
+          </Button>
+        </Header>
+
         <Content>
           <View style={styles.padding}>
             <Title style={styles.title}>Tender</Title>
@@ -190,6 +216,7 @@ class Tender extends Component {
 
 function bindAction(dispatch) {
   return {
+    openDrawer: () => dispatch(openDrawer()),
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
@@ -203,7 +230,8 @@ function bindAction(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    user: state.user.user,
+    name: state.user.name,
+    list: state.list.list,
     tenderData: state.search.tenderData,
     tenderIndex: state.search.tenderIndex,
     location: state.location.location,

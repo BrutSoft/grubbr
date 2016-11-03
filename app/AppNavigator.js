@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react';
-import { BackAndroid, StatusBar, Navigator } from 'react-native';
+import { BackAndroid, Platform, StatusBar, Navigator } from 'react-native';
 import { connect } from 'react-redux';
-import { Drawer, Header, Button, Icon, Title } from 'native-base';
+import { Drawer } from 'native-base';
 
-import { closeDrawer, openDrawer } from './actions/drawer';
+import { closeDrawer } from './actions/drawer';
 import { popRoute } from './actions/route';
 
 import Login from './login';
@@ -68,6 +68,7 @@ class AppNavigator extends Component {
   }
 
   componentDidUpdate() {
+    // console.log(this.props.routes, 'wdwdwd');
     if (this.props.drawerState === 'opened') {
       this.openDrawer();
     }
@@ -130,17 +131,6 @@ class AppNavigator extends Component {
         panCloseMask={0.2}
         negotiatePan
       >
-        <Header>
-          <Button transparent onPress={() => this.popRoute()}>
-          <Icon name="ios-arrow-back" />
-          </Button>
-
-          <Title>Grubbr</Title>
-
-          <Button transparent onPress={this.props.openDrawer}>
-            <Icon name="ios-menu" />
-          </Button>
-        </Header>
         <StatusBar
           backgroundColor={statusBarColor}
           barStyle="default"
@@ -151,7 +141,7 @@ class AppNavigator extends Component {
           }}
           configureScene={() => Navigator.SceneConfigs.FloatFromRight}
           initialRoute={{
-            id: 'login',
+            id: (Platform.OS === 'android') ? 'splashscreen' : 'login',
             statusBarHidden: true,
           }}
           renderScene={this.renderScene}
@@ -164,7 +154,6 @@ class AppNavigator extends Component {
 const bindAction = dispatch => ({
   closeDrawer: () => dispatch(closeDrawer()),
   popRoute: () => dispatch(popRoute()),
-  openDrawer: () => dispatch(openDrawer()),
 });
 
 const mapStateToProps = state => ({

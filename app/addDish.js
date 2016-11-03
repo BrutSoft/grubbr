@@ -4,6 +4,7 @@ import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, Lis
 import { Platform, ActionSheetIOS } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
+import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
 import { setCurrentDish } from './actions/search';
@@ -13,6 +14,7 @@ const Item = Picker.Item;
 class AddDish extends Component {
 
   static propTypes = {
+    openDrawer: React.PropTypes.func,
     replaceRoute: React.PropTypes.func,
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
@@ -222,6 +224,18 @@ class AddDish extends Component {
   render() {
     return (
       <Container style={styles.bgColor}>
+        <Header>
+          <Button transparent onPress={() => this.popRoute()}>
+            <Icon name="ios-arrow-back" />
+          </Button>
+
+          <Title>Grubbr</Title>
+
+          <Button transparent onPress={this.props.openDrawer}>
+            <Icon name="ios-menu" />
+          </Button>
+        </Header>
+
         <Content>
           <Title style={styles.title}>Add Dish</Title>
           <List style={styles.box}>
@@ -306,6 +320,7 @@ class AddDish extends Component {
 
 function bindAction(dispatch) {
   return {
+    openDrawer: () => dispatch(openDrawer()),
     replaceRoute: route => dispatch(replaceRoute(route)),
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
@@ -316,7 +331,8 @@ function bindAction(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    user: state.user.user,
+    name: state.user.name,
+    list: state.list.list,
     restaurant: state.search.currentRestaurant,
   };
 }
