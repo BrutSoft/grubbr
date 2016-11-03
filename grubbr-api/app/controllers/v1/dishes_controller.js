@@ -17,7 +17,6 @@ class V1DishesController extends Nodal.Controller {
   index() {
     Dish.query()
       .join('menuType')
-      .join('restaurant')
       .where(this.params.query)
       .end((err, models) => {
         this.respond(err || models, defaultResponse);
