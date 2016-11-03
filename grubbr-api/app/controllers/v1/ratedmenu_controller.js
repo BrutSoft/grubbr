@@ -9,14 +9,10 @@ class V1RatedmenuController extends Nodal.Controller {
     // this.respond({message: `GET request to ${this.constructor.name}`});
     const restaurantID = this.params.route.id;
     Ratings.query()
-      .join('dish__restaurant')
       .join('dish__menuType')
-      .where({ dish__restaurant__id: restaurantID })
+      .where({ dish__restaurant_id: restaurantID })
       .end((err, models) => {
         if (err) { this.respond(err); }
-        // make restaurant info.
-        const restaurantName = models[0].joined('dish')
-          .joined('restaurant').get('name');
         // compile menu with scores
         let menuItems = {};
         models.forEach((rating) => {
@@ -50,10 +46,6 @@ class V1RatedmenuController extends Nodal.Controller {
           return b.score - a.score;
         });
         const response = {
-          restaurantInfo: {
-            name: restaurantName,
-            id: restaurantID,
-          },
           menuItems,
         };
         this.respond(response);
