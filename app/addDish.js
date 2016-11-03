@@ -144,8 +144,7 @@ class AddDish extends Component {
   showShareActionSheet() {
     ActionSheetIOS.showShareActionSheetWithOptions({
       url: this.state.responseImage,
-      subject: `My review on Grubbr about ${this.state.responseDish}`,
-      message: this.state.responseReview,
+      message: `My review on Grubbr about ${this.state.responseDish}: ${this.state.responseReview}`,
     },
     error => alert(error),
     (success) => {
