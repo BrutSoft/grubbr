@@ -32,8 +32,10 @@ class AddDish extends Component {
       restaurantID: this.props.restaurant.id,
       dishName: undefined,
       image: undefined,
-      response: undefined,
-      text: undefined,
+      responseImage: undefined,
+      responseReview: undefined,
+      responseDish: undefined,
+      submited: false,
     };
   }
 
@@ -113,29 +115,72 @@ class AddDish extends Component {
     };
     return fetch('https://grubbr-api.herokuapp.com/v1/newdish', options)
     .then(response => response.json())
-    .then(responseJson => this.setState({ response: responseJson.data[0] }));
+    .then(responseJson =>
+      this.setState({
+        responseImage: responseJson.data[0].ratingModel.image,
+        responseDish: responseJson.data[0].dishModel.name,
+        responseReview: responseJson.data[0].ratingModel.review,
+      }));
   }
 
-  showShareActionSheet = () => {
+  showShareActionSheet() {
     ActionSheetIOS.showShareActionSheetWithOptions({
-      image: this.state.response.ratingModel.image,
-      subject: this.state.dishName,
-      message: this.state.review,
-      excludeActivityTypes: [
-        'com.apple.UIKit.activity.PostToTwitter',
-      ],
+      url: this.state.responseImage,
+      subject: `My review on Grubbr about ${this.state.responseDish}`,
+      message: this.state.responseReview,
     },
     error => alert(error),
-    (success, method) => {
-      let text;
+    (success) => {
       if (success) {
-        text = `Shared via ${method}`;
+        console.log('Shared');
       } else {
-        text = 'You didn\'t share';
+        console.log("Didn't share");
       }
-      this.setState({ text });
     });
-  };
+  }
+
+  renderButton() {
+    if (!this.state.submitted) {
+      return (
+        <Row style={{ height: 100 }}>
+          <View>
+            <Button
+              style={styles.border}
+              large
+              block
+              onPress={() => {
+                this.submitDish();
+                this.setState({
+                  submitted: true,
+                  review: undefined,
+                  dishName: undefined,
+                });
+              }}
+            >
+    Submit
+            </Button>
+          </View>
+        </Row>
+      );
+    } else {
+      return (
+        <Row style={{ height: 100 }}>
+          <View>
+            <Button
+              style={styles.border}
+              large
+              block
+              onPress={() => {
+                this.showShareActionSheet();
+              }}
+            >
+    Share
+            </Button>
+          </View>
+        </Row>
+      );
+    }
+  }
 
   render() {
     return (
@@ -217,27 +262,7 @@ class AddDish extends Component {
               </Row>
               <Row style={{ height: 100 }}>
                 <View>
-                  <Button
-                    style={styles.border}
-                    large
-                    block
-                    onPress={() => {
-                      this.submitDish();
-                    }}
-                  >
-              Submit
-                  </Button>
-                  <Button
-                    style={styles.border}
-                    large
-                    block
-                    onPress={() => {
-                      this.showShareActionSheet();
-                    }}
-                  >
-              Share
-                  </Button>
-                  <Text>{this.state.text}</Text>
+                  {this.renderButton()}
                 </View>
               </Row>
             </Grid>
