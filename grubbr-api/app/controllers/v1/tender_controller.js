@@ -22,9 +22,13 @@ class V1TenderController extends Nodal.Controller {
     };
 
     placesSearch(searchOptions).bind(this).then((places) => {
-      this.respond(places);
+      // create an array of query constructors
+      const placesIds = places.json.results.map((place) => {
+        return { dish__restaurant_id: place.id };
+      });
       Ratings.query()
         .join('dish__menuType')
+        .where(placesIds)
         .end((err, models) => {
           let dishInfo = {};
           // consolidate all info from ratings and dishes into one object
