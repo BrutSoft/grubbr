@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, InputGroup, Input, Button, Icon, View } from 'native-base';
-import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
+import { GoogleSignin } from 'react-native-google-signin';
 
 import { replaceRoute, pushNewRoute } from './actions/route';
 import { setUser } from './actions/user';
@@ -70,16 +70,10 @@ class Login extends Component {
     .then((user) => {
       console.log(user);
       this.setState({user: user});
+      this.pushNewRoute('choices')
     })
     .catch((err) => {
       console.log('WRONG SIGNIN', err);
-    })
-    .done();
-  }
-
-  _signOut() {
-    GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
-      this.setState({user: null});
     })
     .done();
   }
@@ -92,27 +86,16 @@ class Login extends Component {
           <Content>
             <Image source={background} style={styles.shadow}>
               <View style={styles.bg}>
-                <InputGroup style={styles.input}>
-                  <Icon name="ios-person" />
-                  <Input placeholder="EMAIL" onChangeText={name => this.setState({ name })} />
-                </InputGroup>
-                <InputGroup style={styles.input}>
-                  <Icon name="ios-unlock-outline" />
-                  <Input
-                    placeholder="PASSWORD"
-                    secureTextEntry
-                  />
-                </InputGroup>
-                <GoogleSigninButton
-                  style={{ width: 48, height: 48 }}
-                  size={GoogleSigninButton.Size.Icon}
-                  color={GoogleSigninButton.Color.Dark}
-                  onPress={this._signIn.bind(this)}
-                />
-                <TouchableOpacity onPress={() => { this._signOut(); }}>
-                  <View style={{ marginTop: 50 }}>
-                    <Text>Log out</Text>
-                  </View>
+                <TouchableOpacity>
+                  <Button
+                    large
+                    style={styles.border}
+                    block
+                    onPress={() => this._signIn()}
+                  >
+                    <Text>Sign in with Google</Text>
+                    <Icon name="logo-google" />
+                  </Button>
                 </TouchableOpacity>
               </View>
             </Image>

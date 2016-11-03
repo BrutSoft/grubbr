@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Content, Text, List, ListItem } from 'native-base';
+import { GoogleSignin } from 'react-native-google-signin';
 
 import { setIndex } from '../../actions/list';
 import { closeDrawer } from '../../actions/drawer';
@@ -23,6 +24,13 @@ class SideBar extends Component {
     this.props.replaceOrPushRoute(route);
   }
 
+  _signOut() {
+    GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
+      this.setState({user: null});
+    })
+    .done();
+  }
+
   render() {
     return (
       <Content theme={myTheme} style={styles.sidebar} >
@@ -38,6 +46,13 @@ class SideBar extends Component {
           </ListItem>
           <ListItem button onPress={() => this.navigateTo('addReview')} >
             <Text>Add Review</Text>
+          </ListItem>
+          <ListItem button onPress={() => {
+            this._signOut();
+            this.navigateTo('login');
+          }}
+          >
+            <Text>Sign Out</Text>
           </ListItem>
         </List>
       </Content>
