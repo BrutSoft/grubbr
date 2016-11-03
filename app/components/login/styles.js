@@ -23,7 +23,7 @@ module.exports = StyleSheet.create({
   bg: {
     flex: 1,
     marginTop: deviceHeight / 1.75,
-    paddingTop: 20,
+    paddingTop: 140,
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 30,
@@ -95,6 +95,10 @@ module.exports = StyleSheet.create({
   },
   card: {
     backgroundColor: '#EBDAC7',
+  },
+  tenderCard: {
+    backgroundColor: '#EBDAC7',
+    elevation: 5,
   },
   errorMessage: {
     color: '#EBDAC7',

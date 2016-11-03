@@ -188,7 +188,7 @@ class Tender extends Component {
                 this.pushNewRoute('foodProfile');
               }}
               renderItem={dish =>
-                <Card style={styles.card}>
+                <Card style={styles.tenderCard}>
                   <ListItem>
                     <Text>{dish.dishName}</Text>
                     <Text note>{dish.restaurantName}</Text>
