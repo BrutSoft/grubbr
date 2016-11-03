@@ -6,20 +6,13 @@ const googleMapsClient = require('@google/maps').createClient({
 class V1PlacesController extends Nodal.Controller {
 
   get() {
-    // this.respond({ message: `GET request to ${this.constructor.name}` });
-    // googleMapsClient.geocode({
-    //   address: '1600 Amphitheatre Parkway, Mountain View, CA',
-    // }, (err, response) => {
-    //   if (!err) {
-    //     this.respond(response);
-    //   }
-    // });
-    googleMapsClient.places({
+    const thisLat = this.params.query.latitude;
+    const thisLong = this.params.query.longitude;
+    googleMapsClient.placesNearby({
       language: 'en',
-      location: [29.9511, -90.0715],
-      // radius: 5000,
-      // minprice: 1,
-      // maxprice: 4,
+      location: [thisLat, thisLong],
+      // radius: 16000,
+      rankby: 'distance',
       // opennow: true,
       type: 'restaurant',
     }, (err, results) => {

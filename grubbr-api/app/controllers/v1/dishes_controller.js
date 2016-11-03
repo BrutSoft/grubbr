@@ -5,7 +5,8 @@ const Dish = Nodal.require('app/models/dish.js');
 const defaultResponse = [
   'ratingScore',
   'id',
-  { restaurant: ['name', 'id'] },
+  // { restaurant: ['name', 'id'] },
+  'restaurant_id',
   'name',
   { menuType: ['memo'] },
   'created_at',
@@ -16,7 +17,6 @@ class V1DishesController extends Nodal.Controller {
   index() {
     Dish.query()
       .join('menuType')
-      .join('restaurant')
       .where(this.params.query)
       .end((err, models) => {
         this.respond(err || models, defaultResponse);
