@@ -3,18 +3,18 @@ import type { Action } from '../actions/types';
 import { SET_USER } from '../actions/user';
 
 export type State = {
-    name: string
+    user: Object
 }
 
 const initialState = {
-  name: '',
+  user: {},
 };
 
 export default function (state:State = initialState, action:Action): State {
   if (action.type === SET_USER) {
     return {
       ...state,
-      name: action.payload,
+      user: action.payload,
     };
   }
   return state;

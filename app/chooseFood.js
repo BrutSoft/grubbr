@@ -128,7 +128,7 @@ function bindAction(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    name: state.user.name,
+    user: state.user.user,
     list: state.list.list,
     location: state.location.location,
   };
