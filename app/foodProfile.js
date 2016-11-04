@@ -96,7 +96,7 @@ class FoodProfile extends Component {
             <Card style={styles.card}>
               <CardItem>
                 <Text>{this.props.currentDish.dishName}</Text>
-                <Text note>{this.props.currentDish.restaurant}</Text>
+                <Text note style={styles.restaurantTitle}>{this.props.currentDish.restaurant}</Text>
               </CardItem>
               <CardItem cardBody>
                 <Image

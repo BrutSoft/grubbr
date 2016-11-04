@@ -173,38 +173,45 @@ class Tender extends Component {
               <View>
                 <Spinner color="green" />
               </View> :
-            <DeckSwiper
-              dataSource={this.props.tenderData}
-              onSwipeLeft={() => {
-                let nextIndex = this.props.tenderIndex + 1;
-                if (nextIndex >= this.props.tenderData.length) {
-                  nextIndex = 0;
-                }
-                this.setTenderIndex(nextIndex);
-              }}
-              onSwipeRight={() => {
-                this.setCurrentDish(this.props.tenderData[this.props.tenderIndex]);
-                this.setTenderIndex(this.props.tenderIndex + 1);
-                this.pushNewRoute('foodProfile');
-              }}
-              renderItem={dish =>
-                <Card style={styles.tenderCard}>
-                  <ListItem>
-                    <Text>{dish.dishName}</Text>
-                    <Text note>{dish.restaurantName}</Text>
-                  </ListItem>
-                  <CardItem>
-                    <Image size={80} source={{ uri: dish.images[0] }} />
-                  </CardItem>
-                  <CardItem>
-                    <Icon name="ios-thumbs-up" />
-                    <Text>{dish.upvotes}</Text>
-                    <Icon name="ios-thumbs-down" />
-                    <Text>{dish.downvotes}</Text>
-                  </CardItem>
-                </Card>
+                <DeckSwiper
+                  dataSource={this.props.tenderData}
+                  onSwipeLeft={() => {
+                    let nextIndex = this.props.tenderIndex + 1;
+                    if (nextIndex >= this.props.tenderData.length) {
+                      nextIndex = 0;
+                    }
+                    this.setTenderIndex(nextIndex);
+                  }}
+                  onSwipeRight={() => {
+                    this.setCurrentDish(this.props.tenderData[this.props.tenderIndex]);
+                    this.setTenderIndex(this.props.tenderIndex + 1);
+                    this.pushNewRoute('foodProfile');
+                  }}
+                  renderItem={dish =>
+                    <Card style={styles.tenderCard}>
+                      <ListItem>
+                        <Text>{dish.dishName}</Text>
+                        <Text note style={styles.restaurantTitle}>{dish.restaurantName}</Text>
+                      </ListItem>
+                      <CardItem>
+                        <Image size={80} source={{ uri: dish.images[0] }} />
+                      </CardItem>
+                      <CardItem>
+                        <CardItem>
+                          <Icon name="ios-arrow-dropleft-circle" />
+                          <Text>Ew!</Text>
+                        </CardItem>
+                        <CardItem>
+                          <Icon name="ios-thumbs-up" />
+                          <Text>{dish.upvotes}</Text>
+                        </CardItem>
+                        <Text>adjective{dish.adjective}</Text>
+                        <Text>Yummy!</Text>
+                        <Icon name="ios-arrow-dropright-circle" />
+                      </CardItem>
+                    </Card>
               }
-            />
+                />
         }
           </View>
         </Content>

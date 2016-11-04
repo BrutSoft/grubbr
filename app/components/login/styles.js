@@ -95,6 +95,8 @@ module.exports = StyleSheet.create({
   },
   card: {
     backgroundColor: '#EBDAC7',
+    borderWidth: 1,
+    borderBottomColor: '#32393D',
   },
   tenderCard: {
     backgroundColor: '#EBDAC7',
@@ -105,5 +107,11 @@ module.exports = StyleSheet.create({
     fontFamily: 'futura',
     alignSelf: 'center',
     padding: 20,
+  },
+  address: {
+    fontSize: 10,
+  },
+  restaurantTitle: {
+    color: 'black',
   },
 });
