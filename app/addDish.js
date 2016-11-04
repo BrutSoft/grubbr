@@ -5,8 +5,9 @@ import { Platform, ActionSheetIOS } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 import { openDrawer } from './actions/drawer';
-import { replaceRoute, popRoute, pushNewRoute, setCurrentDish } from './actions/route';
+import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
+import { setCurrentDish } from './actions/search';
 import styles from './components/login/styles';
 
 const Item = Picker.Item;
