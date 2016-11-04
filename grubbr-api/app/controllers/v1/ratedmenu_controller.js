@@ -36,13 +36,14 @@ class V1RatedmenuController extends Nodal.Controller {
         menuItems = _.map(menuItems, item => item);
         // sort said array, first by menu position then score.
         menuItems = menuItems.sort((a, b) => {
-          if (a.menuTypeID < b.menuTypeID) {
-            return -1;
-          }
-          if (a.menuTypeID > b.menuTypeID) {
-            return 1;
-          }
-          // they are the same menu type
+          // This would sort by menu type
+          // if (a.menuTypeID < b.menuTypeID) {
+          //   return -1;
+          // }
+          // if (a.menuTypeID > b.menuTypeID) {
+          //   return 1;
+          // }
+          // // they are the same menu type
           return b.score - a.score;
         });
         const response = {
