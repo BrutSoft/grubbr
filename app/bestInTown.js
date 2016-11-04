@@ -157,10 +157,11 @@ class BestInTown extends Component {
     }
     return (
       <Card
-        style={styles.card}
         dataArray={this.state.dishes}
         renderRow={dish => (
           <CardItem
+            cardbody
+            style={styles.card}
             button
             onPress={() => {
               this.setCurrentDish(dish);
@@ -169,10 +170,10 @@ class BestInTown extends Component {
           >
             <Thumbnail size={80} source={{ uri: dish.images[0] }} />
             <Text>{dish.dishName}</Text>
-            <Icon name="ios-thumbs-up" />
-            <Text>{dish.upvotes}</Text>
-            <Icon name="ios-thumbs-down" />
-            <Text>{dish.downvotes}</Text>
+            <CardItem>
+              <Icon name="ios-thumbs-up" />
+              <Text>{dish.upvotes}</Text>
+            </CardItem>
           </CardItem>
         )}
       />
