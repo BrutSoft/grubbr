@@ -191,7 +191,7 @@ class Tender extends Component {
                 <Card style={styles.tenderCard}>
                   <ListItem>
                     <Text>{dish.dishName}</Text>
-                    <Text note>{dish.restaurantName}</Text>
+                    <Text note style={styles.restaurantTitle}>{dish.restaurantName}</Text>
                   </ListItem>
                   <CardItem>
                     <Image size={80} source={{ uri: dish.images[0] }} />

@@ -111,4 +111,7 @@ module.exports = StyleSheet.create({
   address: {
     fontSize: 10,
   },
+  restaurantTitle: {
+    color: 'black',
+  },
 });
