@@ -109,10 +109,11 @@ class GetLocation extends Component {
     }
     return (
       <Card
-        style={styles.card}
         dataArray={this.state.restaurants}
         renderRow={restaurant => (
           <CardItem
+            cardbody
+            style={styles.card}
             button
             onPress={() => {
               this.setCurrentRestaurant(restaurant);
@@ -120,7 +121,7 @@ class GetLocation extends Component {
             }}
           >
             <Text>{restaurant.name}</Text>
-            <Text>{restaurant.address}</Text>
+            <Text style={styles.address}>{restaurant.address}</Text>
           </CardItem>
         )}
       />
