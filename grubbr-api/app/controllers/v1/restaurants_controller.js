@@ -1,59 +1,58 @@
-'use strict';
-
 const Nodal = require('nodal');
-const Restaurant = Nodal.require('app/models/restaurant.js');
+const Promise = require('bluebird');
+const googleMapsClient = require('@google/maps').createClient({
+  key: process.env.GOOGLEPLACES_API,
+});
+
+const placesSearch = Promise.promisify(googleMapsClient.placesNearby);
 
 class V1RestaurantsController extends Nodal.Controller {
 
-  index() {
+  get() {
+    const thisLat = this.params.query.latitude;
+    const thisLong = this.params.query.longitude;
 
-    Restaurant.query()
-      .where(this.params.query)
-      .end((err, models) => {
+    const searchOptions = {
+      language: 'en',
+      // radius: 16000,
+      rankby: 'distance',
+      // opennow: true,
+      type: 'restaurant',
+    };
 
-        this.respond(err || models);
+    if (thisLat && thisLong) { searchOptions.location = [thisLat, thisLong]; }
+    if (this.params.query.name) { searchOptions.name = this.params.query.name; }
 
+    placesSearch(searchOptions).bind(this)
+    .catch((err) => { this.respond(err); })
+    .then((places) => {
+      const placesData = places.json.results.map((place) => {
+        const placeData = {
+          id: place.place_id,
+          name: place.name,
+          address: place.vicinity,
+        };
+        return placeData;
       });
+      this.respond(placesData);
+    });
+  }
+
+  post() {
+
+    this.badRequest();
 
   }
 
-  show() {
+  put() {
 
-    Restaurant.find(this.params.route.id, (err, model) => {
-
-      this.respond(err || model);
-
-    });
+    this.badRequest();
 
   }
 
-  create() {
+  del() {
 
-    Restaurant.create(this.params.body, (err, model) => {
-
-      this.respond(err || model);
-
-    });
-
-  }
-
-  update() {
-
-    Restaurant.update(this.params.route.id, this.params.body, (err, model) => {
-
-      this.respond(err || model);
-
-    });
-
-  }
-
-  destroy() {
-
-    Restaurant.destroy(this.params.route.id, (err, model) => {
-
-      this.respond(err || model);
-
-    });
+    this.badRequest();
 
   }
 

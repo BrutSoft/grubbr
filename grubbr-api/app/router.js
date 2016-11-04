@@ -67,6 +67,7 @@ router.route('/v1/ratedmenu/{id}').use(V1RatedmenuController);
 router.route('/v1/search/{id}').use(V1SearchController);
 router.route('/v1/places/{id}').use(V1PlacesController);
 router.route('/v1/newdish/{id}').use(V1NewdishController);
+router.route('/v1/restaurants/{id}').use(V1RestaurantsController);
 
 /* generator: end routes */
 
