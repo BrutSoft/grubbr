@@ -98,30 +98,34 @@ class AddReview extends Component {
 
   submitReview() {
     if (this.state.reviewSet && this.state.pictureSet) {
-      const options = {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          dish_id: this.props.results.currentDish.dishID,
-          user_id: this.state.user_id,
-          rating: Number(this.state.rating),
-          review: this.state.review,
-          adjective_id: Number(this.state.selected),
-          image: `data:image/png;base64,${this.state.image}`,
-        }),
-      };
-      return fetch('https://grubbr-api.herokuapp.com/v1/ratings', options)
-    .then(response => response.json())
-    .then(responseJson =>
-      this.setState({
-        responseImage: responseJson.data[0].image,
-        responseReview: responseJson.data[0].review,
-        submitted: true,
-        review: undefined,
-      }));
+      if (this.state.review.length > 140) {
+        alert('What a mouthful! Please keep your review under 140 characters.')
+      } else {
+        const options = {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            dish_id: this.props.results.currentDish.dishID,
+            user_id: this.state.user_id,
+            rating: Number(this.state.rating),
+            review: this.state.review,
+            adjective_id: Number(this.state.selected),
+            image: `data:image/png;base64,${this.state.image}`,
+          }),
+        };
+        return fetch('https://grubbr-api.herokuapp.com/v1/ratings', options)
+      .then(response => response.json())
+      .then(responseJson =>
+        this.setState({
+          responseImage: responseJson.data[0].image,
+          responseReview: responseJson.data[0].review,
+          submitted: true,
+          review: undefined,
+        }));
+      }
     } else {
       alert('All fields are required');
     }
@@ -222,11 +226,11 @@ class AddReview extends Component {
         </Header>
 
         <Content>
-          <Title style={styles.title}>Add Review</Title>
+          <Title style={styles.title}>Add a Review</Title>
           <List style={styles.box}>
             <ListItem>
               <InputGroup backgroundColor={'#FFFAEE'} borderType="regular" >
-                <Input style={{ height: 200 }} multiline placeholder="Type your text" value={this.state.review} onChangeText={text => this.setState({ review: text, reviewSet: true })} />
+                <Input style={{ height: 100 }} multiline placeholder="Leave your review here!" value={this.state.review} onChangeText={text => this.setState({ review: text, reviewSet: true })} />
               </InputGroup>
             </ListItem>
             <ListItem>
