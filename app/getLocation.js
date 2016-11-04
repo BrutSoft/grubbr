@@ -78,7 +78,7 @@ class GetLocation extends Component {
     const that = this;
     const latitude = this.props.location.coords.latitude;
     const longitude = this.props.location.coords.longitude;
-    const url = `https://grubbr-api.herokuapp.com/v1/restaurants?latitude=${latitude}&longitude=${longitude}&name__icontains=${this.state.query}`;
+    const url = `https://grubbr-api.herokuapp.com/v1/restaurants?latitude=${latitude}&longitude=${longitude}&name=${this.state.query}`;
     return fetch(url)
     .then(response => response.json())
     .then((responseJson) => {
@@ -120,7 +120,7 @@ class GetLocation extends Component {
             }}
           >
             <Text>{restaurant.name}</Text>
-            <Text>ADDRESS</Text>
+            <Text>{restaurant.address}</Text>
           </CardItem>
         )}
       />

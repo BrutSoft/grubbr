@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Row, Grid, Thumbnail, Text } from 'native-base';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Row, Grid, Thumbnail } from 'native-base';
 import { Platform, ActionSheetIOS } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
+import { setCurrentDish } from './actions/search';
 import styles from './components/login/styles';
 
 const Item = Picker.Item;
@@ -19,6 +20,7 @@ class AddDish extends Component {
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
     restaurant: React.PropTypes.object,
+    setCurrentDish: React.PropTypes.func,
   }
 
   constructor(props) {
@@ -36,6 +38,11 @@ class AddDish extends Component {
       responseReview: undefined,
       responseDish: undefined,
       submited: false,
+      picturePicked: false,
+      dishNameSet: false,
+      reviewSet: false,
+      pictureSet: false,
+      dish: undefined,
     };
   }
 
@@ -49,6 +56,10 @@ class AddDish extends Component {
     this.setState({
       selectedMenuType: value,
     });
+  }
+
+  setCurrentDish(dish) {
+    this.props.setCurrentDish(dish);
   }
 
   pushNewRoute(route, index) {
@@ -96,38 +107,45 @@ class AddDish extends Component {
   }
 
   submitDish() {
-    const options = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: this.state.user_id,
-        rating: Number(this.state.rating),
-        name: this.state.dishName,
-        adjective_id: Number(this.state.selectedTaste),
-        review: this.state.review,
-        restaurant_id: this.state.restaurantID,
-        menu_type_id: this.state.selectedMenuType,
-        image: `data:image/png;base64,${this.state.image}`,
-      }),
-    };
-    return fetch('https://grubbr-api.herokuapp.com/v1/newdish', options)
+    if (this.state.dishNameSet && this.state.reviewSet && this.state.pictureSet) {
+      const options = {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: this.state.user_id,
+          rating: Number(this.state.rating),
+          name: this.state.dishName,
+          adjective_id: Number(this.state.selectedTaste),
+          review: this.state.review,
+          restaurant_id: this.state.restaurantID,
+          menu_type_id: this.state.selectedMenuType,
+          image: `data:image/png;base64,${this.state.image}`,
+        }),
+      };
+      return fetch('https://grubbr-api.herokuapp.com/v1/newdish', options)
     .then(response => response.json())
     .then(responseJson =>
       this.setState({
-        responseImage: responseJson.data[0].ratingModel.image,
-        responseDish: responseJson.data[0].dishModel.name,
-        responseReview: responseJson.data[0].ratingModel.review,
+        responseImage: responseJson.data[0].results.image,
+        responseDish: responseJson.data[0].results.name,
+        responseReview: responseJson.data[0].results.review,
+        dish: responseJson.data[0].results,
+        submitted: true,
+        review: undefined,
+        dishName: undefined,
       }));
+    } else {
+      alert('All fields are required');
+    }
   }
 
   showShareActionSheet() {
     ActionSheetIOS.showShareActionSheetWithOptions({
       url: this.state.responseImage,
-      subject: `My review on Grubbr about ${this.state.responseDish}`,
-      message: this.state.responseReview,
+      message: `My review on Grubbr about ${this.state.responseDish}: ${this.state.responseReview}`,
     },
     error => alert(error),
     (success) => {
@@ -150,11 +168,6 @@ class AddDish extends Component {
               block
               onPress={() => {
                 this.submitDish();
-                this.setState({
-                  submitted: true,
-                  review: undefined,
-                  dishName: undefined,
-                });
               }}
             >
     Submit
@@ -177,9 +190,35 @@ class AddDish extends Component {
     Share
             </Button>
           </View>
+          <View>
+            <Button
+              style={styles.border}
+              large
+              block
+              onPress={() => {
+                this.setCurrentDish(this.state.dish);
+                this.pushNewRoute('foodProfile');
+              }}
+            >
+    Leave
+            </Button>
+          </View>
         </Row>
       );
     }
+  }
+
+  renderPicture() {
+    if (this.state.picturePicked) {
+      return (
+        <ListItem>
+          <Thumbnail style={{ width: 300, height: 100 }} alignSelf={'center'} source={{ uri: this.state.displayImage }} />
+        </ListItem>
+      );
+    }
+    return (
+      <List />
+    );
   }
 
   render() {
@@ -202,12 +241,12 @@ class AddDish extends Component {
           <List style={styles.box}>
             <ListItem>
               <InputGroup backgroundColor={'#FFFAEE'} borderType="regular" >
-                <Input placeholder="Dish name" value={this.state.dishName} onChangeText={text => this.setState({ dishName: text })} />
+                <Input placeholder="Dish name" value={this.state.dishName} onChangeText={text => this.setState({ dishName: text, dishNameSet: true })} />
               </InputGroup>
             </ListItem>
             <ListItem>
               <InputGroup backgroundColor={'#FFFAEE'} borderType="regular" >
-                <Input style={{ height: 200 }} multiline placeholder="Your review" value={this.state.review} onChangeText={text => this.setState({ review: text })} />
+                <Input style={{ height: 200 }} multiline placeholder="Your review" value={this.state.review} onChangeText={text => this.setState({ review: text, reviewSet: true })} />
               </InputGroup>
             </ListItem>
             <ListItem>
@@ -246,7 +285,7 @@ class AddDish extends Component {
                 <Item label="Full Bodied" value="6" />
               </Picker>
             </ListItem>
-            <Thumbnail size={80} source={{ uri: this.state.displayImage }} />
+            {this.renderPicture()}
             <Grid style={styles.padding}>
               <Row style={{ height: 100 }}>
                 <View>
@@ -254,7 +293,13 @@ class AddDish extends Component {
                     style={styles.border}
                     large
                     block
-                    onPress={this.selectPhotoTapped.bind(this)}
+                    onPress={() => {
+                      this.selectPhotoTapped();
+                      this.setState({
+                        picturePicked: true,
+                        pictureSet: true,
+                      });
+                    }}
                   >
                 Select a Photo
                   </Button>
@@ -280,6 +325,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
+    setCurrentDish: dish => dispatch(setCurrentDish(dish)),
   };
 }
 

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Grid, Row, Thumbnail } from 'native-base';
-import { Platform } from 'react-native';
+import { Platform, ActionSheetIOS } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setIndex } from './actions/list';
+import { setCurrentDish } from './actions/search';
 import styles from './components/login/styles';
 
 const Item = Picker.Item;
@@ -18,12 +19,12 @@ class AddReview extends Component {
     pushNewRoute: React.PropTypes.func,
     popRoute: React.PropTypes.func,
     setIndex: React.PropTypes.func,
+    setCurrentDish: React.PropTypes.func,
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedItem: undefined,
       selected: '3',
       user_id: '1',
       review: undefined,
@@ -31,6 +32,13 @@ class AddReview extends Component {
       rating: 0,
       image: undefined,
       displayImage: undefined,
+      responseImage: undefined,
+      responseReview: undefined,
+      responseDish: this.props.results.currentDish.dishName,
+      submited: false,
+      picturePicked: false,
+      reviewSet: false,
+      pictureSet: false,
     };
   }
 
@@ -38,6 +46,10 @@ class AddReview extends Component {
     this.setState({
       selected: value,
     });
+  }
+
+  setCurrentDish(dish) {
+    this.props.setCurrentDish(dish);
   }
 
   pushNewRoute(route, index) {
@@ -85,21 +97,113 @@ class AddReview extends Component {
   }
 
   submitReview() {
-    return fetch('https://grubbr-api.herokuapp.com/v1/ratings', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        dish_id: this.props.results.currentDish.dishID,
-        user_id: this.state.user_id,
-        rating: Number(this.state.rating),
-        review: this.state.review,
-        adjective_id: Number(this.state.selected),
-        image: `data:image/png;base64,${this.state.image}`,
-      }),
+    if (this.state.reviewSet && this.state.pictureSet) {
+      const options = {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          dish_id: this.props.results.currentDish.dishID,
+          user_id: this.state.user_id,
+          rating: Number(this.state.rating),
+          review: this.state.review,
+          adjective_id: Number(this.state.selected),
+          image: `data:image/png;base64,${this.state.image}`,
+        }),
+      };
+      return fetch('https://grubbr-api.herokuapp.com/v1/ratings', options)
+    .then(response => response.json())
+    .then(responseJson =>
+      this.setState({
+        responseImage: responseJson.data[0].image,
+        responseReview: responseJson.data[0].review,
+        submitted: true,
+        review: undefined,
+      }));
+    } else {
+      alert('All fields are required');
+    }
+  }
+
+  showShareActionSheet() {
+    ActionSheetIOS.showShareActionSheetWithOptions({
+      url: this.state.responseImage,
+      message: `My review on Grubbr about ${this.state.responseDish}: ${this.state.responseReview}`,
+    },
+    error => alert(error),
+    (success) => {
+      if (success) {
+        console.log('Shared');
+      } else {
+        console.log("Didn't share");
+      }
     });
+  }
+
+  renderButton() {
+    if (!this.state.submitted) {
+      return (
+        <Row style={{ height: 100 }}>
+          <View>
+            <Button
+              style={styles.border}
+              large
+              block
+              onPress={() => {
+                this.submitReview();
+              }}
+            >
+    Submit
+            </Button>
+          </View>
+        </Row>
+      );
+    } else {
+      return (
+        <Row style={{ height: 100 }}>
+          <View>
+            <Button
+              style={styles.border}
+              large
+              block
+              onPress={() => {
+                this.showShareActionSheet();
+              }}
+            >
+    Share
+            </Button>
+          </View>
+          <View>
+            <Button
+              style={styles.border}
+              large
+              block
+              onPress={() => {
+                this.setCurrentDish(this.props.results.currentDish);
+                this.pushNewRoute('foodProfile');
+              }}
+            >
+    Leave
+            </Button>
+          </View>
+        </Row>
+      );
+    }
+  }
+
+  renderPicture() {
+    if (this.state.picturePicked) {
+      return (
+        <ListItem>
+          <Thumbnail style={{ width: 300, height: 100 }} alignSelf={'center'} source={{ uri: this.state.displayImage }} />
+        </ListItem>
+      );
+    }
+    return (
+      <List />
+    );
   }
 
   render() {
@@ -122,7 +226,7 @@ class AddReview extends Component {
           <List style={styles.box}>
             <ListItem>
               <InputGroup backgroundColor={'#FFFAEE'} borderType="regular" >
-                <Input style={{ height: 200 }} multiline placeholder="Type your text" value={this.state.review} onChangeText={text => this.setState({ review: text })} />
+                <Input style={{ height: 200 }} multiline placeholder="Type your text" value={this.state.review} onChangeText={text => this.setState({ review: text, reviewSet: true })} />
               </InputGroup>
             </ListItem>
             <ListItem>
@@ -147,7 +251,7 @@ class AddReview extends Component {
                 <Item label="Full Bodied" value="6" />
               </Picker>
             </ListItem>
-            <Thumbnail size={80} source={{ uri: this.state.displayImage }} />
+            {this.renderPicture()}
             <Grid style={styles.padding}>
               <Row style={{ height: 100 }}>
                 <View>
@@ -155,7 +259,13 @@ class AddReview extends Component {
                     style={styles.border}
                     large
                     block
-                    onPress={this.selectPhotoTapped.bind(this)}
+                    onPress={() => {
+                      this.selectPhotoTapped();
+                      this.setState({
+                        picturePicked: true,
+                        pictureSet: true,
+                      });
+                    }}
                   >
                 Select a Photo
                   </Button>
@@ -163,17 +273,7 @@ class AddReview extends Component {
               </Row>
               <Row style={{ height: 100 }}>
                 <View>
-                  <Button
-                    style={styles.border}
-                    large
-                    block
-                    onPress={() => {
-                      this.submitReview();
-                      this.pushNewRoute('chooseFood');
-                    }}
-                  >
-              Submit
-                  </Button>
+                  {this.renderButton()}
                 </View>
               </Row>
             </Grid>
@@ -191,6 +291,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
+    setCurrentDish: dish => dispatch(setCurrentDish(dish)),
   };
 }
 
