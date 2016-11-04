@@ -7,6 +7,7 @@ import { setCurrentDish, setCurrentRestaurant } from './actions/search';
 import { setIndex } from './actions/list';
 import styles from './components/login/styles';
 
+
 class RatedMenu extends Component {
 
   static propTypes = {
@@ -44,8 +45,11 @@ class RatedMenu extends Component {
     return fetch(`https://grubbr-api.herokuapp.com/v1/ratedmenu/${this.props.currentRestaurant.id}`)
     .then(response => response.json())
     .then((responseJson) => {
+      const restaurantData = responseJson.data[0].menuItems;
+      const menuTypeArray = restaurantData.map(item => item.menuType);
       that.setState({
-        restaurantData: responseJson.data[0].menuItems,
+        restaurantData,
+        menuTypeArray,
       });
     })
     .catch(() => {
