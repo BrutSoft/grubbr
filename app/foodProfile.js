@@ -74,7 +74,6 @@ class FoodProfile extends Component {
   }
 
   render() {
-    console.log(this)
     return (
       <Container style={styles.bgColor}>
         <Header>
@@ -93,48 +92,48 @@ class FoodProfile extends Component {
           <View>
             <Spinner color="green" />
           </View> :
-          <Content style={styles.padding}>
-            <Card style={styles.card}>
-              <CardItem>
-                <Text>{this.props.currentDish.dishName}</Text>
-                <Text note style={styles.restaurantTitle}>{this.props.currentDish.restaurant}</Text>
-              </CardItem>
-              <CardItem cardBody>
-                <Image
-                  source={{ uri: this.props.currentDish.images[0] || defaultImg }}
-                />
-              </CardItem>
-              <ListItem>
-                <Grid>
-                  <Col>
-                    <Text>Tastes {this.props.currentDish.adjective}</Text>
-                  </Col>
-                  <Col>
-                    <Text>{this.props.currentDish.upvotes} Grubs</Text>
-                  </Col>
-                </Grid>
-              </ListItem>
-              <ListItem>
-                <Button
-                  style={styles.border}
-                  block
-                  large
-                  onPress={() => this.pushNewRoute('addReview')}
-                >
+            <Content style={styles.padding}>
+              <Title style={styles.title}>{this.props.currentDish.dishName}</Title>
+              <Card style={styles.card}>
+                <CardItem>
+                  <Text note style={styles.restaurantTitle}>{this.props.currentDish.restaurant}</Text>
+                </CardItem>
+                <CardItem cardBody>
+                  <Image
+                    source={{ uri: this.props.currentDish.images[0] || defaultImg }}
+                  />
+                </CardItem>
+                <ListItem>
+                  <Grid>
+                    <Col>
+                      <Text>Tastes {this.props.currentDish.adjective}</Text>
+                    </Col>
+                    <Col>
+                      <Text>{this.props.currentDish.upvotes} Grubs</Text>
+                    </Col>
+                  </Grid>
+                </ListItem>
+                <ListItem>
+                  <Button
+                    style={styles.border}
+                    block
+                    large
+                    onPress={() => this.pushNewRoute('addReview')}
+                  >
                   Grub It!
-                </Button>
-              </ListItem>
-              <List
-                dataArray={this.props.currentDish.reviews.slice().reverse()}
-                renderRow={review =>
-                  <ListItem>
-                    <Text style={{ width: 280 }} >{review.review}</Text>
-                    <Thumbnail size={80} source={{ uri: review.image || defaultImg }} />
-                  </ListItem>
+                  </Button>
+                </ListItem>
+                <List
+                  dataArray={this.props.currentDish.reviews.slice().reverse()}
+                  renderRow={review =>
+                    <ListItem>
+                      <Text style={{ width: 280 }} >{review.review}</Text>
+                      <Thumbnail size={80} source={{ uri: review.image || defaultImg }} />
+                    </ListItem>
                 }
-              />
-            </Card>
-          </Content>
+                />
+              </Card>
+            </Content>
         }
       </Container>
     );
