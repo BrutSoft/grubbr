@@ -119,16 +119,22 @@ class FoodProfile extends Component {
           <Content style={styles.padding}>
             <Title style={styles.title}>{this.props.currentDish.dishName}</Title>
             <Card style={styles.card}>
-              <CardItem onPress={() => Alert.alert(
-                  'Hey! Listen!',
-                  'Grubbr needs to leave this app to give you directions. You cool with that?',
-                  [
-                    { text: 'No way!', onPress: () => false },
-                    { text: 'Eh, sure', onPress: () => this.getDirections() }
-                  ]
-                )}
-              >
+              <CardItem>
                 <Text note style={styles.restaurantTitle}>{this.props.currentDish.restaurant}</Text>
+                  <Button
+                    small
+                    style={styles.border}
+                    onPress={() => Alert.alert(
+                        'Hey! Listen!',
+                        'Grubbr needs to leave this app to give you directions. You cool with that?',
+                        [
+                          { text: 'No way!', onPress: () => false },
+                          { text: 'Eh, sure', onPress: () => this.getDirections() }
+                        ]
+                      )}
+                  >
+                    Directions plz!
+                  </Button>
               </CardItem>
               <CardItem cardBody>
                 <Image
