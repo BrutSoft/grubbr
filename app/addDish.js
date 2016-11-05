@@ -30,7 +30,6 @@ class AddDish extends Component {
       selectedMenuType: '4',
       user_id: '1',
       review: undefined,
-      rating: 0,
       restaurantID: this.props.restaurant.id,
       dishName: undefined,
       image: undefined,
@@ -43,7 +42,7 @@ class AddDish extends Component {
       reviewSet: false,
       pictureSet: false,
       dish: undefined,
-      pressStatus: false,
+      isGrubbed: false,
     };
   }
 
@@ -120,7 +119,7 @@ class AddDish extends Component {
           },
           body: JSON.stringify({
             user_id: this.state.user_id,
-            rating: Number(this.state.rating),
+            rating: Number(this.state.isGrubbed ? 1 : 0),
             name: this.state.dishName,
             adjective_id: Number(this.state.selectedTaste),
             review: this.state.review,
@@ -258,9 +257,8 @@ class AddDish extends Component {
             <ListItem>
               <Button
                 style={this.state.pressStatus ? styles.thumbPressed : styles.thumb}
-                value={this.state.rating}
                 onPress={() => {
-                  this.setState({ rating: 1, pressStatus: true });
+                  this.setState({ isGrubbed: !this.state.isGrubbed });
                 }}
               >
                 <Icon name="ios-thumbs-up" />
