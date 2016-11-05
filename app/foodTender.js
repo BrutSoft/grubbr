@@ -205,7 +205,7 @@ class Tender extends Component {
                           <Icon name="ios-thumbs-up" />
                           <Text>{dish.upvotes}</Text>
                         </CardItem>
-                        <Text>adjective{dish.adjective}</Text>
+                        <Text>{dish.adjective}</Text>
                         <Text>Yummy!</Text>
                         <Icon name="ios-arrow-dropright-circle" />
                       </CardItem>
