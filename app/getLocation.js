@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Text, Spinner } from 'native-base';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Text, Spinner, Thumbnail } from 'native-base';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setCurrentRestaurant } from './actions/search';
@@ -74,6 +74,7 @@ class GetLocation extends Component {
       loading: true,
       searchedYet: true,
       error: false,
+      lastSearched: this.state.query,
     });
     const that = this;
     const latitude = this.props.location.coords.latitude;
@@ -105,26 +106,51 @@ class GetLocation extends Component {
 
   renderResults() {
     if (!this.state.searchedYet) {
-      return false;
+      return (
+        <View
+          style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Thumbnail
+            size={100}
+            source={require('./img/grubbr-happy.png')}
+          />
+        <Text style={styles.errorMessage}>I want the tastiest thing on the menu!</Text>
+        </View>
+      );
     }
     return (
-      <Card
-        dataArray={this.state.restaurants}
-        renderRow={restaurant => (
-          <CardItem
-            cardbody
-            style={styles.card}
-            button
-            onPress={() => {
-              this.setCurrentRestaurant(restaurant);
-              this.pushNewRoute('ratedMenu');
-            }}
-          >
-            <Text>{restaurant.name}</Text>
-            <Text style={styles.address}>{restaurant.address}</Text>
-          </CardItem>
-        )}
-      />
+      <View>
+        <View
+          style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Thumbnail
+            size={100}
+            source={require('./img/grubbr-happy.png')}
+          />
+        <Text style={styles.errorMessage}>{this.state.restaurants.length} {this.state.restaurants.length === 1 ? 'result' : 'results'} found for {this.state.lastSearched}!</Text>
+        </View>
+        <Card
+          dataArray={this.state.restaurants}
+          renderRow={restaurant => (
+            <CardItem
+              cardbody
+              style={styles.card}
+              button
+              onPress={() => {
+                this.setCurrentRestaurant(restaurant);
+                this.pushNewRoute('ratedMenu');
+              }}
+            >
+              <Text>{restaurant.name}</Text>
+              <Text style={styles.address}>{restaurant.address}</Text>
+            </CardItem>
+          )}
+        />
+      </View>
     );
   }
 
@@ -163,7 +189,15 @@ class GetLocation extends Component {
             />
           </InputGroup>
           <View style={styles.padding}>
-            <View>
+            <View
+              style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <Thumbnail
+                size={100}
+                source={require('./img/grubbr-sad.png')}
+              />
               <Text style={styles.errorMessage}>{errorMessage}</Text>
             </View>
           </View>
@@ -203,8 +237,16 @@ class GetLocation extends Component {
           </InputGroup>
           <View style={styles.padding}>
             {this.state.loading ?
-              <View>
-                <Spinner color="green" />
+              <View
+                style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                <Thumbnail
+                  size={100}
+                  source={require('./img/grubbr-loading-loop.gif')}
+                />
+              <Text style={styles.errorMessage}>Searching for restaurants...</Text>
               </View> :
                 this.renderResults()
               }
