@@ -145,7 +145,7 @@ class Tender extends Component {
           </View>
         </Content>
       </Container>
-    )
+    );
   }
 
   render() {
