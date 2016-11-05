@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Grid, Row, Thumbnail, Spinner } from 'native-base';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Grid, Row, Thumbnail, Spinner, Text } from 'native-base';
 import { Platform, ActionSheetIOS } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
@@ -29,7 +29,6 @@ class AddReview extends Component {
       user_id: '1',
       review: undefined,
       dish_id: 1,
-      rating: 0,
       image: undefined,
       displayImage: undefined,
       responseImage: undefined,
@@ -40,7 +39,7 @@ class AddReview extends Component {
       picturePicked: false,
       reviewSet: false,
       pictureSet: false,
-      pressStatus: false,
+      isGrubbed: false,
     };
   }
 
@@ -112,7 +111,7 @@ class AddReview extends Component {
           body: JSON.stringify({
             dish_id: this.props.results.currentDish.dishID,
             user_id: this.state.user_id,
-            rating: Number(this.state.rating),
+            rating: Number(this.state.isGrubbed ? 1 : 0),
             review: this.state.review,
             adjective_id: Number(this.state.selected),
             image: `data:image/png;base64,${this.state.image}`,
@@ -251,13 +250,13 @@ class AddReview extends Component {
             </ListItem>
             <ListItem>
               <Button
-                style={this.state.pressStatus ? styles.thumbPressed : styles.thumb}
-                value={this.state.rating}
+                style={this.state.isGrubbed ? styles.thumbPressed : styles.thumb}
                 onPress={() => {
-                  this.setState({ rating: 1, pressStatus: true });
+                  this.setState({ isGrubbed: !this.state.isGrubbed });
                 }}
               >
-                <Icon name="ios-thumbs-up" />
+                <Thumbnail source={require('./img/grubbr-happy.png')} />
+                   UpGrub!
               </Button>
               <Picker
                 style={styles.center}
