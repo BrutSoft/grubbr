@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Grid, Row, Thumbnail } from 'native-base';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Grid, Row, Thumbnail, Spinner } from 'native-base';
 import { Platform, ActionSheetIOS } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
@@ -36,6 +36,7 @@ class AddReview extends Component {
       responseReview: undefined,
       responseDish: this.props.results.currentDish.dishName,
       submited: false,
+      currentlySubmitting: false,
       picturePicked: false,
       reviewSet: false,
       pictureSet: false,
@@ -98,30 +99,43 @@ class AddReview extends Component {
 
   submitReview() {
     if (this.state.reviewSet && this.state.pictureSet) {
-      const options = {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          dish_id: this.props.results.currentDish.dishID,
-          user_id: this.state.user_id,
-          rating: Number(this.state.rating),
-          review: this.state.review,
-          adjective_id: Number(this.state.selected),
-          image: `data:image/png;base64,${this.state.image}`,
-        }),
-      };
-      return fetch('https://grubbr-api.herokuapp.com/v1/ratings', options)
-    .then(response => response.json())
-    .then(responseJson =>
-      this.setState({
-        responseImage: responseJson.data[0].image,
-        responseReview: responseJson.data[0].review,
-        submitted: true,
-        review: undefined,
-      }));
+      if (this.state.review.length > 140) {
+        alert('What a mouthful! Please keep your review under 140 characters.')
+      } else {
+        const options = {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            dish_id: this.props.results.currentDish.dishID,
+            user_id: this.state.user_id,
+            rating: Number(this.state.rating),
+            review: this.state.review,
+            adjective_id: Number(this.state.selected),
+            image: `data:image/png;base64,${this.state.image}`,
+          }),
+        };
+        this.setState({ currentlySubmitting: true });
+        return fetch('https://grubbr-api.herokuapp.com/v1/ratings', options)
+        .then(response => response.json())
+        .then(responseJson =>
+          this.setState({
+            responseImage: responseJson.data[0].image,
+            responseReview: responseJson.data[0].review,
+            currentlySubmitting: false,
+            submitted: true,
+            review: undefined,
+          }))
+        .catch(() => {
+          this.setState({
+            submitted: false,
+            currentlySubmitting: false,
+          });
+          alert('Something went wrong submitting your review! Try again in a little bit.')
+        });
+      }
     } else {
       alert('All fields are required');
     }
@@ -147,6 +161,10 @@ class AddReview extends Component {
       return (
         <Row style={{ height: 100 }}>
           <View>
+            { this.state.currentlySubmitting ?
+              <View>
+                <Spinner color="green" />
+              </View> :
             <Button
               style={styles.border}
               large
@@ -157,6 +175,7 @@ class AddReview extends Component {
             >
     Submit
             </Button>
+          }
           </View>
         </Row>
       );
@@ -222,11 +241,11 @@ class AddReview extends Component {
         </Header>
 
         <Content>
-          <Title style={styles.title}>Add Review</Title>
+          <Title style={styles.title}>Add a Review</Title>
           <List style={styles.box}>
             <ListItem>
               <InputGroup backgroundColor={'#FFFAEE'} borderType="regular" >
-                <Input style={{ height: 200 }} multiline placeholder="Type your text" value={this.state.review} onChangeText={text => this.setState({ review: text, reviewSet: true })} />
+                <Input style={{ height: 100 }} multiline placeholder="Leave your review here!" value={this.state.review} onChangeText={text => this.setState({ review: text, reviewSet: true })} />
               </InputGroup>
             </ListItem>
             <ListItem>

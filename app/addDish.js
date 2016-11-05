@@ -108,35 +108,39 @@ class AddDish extends Component {
 
   submitDish() {
     if (this.state.dishNameSet && this.state.reviewSet && this.state.pictureSet) {
-      const options = {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user_id: this.state.user_id,
-          rating: Number(this.state.rating),
-          name: this.state.dishName,
-          adjective_id: Number(this.state.selectedTaste),
-          review: this.state.review,
-          restaurant_id: this.state.restaurantID,
-          menu_type_id: this.state.selectedMenuType,
-          image: `data:image/png;base64,${this.state.image}`,
-        }),
-      };
-      return fetch('https://grubbr-api.herokuapp.com/v1/newdish', options)
-    .then(response => response.json())
-    .then(responseJson =>
-      this.setState({
-        responseImage: responseJson.data[0].results.image,
-        responseDish: responseJson.data[0].results.name,
-        responseReview: responseJson.data[0].results.review,
-        dish: responseJson.data[0].results,
-        submitted: true,
-        review: undefined,
-        dishName: undefined,
-      }));
+      if (this.state.review.length > 140) {
+        alert('What a mouthful! Please keep your review under 140 characters.')
+      } else {
+        const options = {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_id: this.state.user_id,
+            rating: Number(this.state.rating),
+            name: this.state.dishName,
+            adjective_id: Number(this.state.selectedTaste),
+            review: this.state.review,
+            restaurant_id: this.state.restaurantID,
+            menu_type_id: this.state.selectedMenuType,
+            image: `data:image/png;base64,${this.state.image}`,
+          }),
+        };
+        return fetch('https://grubbr-api.herokuapp.com/v1/newdish', options)
+      .then(response => response.json())
+      .then(responseJson =>
+        this.setState({
+          responseImage: responseJson.data[0].results.image,
+          responseDish: responseJson.data[0].results.name,
+          responseReview: responseJson.data[0].results.review,
+          dish: responseJson.data[0].results,
+          submitted: true,
+          review: undefined,
+          dishName: undefined,
+        }));
+      }
     } else {
       alert('All fields are required');
     }
@@ -246,7 +250,7 @@ class AddDish extends Component {
             </ListItem>
             <ListItem>
               <InputGroup backgroundColor={'#FFFAEE'} borderType="regular" >
-                <Input style={{ height: 200 }} multiline placeholder="Your review" value={this.state.review} onChangeText={text => this.setState({ review: text, reviewSet: true })} />
+                <Input style={{ height: 100 }} multiline placeholder="Leave your review here!" value={this.state.review} onChangeText={text => this.setState({ review: text, reviewSet: true })} />
               </InputGroup>
             </ListItem>
             <ListItem>

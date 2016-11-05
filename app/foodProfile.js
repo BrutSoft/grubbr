@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Image } from 'react-native';
-import { Container, Content, ListItem, Title, Header, Icon, Button, Card, CardItem, Thumbnail, Text, List, View, Spinner } from 'native-base';
+import { Container, Content, ListItem, Title, Header, Icon, Button, Card, CardItem, Thumbnail, Text, List, View, Spinner, Grid, Col } from 'native-base';
 
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
@@ -74,6 +74,7 @@ class FoodProfile extends Component {
   }
 
   render() {
+    console.log(this)
     return (
       <Container style={styles.bgColor}>
         <Header>
@@ -103,24 +104,28 @@ class FoodProfile extends Component {
                   source={{ uri: this.props.currentDish.images[0] || defaultImg }}
                 />
               </CardItem>
-
               <ListItem>
-                <Text>Tastes {this.props.currentDish.adjective}</Text>
-                <Button transparent>
-                  <Icon name="ios-thumbs-up" />
-                </Button>
-                <Text>{this.props.currentDish.upvotes}</Text>
-                <Button transparent>
-                  <Icon name="ios-thumbs-down" />
-                </Button>
-                <Text>{this.props.currentDish.downvotes}</Text>
-                <Button transparent onPress={() => this.pushNewRoute('addReview')}>
-                  <Icon name="ios-clipboard" />
-                  <Text>Write review</Text>
+                <Grid>
+                  <Col>
+                    <Text>Tastes {this.props.currentDish.adjective}</Text>
+                  </Col>
+                  <Col>
+                    <Text>{this.props.currentDish.upvotes} Grubs</Text>
+                  </Col>
+                </Grid>
+              </ListItem>
+              <ListItem>
+                <Button
+                  style={styles.border}
+                  block
+                  large
+                  onPress={() => this.pushNewRoute('addReview')}
+                >
+                  Grub It!
                 </Button>
               </ListItem>
               <List
-                dataArray={this.props.currentDish.reviews}
+                dataArray={this.props.currentDish.reviews.slice().reverse()}
                 renderRow={review =>
                   <ListItem>
                     <Text style={{ width: 280 }} >{review.review}</Text>
