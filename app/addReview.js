@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Grid, Row, Thumbnail } from 'native-base';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Grid, Row, Thumbnail, Spinner } from 'native-base';
 import { Platform, ActionSheetIOS } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
@@ -36,6 +36,7 @@ class AddReview extends Component {
       responseReview: undefined,
       responseDish: this.props.results.currentDish.dishName,
       submited: false,
+      currentlySubmitting: false,
       picturePicked: false,
       reviewSet: false,
       pictureSet: false,
@@ -116,15 +117,24 @@ class AddReview extends Component {
             image: `data:image/png;base64,${this.state.image}`,
           }),
         };
+        this.setState({ currentlySubmitting: true });
         return fetch('https://grubbr-api.herokuapp.com/v1/ratings', options)
-      .then(response => response.json())
-      .then(responseJson =>
-        this.setState({
-          responseImage: responseJson.data[0].image,
-          responseReview: responseJson.data[0].review,
-          submitted: true,
-          review: undefined,
-        }));
+        .then(response => response.json())
+        .then(responseJson =>
+          this.setState({
+            responseImage: responseJson.data[0].image,
+            responseReview: responseJson.data[0].review,
+            currentlySubmitting: false,
+            submitted: true,
+            review: undefined,
+          }))
+        .catch(() => {
+          this.setState({
+            submitted: false,
+            currentlySubmitting: false,
+          });
+          alert('Something went wrong submitting your review! Try again in a little bit.')
+        });
       }
     } else {
       alert('All fields are required');
@@ -151,6 +161,10 @@ class AddReview extends Component {
       return (
         <Row style={{ height: 100 }}>
           <View>
+            { this.state.currentlySubmitting ?
+              <View>
+                <Spinner color="green" />
+              </View> :
             <Button
               style={styles.border}
               large
@@ -161,6 +175,7 @@ class AddReview extends Component {
             >
     Submit
             </Button>
+          }
           </View>
         </Row>
       );

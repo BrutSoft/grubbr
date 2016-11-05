@@ -76,7 +76,7 @@ module.exports = StyleSheet.create({
     bottom: 0,
   },
   border: {
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: '#32393D',
     backgroundColor: '#45CC82',
     borderTopRightRadius: 50,

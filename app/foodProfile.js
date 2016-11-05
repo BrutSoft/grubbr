@@ -125,7 +125,7 @@ class FoodProfile extends Component {
                 </Button>
               </ListItem>
               <List
-                dataArray={this.props.currentDish.reviews}
+                dataArray={this.props.currentDish.reviews.slice().reverse()}
                 renderRow={review =>
                   <ListItem>
                     <Text style={{ width: 280 }} >{review.review}</Text>
