@@ -11,7 +11,7 @@ import { setIndex } from './actions/list';
 import styles from './components/login/styles';
 import { iosClientId, webClientId } from '../clientId.config';
 
-const background = require('./img/background2.png');
+const background = require('./img/grubbr-monster-bg.png');
 
 class Login extends Component {
 
@@ -74,6 +74,7 @@ class Login extends Component {
   render() {
     return (
       <Container style={styles.bgColor}>
+        <View style={{ height: 20, backgroundColor: '#b7ba06' }} />
         <View style={styles.container}>
           <Content>
             <Image source={background} style={styles.shadow}>

@@ -62,7 +62,7 @@ module.exports = StyleSheet.create({
     paddingBottom: 20,
     bottom: 0,
     alignSelf: 'center',
-    color: '#45CC82',
+    color: '#b7ba06',
     fontSize: 30,
     fontFamily: 'futura',
   },
@@ -78,7 +78,7 @@ module.exports = StyleSheet.create({
   border: {
     borderWidth: 0,
     borderColor: '#32393D',
-    backgroundColor: '#45CC82',
+    backgroundColor: '#b7ba06',
     borderTopRightRadius: 50,
     borderTopLeftRadius: 15,
     borderBottomRightRadius: 15,
@@ -118,14 +118,14 @@ module.exports = StyleSheet.create({
     backgroundColor: '#32393D',
   },
   thumbPressed: {
-    backgroundColor: '#45CC82',
+    backgroundColor: '#b7ba06',
   },
   oddTitles: {
     paddingTop: 40,
     paddingBottom: 15,
     bottom: 0,
     alignSelf: 'center',
-    color: '#45CC82',
+    color: '#b7ba06',
     fontSize: 30,
     fontFamily: 'futura',
   }
