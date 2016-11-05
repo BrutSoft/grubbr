@@ -129,9 +129,9 @@ class AddDish extends Component {
             image: `data:image/png;base64,${this.state.image}`,
           }),
         };
-        return fetch('https://grubbr-api.herokuapp.com/v1/newdish', options)
+        return fetch(`https://grubbr-api.herokuapp.com/v1/newdish?access_token=${this.props.user.access_token}`, options)
       .then(response => response.json())
-      .then(responseJson =>
+      .then(responseJson => {
         this.setState({
           responseImage: responseJson.data[0].results.image,
           responseDish: responseJson.data[0].results.name,
@@ -140,8 +140,9 @@ class AddDish extends Component {
           submitted: true,
           review: undefined,
           dishName: undefined,
-        }));
-      }
+        });
+      });
+    }
     } else {
       alert('All fields are required');
     }
@@ -342,6 +343,7 @@ function mapStateToProps(state) {
     name: state.user.name,
     list: state.list.list,
     restaurant: state.search.currentRestaurant,
+    user: state.user.user,
   };
 }
 

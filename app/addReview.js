@@ -119,7 +119,7 @@ class AddReview extends Component {
           }),
         };
         this.setState({ currentlySubmitting: true });
-        return fetch('https://grubbr-api.herokuapp.com/v1/ratings', options)
+        return fetch(`https://grubbr-api.herokuapp.com/v1/ratings?access_token=${this.props.user.access_token}`, options)
         .then(response => response.json())
         .then(responseJson =>
           this.setState({
@@ -323,6 +323,7 @@ function mapStateToProps(state) {
     name: state.user.name,
     list: state.list.list,
     results: state.search,
+    user: state.user.user,
   };
 }
 
