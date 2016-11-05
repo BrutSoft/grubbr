@@ -256,12 +256,13 @@ class AddDish extends Component {
             </ListItem>
             <ListItem>
               <Button
-                style={this.state.pressStatus ? styles.thumbPressed : styles.thumb}
+                style={this.state.isGrubbed ? styles.thumbPressed : styles.thumb}
                 onPress={() => {
                   this.setState({ isGrubbed: !this.state.isGrubbed });
                 }}
               >
-                <Icon name="ios-thumbs-up" />
+                <Thumbnail source={require('./img/grubbr-happy.png')} />
+                UpGrub!
               </Button>
               <Picker
                 style={styles.center}
