@@ -35,7 +35,6 @@ const V1AdjectivesController = Nodal.require('app/controllers/v1/adjectives_cont
 const V1MenuTypesController = Nodal.require('app/controllers/v1/menu_types_controller.js');
 const V1DishTypesController = Nodal.require('app/controllers/v1/dish_types_controller.js');
 const V1DishesController = Nodal.require('app/controllers/v1/dishes_controller.js');
-const V1UsersController = Nodal.require('app/controllers/v1/users_controller.js');
 const V1FavoritesController = Nodal.require('app/controllers/v1/favorites_controller.js');
 const V1RestaurantsController = Nodal.require('app/controllers/v1/restaurants_controller.js');
 const V1ScoreController = Nodal.require('app/controllers/v1/score_controller.js');
@@ -45,6 +44,8 @@ const V1RatedmenuController = Nodal.require('app/controllers/v1/ratedmenu_contro
 const V1SearchController = Nodal.require('app/controllers/v1/search_controller.js');
 const V1PlacesController = Nodal.require('app/controllers/v1/places_controller.js');
 const V1NewdishController = Nodal.require('app/controllers/v1/newdish_controller.js');
+const V1UsersController = Nodal.require('app/controllers/v1/users_controller.js');
+const V1AccessTokensController = Nodal.require('app/controllers/v1/access_tokens_controller.js');
 
 /* generator: end imports */
 
@@ -57,7 +58,6 @@ router.route('/v1/adjectives/{id}').use(V1AdjectivesController);
 router.route('/v1/menu_types/{id}').use(V1MenuTypesController);
 router.route('/v1/dish_types/{id}').use(V1DishTypesController);
 router.route('/v1/dishes/{id}').use(V1DishesController);
-router.route('/v1/users/{id}').use(V1UsersController);
 router.route('/v1/favorites/{id}').use(V1FavoritesController);
 router.route('/v1/restaurants/{id}').use(V1RestaurantsController);
 router.route('/v1/score/{id}').use(V1ScoreController);
@@ -68,6 +68,8 @@ router.route('/v1/search/{id}').use(V1SearchController);
 router.route('/v1/places/{id}').use(V1PlacesController);
 router.route('/v1/newdish/{id}').use(V1NewdishController);
 router.route('/v1/restaurants/{id}').use(V1RestaurantsController);
+router.route('/v1/users/{id}').use(V1UsersController);
+router.route('/v1/access_tokens/{id}').use(V1AccessTokensController);
 
 /* generator: end routes */
 
