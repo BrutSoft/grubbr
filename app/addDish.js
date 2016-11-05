@@ -242,7 +242,7 @@ class AddDish extends Component {
         </Header>
 
         <Content>
-          <Title style={styles.title}>Add Dish</Title>
+          <Title style={styles.oddTitles}>Add Dish</Title>
           <List style={styles.box}>
             <ListItem>
               <InputGroup backgroundColor={'#FFFAEE'} borderType="regular" >

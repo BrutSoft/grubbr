@@ -242,7 +242,7 @@ class AddReview extends Component {
         </Header>
 
         <Content>
-          <Title style={styles.title}>Add a Review</Title>
+          <Title style={styles.oddTitles}>Add a Review</Title>
           <List style={styles.box}>
             <ListItem>
               <InputGroup backgroundColor={'#FFFAEE'} borderType="regular" >

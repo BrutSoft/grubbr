@@ -120,4 +120,13 @@ module.exports = StyleSheet.create({
   thumbPressed: {
     backgroundColor: '#45CC82',
   },
+  oddTitles: {
+    paddingTop: 40,
+    paddingBottom: 15,
+    bottom: 0,
+    alignSelf: 'center',
+    color: '#45CC82',
+    fontSize: 30,
+    fontFamily: 'futura',
+  }
 });
