@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text, Spinner } from 'native-base';
+import { Image } from 'react-native'
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text } from 'native-base';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setCurrentDish } from './actions/search';
 import { setIndex } from './actions/list';
 import { setLocation } from './actions/location';
 import styles from './components/login/styles';
+
+const loadingGif = require('./img/grubbr-loading.gif')
 
 class BestInTown extends Component {
   static propTypes = {
@@ -29,6 +32,8 @@ class BestInTown extends Component {
       searchedYet: false,
     };
   }
+
+  static loadingGif = require('./img/grubbr-loading.gif');
 
   componentWillMount() {
     this.getLocation();
@@ -212,7 +217,13 @@ class BestInTown extends Component {
           <View style={styles.padding}>
             {this.state.loading ?
               <View>
-                <Spinner color="green" />
+                <Image
+                  source={require('./img/grubbr-loading-small.gif')}
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                />
               </View> :
                 this.renderResults()
               }
