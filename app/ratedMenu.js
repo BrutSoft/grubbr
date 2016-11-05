@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, List, ListItem, Title, Header, Icon, Button, Card, Text } from 'native-base';
+import { Container, Content, CardItem, Title, Header, Icon, Button, Card, Text, Thumbnail } from 'native-base';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setCurrentDish, setCurrentRestaurant } from './actions/search';
@@ -34,8 +34,8 @@ class RatedMenu extends Component {
     this.props.setCurrentRestaurant(data);
   }
 
-  setCurrentDish(restaurant) {
-    this.props.setCurrentDish(restaurant);
+  setCurrentDish(dish) {
+    this.props.setCurrentDish(dish);
   }
 
   getDishes() {
@@ -94,28 +94,30 @@ class RatedMenu extends Component {
             }}
           >Add dish</Button>
           <Title style={styles.title}>Rated Menu</Title>
-          <List
-            style={styles.padding}
-            dataArray={this.state.restaurantData}
-            renderRow={restaurant =>
-              <Card>
-                <ListItem itemDivider rounded>
-                  <Text>{restaurant.menuType}</Text>
-                </ListItem>
-                <ListItem
+            <Card
+              dataArray={this.state.restaurantData}
+              renderRow={dish => (
+                <CardItem
+                  cardbody
+                  style={styles.card}
                   button
                   onPress={() => {
-                    this.setCurrentDish(restaurant);
+                    this.setCurrentDish(dish);
                     this.pushNewRoute('foodProfile');
                   }}
                 >
-                  <Text>{restaurant.dishName}</Text>
-                  <Icon name="ios-thumbs-up" />
-                  <Text>{restaurant.score}</Text>
-                </ListItem>
-              </Card>
-              }
-          />
+                  <Thumbnail size={80} source={{ uri: dish.image }} />
+                  <CardItem>
+                    <Text>{dish.dishName}</Text>
+                    <Text style={styles.restaurantTitle} note>{dish.menuType}</Text>
+                  </CardItem>
+                  <CardItem>
+                    <Icon name="ios-thumbs-up" />
+                    <Text>{dish.score}</Text>
+                  </CardItem>
+                </CardItem>
+              )}
+            />
         </Content>
 
       </Container>
@@ -130,7 +132,7 @@ function bindAction(dispatch) {
     pushNewRoute: route => dispatch(pushNewRoute(route)),
     setIndex: index => dispatch(setIndex(index)),
     popRoute: () => dispatch(popRoute()),
-    setCurrentDish: restaurant => dispatch(setCurrentDish(restaurant)),
+    setCurrentDish: dish => dispatch(setCurrentDish(dish)),
     setCurrentRestaurant: restaurant => dispatch(setCurrentRestaurant(restaurant)),
   };
 }
