@@ -166,14 +166,15 @@ class BestInTown extends Component {
       return (
         <View
           style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Thumbnail
             size={100}
             source={require('./img/grubbr-happy.png')}
           />
-        <Text style={styles.errorMessage}>I'm starving! Let's find some grub!</Text>
+          <Text style={styles.errorMessage}>I'm starving! Let's find some grub!</Text>
         </View>
       );
     }
@@ -181,9 +182,10 @@ class BestInTown extends Component {
       <View>
         <View
           style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Thumbnail
             size={100}
             source={require('./img/grubbr-happy.png')}
@@ -205,13 +207,13 @@ class BestInTown extends Component {
               <Thumbnail size={80} source={{ uri: dish.images[0] }} />
               <Text>{dish.dishName}</Text>
               <CardItem>
-                <Icon name="ios-thumbs-up" />
+                <Thumbnail source={require('./img/grubbr-happy.png')} />
                 <Text>{dish.upvotes}</Text>
               </CardItem>
             </CardItem>
           )}
         />
-    </View>
+      </View>
     );
   }
 
@@ -248,14 +250,15 @@ class BestInTown extends Component {
             {this.state.loading ?
               <View
                 style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
                 <Thumbnail
                   size={100}
                   source={require('./img/grubbr-loading-loop.gif')}
                 />
-              <Text style={styles.errorMessage}>Searching for grub...</Text>
+                <Text style={styles.errorMessage}>Searching for grub...</Text>
               </View> :
                 this.renderResults()
               }
