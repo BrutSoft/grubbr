@@ -39,6 +39,7 @@ class V1TenderController extends Nodal.Controller {
       Ratings.query()
         .join('dish__menuType')
         .join('dish')
+        .join('adjective')
         .where(placesIds)
         .end((err, models) => {
           let dishInfo = {};
@@ -61,6 +62,7 @@ class V1TenderController extends Nodal.Controller {
                 placesInfo[dishInfo[dishID].restaurantID].name;
               dishInfo[dishID].restaurantAddress =
                 placesInfo[dishInfo[dishID].restaurantID].address;
+              dishInfo[dishID].adjectives = {};
             }
             // do all the things that are normally done now.
             if (rating.get('rating') === 1) {
@@ -71,9 +73,21 @@ class V1TenderController extends Nodal.Controller {
               dishInfo[dishID].score -= 1;
             }
             if (rating.get('image')) { dishInfo[dishID].images.push(rating.get('image')); }
+            // adjectives consolidation
+            if (dishInfo[dishID].adjectives[rating.joined('adjective').get('memo')]) {
+              dishInfo[dishID].adjectives[rating.joined('adjective').get('memo')] += 1;
+            } else {
+              dishInfo[dishID].adjectives[rating.joined('adjective').get('memo')] = 1;
+            }
           });
           // Put that info into an array
           dishInfo = _.map(dishInfo, info => info);
+          // reduce adjective down to a single value
+          dishInfo.forEach((dish) => {
+            dish.adjective = _.reduce(dish.adjectives, (biggest, count, adj, obj) => {
+              return count > obj[biggest] || biggest === null ? adj : biggest;
+            }, null);
+          });
           // sort randomly
           const temp = dishInfo.slice(0);
           const dishInfoRand = [];

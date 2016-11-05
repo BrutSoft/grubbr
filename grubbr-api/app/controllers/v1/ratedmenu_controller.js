@@ -28,21 +28,30 @@ class V1RatedmenuController extends Nodal.Controller {
             menuItems[dishID].menuTypeID = rating.joined('dish')
                 .joined('menuType').get('id');
             menuItems[dishID].score = 0;
+            menuItems[dishID].image = [];
           }
           // update score based on rating;
           menuItems[dishID].score += rating.get('rating');
+          // add images
+          menuItems[dishID].image.push(rating.get('image'));
         });
-        // move from object to array.
-        menuItems = _.map(menuItems, item => item);
+        // move from object to array. Also pick one image
+        menuItems = _.map(menuItems, (item) => {
+          const newItem = item;
+          newItem.image =
+            item.image[Math.floor(Math.random() * item.image.length)];
+          return newItem;
+        });
         // sort said array, first by menu position then score.
         menuItems = menuItems.sort((a, b) => {
-          if (a.menuTypeID < b.menuTypeID) {
-            return -1;
-          }
-          if (a.menuTypeID > b.menuTypeID) {
-            return 1;
-          }
-          // they are the same menu type
+          // This would sort by menu type
+          // if (a.menuTypeID < b.menuTypeID) {
+          //   return -1;
+          // }
+          // if (a.menuTypeID > b.menuTypeID) {
+          //   return 1;
+          // }
+          // // they are the same menu type
           return b.score - a.score;
         });
         const response = {
