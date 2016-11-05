@@ -40,6 +40,7 @@ class AddReview extends Component {
       picturePicked: false,
       reviewSet: false,
       pictureSet: false,
+      pressStatus: false,
     };
   }
 
@@ -249,11 +250,14 @@ class AddReview extends Component {
               </InputGroup>
             </ListItem>
             <ListItem>
-              <Button transparent value={this.state.rating} onPress={() => this.setState({ rating: 1 })}>
+              <Button
+                style={this.state.pressStatus ? styles.thumbPressed : styles.thumb}
+                value={this.state.rating}
+                onPress={() => {
+                  this.setState({ rating: 1, pressStatus: true });
+                }}
+              >
                 <Icon name="ios-thumbs-up" />
-              </Button>
-              <Button transparent value={this.state.rating} onPress={() => this.setState({ rating: -1 })}>
-                <Icon name="ios-thumbs-down" />
               </Button>
               <Picker
                 style={styles.center}

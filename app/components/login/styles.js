@@ -114,4 +114,10 @@ module.exports = StyleSheet.create({
   restaurantTitle: {
     color: 'black',
   },
+  thumb: {
+    backgroundColor: '#32393D',
+  },
+  thumbPressed: {
+    backgroundColor: '#45CC82',
+  },
 });
