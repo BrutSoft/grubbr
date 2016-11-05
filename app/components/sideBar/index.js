@@ -39,18 +39,20 @@ class SideBar extends Component {
             <Text>Home</Text>
           </ListItem>
           <ListItem button onPress={() => this.navigateTo('bestInTown')} >
-            <Text>Best In Town</Text>
+            <Text>Find Grub</Text>
+          </ListItem>
+          <ListItem button onPress={() => this.navigateTo('getLocation')} >
+            <Text>Search Restaurants</Text>
           </ListItem>
           <ListItem button onPress={() => this.navigateTo('tender')} >
             <Text>Tender</Text>
           </ListItem>
-          <ListItem button onPress={() => this.navigateTo('addReview')} >
-            <Text>Add Review</Text>
-          </ListItem>
-          <ListItem button onPress={() => {
-            this._signOut();
-            this.navigateTo('login');
-          }}
+          <ListItem
+            button
+            onPress={() => {
+              this._signOut();
+              this.navigateTo('login');
+            }}
           >
             <Text>Sign Out</Text>
           </ListItem>

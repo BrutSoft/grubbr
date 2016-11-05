@@ -94,30 +94,30 @@ class RatedMenu extends Component {
             }}
           >Add dish</Button>
           <Title style={styles.title}>Rated Menu</Title>
-            <Card
-              dataArray={this.state.restaurantData}
-              renderRow={dish => (
-                <CardItem
-                  cardbody
-                  style={styles.card}
-                  button
-                  onPress={() => {
-                    this.setCurrentDish(dish);
-                    this.pushNewRoute('foodProfile');
-                  }}
-                >
-                  <Thumbnail size={80} source={{ uri: dish.image }} />
-                  <CardItem>
-                    <Text>{dish.dishName}</Text>
-                    <Text style={styles.restaurantTitle} note>{dish.menuType}</Text>
-                  </CardItem>
-                  <CardItem>
-                    <Icon name="ios-thumbs-up" />
-                    <Text>{dish.score}</Text>
-                  </CardItem>
+          <Card
+            dataArray={this.state.restaurantData}
+            renderRow={dish => (
+              <CardItem
+                cardbody
+                style={styles.card}
+                button
+                onPress={() => {
+                  this.setCurrentDish(dish);
+                  this.pushNewRoute('foodProfile');
+                }}
+              >
+                <Thumbnail size={80} source={{ uri: dish.image }} />
+                <CardItem>
+                  <Text>{dish.dishName}</Text>
+                  <Text style={styles.restaurantTitle} note>{dish.menuType}</Text>
                 </CardItem>
+                <CardItem>
+                  <Icon name="ios-thumbs-up" />
+                  <Text>{dish.score}</Text>
+                </CardItem>
+              </CardItem>
               )}
-            />
+          />
         </Content>
 
       </Container>
