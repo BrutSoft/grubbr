@@ -6,13 +6,13 @@ class CreateUsers extends Nodal.Migration {
 
   constructor(db) {
     super(db);
-    this.id = 2016102000360111;
+    this.id = 2016110519212881;
   }
 
   up() {
 
     return [
-      this.createTable("users", [{"name":"name", "type":"string"}])
+      this.createTable("users", [{"name":"email","type":"string","properties":{"unique":true}},{"name":"password","type":"string"},{"name":"username","type":"string"}, {"name":"name", "type":"string"}])
     ];
 
   }

@@ -2,6 +2,7 @@ const Nodal = require('nodal');
 const cloudinary = require('cloudinary');
 
 const Rating = Nodal.require('app/models/rating.js');
+const AuthController = Nodal.require('app/controllers/auth_controller.js');
 
 const defaultResponse = [
   { adjective: ['memo'] },
@@ -13,7 +14,7 @@ const defaultResponse = [
   'created_at',
 ];
 
-class V1RatingsController extends Nodal.Controller {
+class V1RatingsController extends AuthController {
 
   index() {
     Rating.query()
@@ -34,21 +35,25 @@ class V1RatingsController extends Nodal.Controller {
   }
 
   create() {
-    cloudinary.uploader.upload(this.params.body.image, function (result) {
-      const imageURL = result.secure_url ? result.secure_url : null;
-      const newRatingFields = {
-        image: imageURL,
-        review: this.params.body.review,
-        rating: this.params.body.rating,
-        dish_id: this.params.body.dish_id,
-        user_id: this.params.body.user_id,
-        adjective_id: this.params.body.adjective_id,
-      };
-      Rating.create(newRatingFields, (err, model) => {
-        this.respond(err || model);
-      });
-    }.bind(this));
-  }
+    this.authorize((err, accessToken, user) => {
+      if (err) {
+        return this.respond(err);
+      }
+      cloudinary.uploader.upload(this.params.body.image, function (result) {
+        const imageURL = result.secure_url ? result.secure_url : null;
+        const newRatingFields = {
+          image: imageURL,
+          review: this.params.body.review,
+          rating: this.params.body.rating,
+          dish_id: this.params.body.dish_id,
+          user_id: user.get('id'),
+          adjective_id: this.params.body.adjective_id,
+        };
+        Rating.create(newRatingFields, (err2, model) => {
+          this.respond(err2 || model);
+        });
+      }.bind(this));
+    })}
 
   update() {
     Rating.update(this.params.route.id, this.params.body, (err, model) => {

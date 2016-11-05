@@ -75,11 +75,6 @@
       {"dish_id" : "19" , "dish_type_id" : "6" },
       {"dish_id" : "20" , "dish_type_id" : "7" }
     ],
-    "User" : [
-      { "name" : "djdaquin" },
-      { "name" : "Zivile777" },
-      { "name" : "ndonolli" }
-    ],
     "Dish" : [
       {"restaurant_id" : "ChIJWSkhCXSmIIYRJ0TAQxhvpfc" , "name" : "B-52" , "menu_type_id" : "1" },
       {"restaurant_id" : "ChIJWSkhCXSmIIYRJ0TAQxhvpfc" , "name" : "Gin Martini" , "menu_type_id" : "1" },
