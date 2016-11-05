@@ -112,7 +112,7 @@ class RatedMenu extends Component {
                   <Text style={styles.restaurantTitle} note>{dish.menuType}</Text>
                 </CardItem>
                 <CardItem>
-                  <Icon name="ios-thumbs-up" />
+                  <Thumbnail source={require('./img/grubbr-happy.png')} />
                   <Text>{dish.score}</Text>
                 </CardItem>
               </CardItem>

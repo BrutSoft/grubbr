@@ -205,7 +205,7 @@ class BestInTown extends Component {
               <Thumbnail size={80} source={{ uri: dish.images[0] }} />
               <Text>{dish.dishName}</Text>
               <CardItem>
-                <Icon name="ios-thumbs-up" />
+                <Thumbnail source={require('./img/grubbr-happy.png')} />
                 <Text>{dish.upvotes}</Text>
               </CardItem>
             </CardItem>
