@@ -9,7 +9,6 @@ import { setIndex } from './actions/list';
 import { setLocation } from './actions/location';
 import styles from './components/login/styles';
 
-
 class BestInTown extends Component {
   static propTypes = {
     openDrawer: React.PropTypes.func,
