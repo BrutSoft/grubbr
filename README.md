@@ -6,7 +6,7 @@ An app to help you find the best dishes in town
 
   - __Product Owner__: David d'Aquin (Backend)
   - __Scrum Master__: Nathan Donolli (Frontend)
-  - __Unicorn Wrangler__: Živilė Janulevičiūtė Goodwin (Frontend)
+  - __Unicorn Wrangler__: Živilė Janulevičiūtė Goodwin (Frontend, Design)
 
 ## Table of Contents
 
@@ -36,16 +36,16 @@ Easy. Just tell Grubbr where you're at and you'll see the best rated dishes for 
 Now introducing: __TENDER!__ A totally original idea where Grubbr will present you with pictures of delicious local food and you can swipe left or right to get matched up with the perfect dish for the evening. Bon appetit!
 
 ## <a name="wireframe"></a>App Wireframe
-![wireframe](images/wireframe.png)
+![final-wireframe](https://cloud.githubusercontent.com/assets/16345573/20033250/81cc63b2-a36a-11e6-87d4-431ab59beda2.png)
 
 ## <a name="architecture"></a>Architecture
-![architecture](images/architecture.png)
+![final-backend](https://cloud.githubusercontent.com/assets/16345573/20033397/7c6b2928-a36d-11e6-9ea4-5b913407d1c7.png)
 
 ## <a name="Database"></a>Database
 ![database](images/dbschema.png)
 
 ## <a name="tech-stack"></a>Tech Stack
-![tech stack](images/techstack.png)
+![final-tech-stack](https://cloud.githubusercontent.com/assets/16345573/20033263/c9cf7a46-a36a-11e6-8a08-3818e0157b84.png)
 
 ## <a name="development"></a>Development
 Setting up a development environment requires global installations of node, react-native, and CodePush - as well as the latest version of XCode or Android Studio for either iOS or Android development
