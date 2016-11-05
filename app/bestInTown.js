@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text, Spinner } from 'native-base';
+import { Image } from 'react-native'
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, View, Card, CardItem, Thumbnail, Text } from 'native-base';
 import { openDrawer } from './actions/drawer';
 import { replaceRoute, popRoute, pushNewRoute } from './actions/route';
 import { setCurrentDish } from './actions/search';
@@ -78,6 +79,7 @@ class BestInTown extends Component {
       loading: true,
       error: false,
       searchedYet: true,
+      lastSearched: this.state.query,
     });
     const that = this;
     const latitude = this.props.location.coords.latitude || null;
@@ -142,7 +144,15 @@ class BestInTown extends Component {
             />
           </InputGroup>
           <View style={styles.padding}>
-            <View>
+            <View
+              style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <Thumbnail
+                size={100}
+                source={require('./img/grubbr-sad.png')}
+              />
               <Text style={styles.errorMessage}>{errorMessage}</Text>
             </View>
           </View>
@@ -153,30 +163,55 @@ class BestInTown extends Component {
 
   renderResults() {
     if (!this.state.searchedYet) {
-      return false;
+      return (
+        <View
+          style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Thumbnail
+            size={100}
+            source={require('./img/grubbr-happy.png')}
+          />
+        <Text style={styles.errorMessage}>I'm starving! Let's find some grub!</Text>
+        </View>
+      );
     }
     return (
-      <Card
-        dataArray={this.state.dishes}
-        renderRow={dish => (
-          <CardItem
-            cardbody
-            style={styles.card}
-            button
-            onPress={() => {
-              this.setCurrentDish(dish);
-              this.pushNewRoute('foodProfile');
-            }}
-          >
-            <Thumbnail size={80} source={{ uri: dish.images[0] }} />
-            <Text>{dish.dishName}</Text>
-            <CardItem>
-              <Icon name="ios-thumbs-up" />
-              <Text>{dish.upvotes}</Text>
+      <View>
+        <View
+          style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Thumbnail
+            size={100}
+            source={require('./img/grubbr-happy.png')}
+          />
+          <Text style={styles.errorMessage}>{this.state.dishes.length} {this.state.dishes.length === 1 ? 'result' : 'results'} found for {this.state.lastSearched}!</Text>
+        </View>
+        <Card
+          dataArray={this.state.dishes}
+          renderRow={dish => (
+            <CardItem
+              cardbody
+              style={styles.card}
+              button
+              onPress={() => {
+                this.setCurrentDish(dish);
+                this.pushNewRoute('foodProfile');
+              }}
+            >
+              <Thumbnail size={80} source={{ uri: dish.images[0] }} />
+              <Text>{dish.dishName}</Text>
+              <CardItem>
+                <Icon name="ios-thumbs-up" />
+                <Text>{dish.upvotes}</Text>
+              </CardItem>
             </CardItem>
-          </CardItem>
-        )}
-      />
+          )}
+        />
+    </View>
     );
   }
 
@@ -211,8 +246,16 @@ class BestInTown extends Component {
           </InputGroup>
           <View style={styles.padding}>
             {this.state.loading ?
-              <View>
-                <Spinner color="green" />
+              <View
+                style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                <Thumbnail
+                  size={100}
+                  source={require('./img/grubbr-loading-loop.gif')}
+                />
+              <Text style={styles.errorMessage}>Searching for grub...</Text>
               </View> :
                 this.renderResults()
               }
