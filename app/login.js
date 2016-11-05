@@ -50,8 +50,7 @@ class Login extends Component {
       });
 
       const user = await GoogleSignin.currentUserAsync();
-      console.log(user);
-      this.setState({ user });
+      console.log('setupGoogleSignin', user);
     } catch (err) {
       console.log('Google signin error', err.code, err.message);
     }
@@ -60,8 +59,26 @@ class Login extends Component {
   _signIn() {
     GoogleSignin.signIn()
     .then((user) => {
-      console.log(user);
-      this.setUser(user);
+      const options = {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: user.name,
+          password: user.idToken,
+          email: user.email,
+          username: user.id,
+          grant_type: 'password',
+        }),
+      };
+      return fetch('https://grubbr-api.herokuapp.com/v1/access_tokens', options)
+    })
+    .then(response => response.json())
+    .then((user) => {
+      console.log('signin', user);
+      this.setUser(user.data[0]);
       this.pushNewRoute('choices');
     })
     .catch((err) => {
