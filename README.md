@@ -38,7 +38,7 @@ Now introducing: __TENDER!__ A totally original idea where Grubbr will present y
 ## <a name="wireframe"></a>App Wireframe
 ![final-wireframe](https://cloud.githubusercontent.com/assets/16345573/20033250/81cc63b2-a36a-11e6-87d4-431ab59beda2.png)
 
-## <a name="live-app-wireframe"></Live App Wireframe
+## <a name="live-app-wireframe"></a>Live App Wireframe
 ![real-wireframe](https://cloud.githubusercontent.com/assets/16345573/20043057/d23860c6-a44b-11e6-8d01-6dc559150b16.png)
 
 ## <a name="architecture"></a>Architecture
