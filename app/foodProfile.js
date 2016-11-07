@@ -41,7 +41,7 @@ class FoodProfile extends Component {
   }
 
   setCurrentDish(dish) {
-    this.props.setCurrentDish(dish)
+    this.props.setCurrentDish(dish);
   }
 
   getFoodProfile() {
@@ -54,13 +54,13 @@ class FoodProfile extends Component {
       that.setCurrentDish(responseJson.data[0]);
       that.setState({
         loading: false,
-      })
+      });
     })
     .catch(() => {
       that.setState({
         loading: false,
         error: true,
-      })
+      });
     });
   }
 
@@ -116,48 +116,49 @@ class FoodProfile extends Component {
           <View>
             <Spinner color="green" />
           </View> :
-          <Content style={styles.padding}>
-            <Title style={styles.title}>{this.props.currentDish.dishName}</Title>
-            <Card style={styles.card}>
-              <CardItem>
-                <Text note style={styles.restaurantTitle}>{this.props.currentDish.restaurant}</Text>
+            <Content style={styles.padding}>
+              <Title style={styles.title}>{this.props.currentDish.dishName}</Title>
+              <Card style={styles.card}>
+                <CardItem>
+                  <Text note style={styles.restaurantTitle}>{this.props.currentDish.restaurant}</Text>
                   <Button
+                    rounded
                     small
-                    style={styles.border}
+                    style={styles.addDish}
                     onPress={() => Alert.alert(
                         'Hey! Listen!',
                         'Grubbr needs to leave this app to give you directions. You cool with that?',
-                        [
+                      [
                           { text: 'No way!', onPress: () => false },
-                          { text: 'Eh, sure', onPress: () => this.getDirections() }
-                        ]
+                          { text: 'Eh, sure', onPress: () => this.getDirections() },
+                      ]
                       )}
                   >
                     Directions plz!
                   </Button>
-              </CardItem>
-              <CardItem cardBody>
-                <Image
-                  source={{ uri: this.props.currentDish.images[0] || defaultImg }}
-                />
-              </CardItem>
-              <ListItem>
-                <Grid>
-                  <Col>
-                    <Text>Tastes {this.props.currentDish.adjective}</Text>
-                  </Col>
-                  <Col>
-                    <Text>{this.props.currentDish.upvotes} Grubs</Text>
-                  </Col>
-                </Grid>
-              </ListItem>
-              <ListItem>
-                <Button
-                  style={styles.border}
-                  block
-                  large
-                  onPress={() => this.pushNewRoute('addReview')}
-                >
+                </CardItem>
+                <CardItem cardBody>
+                  <Image
+                    source={{ uri: this.props.currentDish.images[0] || defaultImg }}
+                  />
+                </CardItem>
+                <ListItem>
+                  <Grid>
+                    <Col>
+                      <Text>Tastes {this.props.currentDish.adjective}</Text>
+                    </Col>
+                    <Col>
+                      <Text>{this.props.currentDish.upvotes} Grubs</Text>
+                    </Col>
+                  </Grid>
+                </ListItem>
+                <ListItem>
+                  <Button
+                    style={styles.border}
+                    block
+                    large
+                    onPress={() => this.pushNewRoute('addReview')}
+                  >
                   Grub It!
                   </Button>
                 </ListItem>
@@ -165,7 +166,7 @@ class FoodProfile extends Component {
                   dataArray={this.props.currentDish.reviews.slice().reverse()}
                   renderRow={review =>
                     <ListItem>
-                      <Text style={{ width: 280 }} >{review.review}</Text>
+                      <Text>{review.review}</Text>
                       <Thumbnail size={80} source={{ uri: review.image || defaultImg }} />
                     </ListItem>
                 }
