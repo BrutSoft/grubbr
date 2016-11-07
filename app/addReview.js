@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Grid, Row, Thumbnail, Spinner, Text } from 'native-base';
+import { Container, Content, Title, Header, InputGroup, Input, Icon, Button, List, ListItem, Picker, View, Grid, Row, Thumbnail, Spinner } from 'native-base';
 import { Platform, ActionSheetIOS } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
@@ -100,7 +100,7 @@ class AddReview extends Component {
   submitReview() {
     if (this.state.reviewSet && this.state.pictureSet) {
       if (this.state.review.length > 140) {
-        alert('What a mouthful! Please keep your review under 140 characters.')
+        alert('What a mouthful! Please keep your review under 140 characters.');
       } else {
         const options = {
           method: 'POST',
@@ -133,7 +133,7 @@ class AddReview extends Component {
             submitted: false,
             currentlySubmitting: false,
           });
-          alert('Something went wrong submitting your review! Try again in a little bit.')
+          alert('Something went wrong submitting your review! Try again in a little bit.');
         });
       }
     } else {
@@ -165,16 +165,16 @@ class AddReview extends Component {
               <View>
                 <Spinner color="green" />
               </View> :
-            <Button
-              style={styles.border}
-              large
-              block
-              onPress={() => {
-                this.submitReview();
-              }}
-            >
+                <Button
+                  style={styles.border}
+                  large
+                  block
+                  onPress={() => {
+                    this.submitReview();
+                  }}
+                >
     Submit
-            </Button>
+                </Button>
           }
           </View>
         </Row>
