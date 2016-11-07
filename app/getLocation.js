@@ -109,14 +109,15 @@ class GetLocation extends Component {
       return (
         <View
           style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Thumbnail
             size={100}
             source={require('./img/grubbr-happy.png')}
           />
-        <Text style={styles.errorMessage}>I want the tastiest thing on the menu!</Text>
+          <Text style={styles.errorMessage}>I want the tastiest thing on the menu!</Text>
         </View>
       );
     }
@@ -124,14 +125,15 @@ class GetLocation extends Component {
       <View>
         <View
           style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Thumbnail
             size={100}
             source={require('./img/grubbr-happy.png')}
           />
-        <Text style={styles.errorMessage}>{this.state.restaurants.length} {this.state.restaurants.length === 1 ? 'result' : 'results'} found for {this.state.lastSearched}!</Text>
+          <Text style={styles.errorMessage}>{this.state.restaurants.length} {this.state.restaurants.length === 1 ? 'result' : 'results'} found for {this.state.lastSearched}!</Text>
         </View>
         <Card
           dataArray={this.state.restaurants}
@@ -191,9 +193,10 @@ class GetLocation extends Component {
           <View style={styles.padding}>
             <View
               style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
               <Thumbnail
                 size={100}
                 source={require('./img/grubbr-sad.png')}
@@ -239,14 +242,15 @@ class GetLocation extends Component {
             {this.state.loading ?
               <View
                 style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
                 <Thumbnail
                   size={100}
                   source={require('./img/grubbr-loading-loop.gif')}
                 />
-              <Text style={styles.errorMessage}>Searching for restaurants...</Text>
+                <Text style={styles.errorMessage}>Searching for restaurants...</Text>
               </View> :
                 this.renderResults()
               }

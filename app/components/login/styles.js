@@ -128,5 +128,8 @@ module.exports = StyleSheet.create({
     color: '#b7ba06',
     fontSize: 30,
     fontFamily: 'futura',
-  }
+  },
+  addDish: {
+    backgroundColor: '#b7ba06',
+  },
 });

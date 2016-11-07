@@ -85,8 +85,7 @@ class RatedMenu extends Component {
 
         <Content style={styles.padding}>
           <Button
-            bordered
-            success
+            style={styles.addDish}
             rounded
             small
             onPress={() => {
@@ -107,10 +106,8 @@ class RatedMenu extends Component {
                 }}
               >
                 <Thumbnail size={80} source={{ uri: dish.image }} />
-                <CardItem>
-                  <Text>{dish.dishName}</Text>
-                  <Text style={styles.restaurantTitle} note>{dish.menuType}</Text>
-                </CardItem>
+                <Text>{dish.dishName}</Text>
+                <Text note>{dish.menuType}</Text>
                 <CardItem>
                   <Thumbnail source={require('./img/grubbr-happy.png')} />
                   <Text>{dish.score}</Text>

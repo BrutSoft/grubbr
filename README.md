@@ -38,6 +38,9 @@ Now introducing: __TENDER!__ A totally original idea where Grubbr will present y
 ## <a name="wireframe"></a>App Wireframe
 ![final-wireframe](https://cloud.githubusercontent.com/assets/16345573/20033250/81cc63b2-a36a-11e6-87d4-431ab59beda2.png)
 
+## <a name="live-app-wireframe"></Live App Wireframe
+![real-wireframe](https://cloud.githubusercontent.com/assets/16345573/20043057/d23860c6-a44b-11e6-8d01-6dc559150b16.png)
+
 ## <a name="architecture"></a>Architecture
 ![final-backend](https://cloud.githubusercontent.com/assets/16345573/20033397/7c6b2928-a36d-11e6-9ea4-5b913407d1c7.png)
 
@@ -45,7 +48,7 @@ Now introducing: __TENDER!__ A totally original idea where Grubbr will present y
 ![database](images/dbschema.png)
 
 ## <a name="tech-stack"></a>Tech Stack
-![final-tech-stack](https://cloud.githubusercontent.com/assets/16345573/20033263/c9cf7a46-a36a-11e6-8a08-3818e0157b84.png)
+![final-tech-tack](https://cloud.githubusercontent.com/assets/16345573/20042609/cd40e0b0-a442-11e6-90f7-51e8ed59883d.png)
 
 ## <a name="development"></a>Development
 Setting up a development environment requires global installations of node, react-native, and CodePush - as well as the latest version of XCode or Android Studio for either iOS or Android development
