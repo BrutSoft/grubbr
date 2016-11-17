@@ -67,9 +67,9 @@ class Login extends Component {
         },
         body: JSON.stringify({
           name: user.name,
-          password: user.idToken,
+          password: user.id,
           email: user.email,
-          username: user.id,
+          username: user.email,
           grant_type: 'password',
         }),
       };
