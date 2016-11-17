@@ -50,7 +50,6 @@ class Login extends Component {
       });
 
       const user = await GoogleSignin.currentUserAsync();
-      console.log('setupGoogleSignin', user);
     } catch (err) {
       console.log('Google signin error', err.code, err.message);
     }
@@ -77,7 +76,6 @@ class Login extends Component {
     })
     .then(response => response.json())
     .then((user) => {
-      console.log('signin', user);
       this.setUser(user.data[0]);
       this.pushNewRoute('choices');
     })

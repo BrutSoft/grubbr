@@ -6,7 +6,7 @@ An app to help you find the best dishes in town
 
   - __Product Owner__: David d'Aquin (Backend)
   - __Scrum Master__: Nathan Donolli (Frontend)
-  - __Unicorn Wrangler__: Živilė Janulevičiūtė Goodwin (Frontend, Design)
+  - __Lead Engineer__: Živilė Janulevičiūtė Goodwin (Frontend, Design)
 
 ## Table of Contents
 
